@@ -1,2 +1,2 @@
 # keykeykey
-개인 프로젝트 - 전자기기 쇼핑몰 React App
+키보드 전문 쇼핑몰
