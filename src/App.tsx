@@ -4,7 +4,6 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import ProductMangePage from "./pages/ProductMangePage";
-import PrivateRoute from "./shared/PrivateRoute";
 
 const App = () => {
 	return (
@@ -15,9 +14,7 @@ const App = () => {
 						<Route index element={<HomePage />} />
 						<Route path="login" element={<LoginPage />} />
 						<Route path="sign-up" element={<SignUpPage />} />
-						<Route element={<PrivateRoute role="seller" />}>
-							<Route path="product-manage" element={<ProductMangePage />} />
-						</Route>
+						<Route path="product-manage" element={<ProductMangePage />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>

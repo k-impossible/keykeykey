@@ -1,8 +1,18 @@
-import { useAuthCheck } from "@/hooks/useAuth";
-import React, { useEffect } from "react";
+import useUserStore from "@/store/useUserStore";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ProductMangePage = () => {
-	return <div>ProductMangePage</div>;
+	const { isSeller } = useUserStore((state) => state);
+	const navigate = useNavigate();
+	useEffect(() => {
+		if (!isSeller) navigate("/");
+	}, [isSeller]);
+	return (
+		<div>
+			ProductMangePage <br /> {isSeller}
+		</div>
+	);
 };
 
 export default ProductMangePage;

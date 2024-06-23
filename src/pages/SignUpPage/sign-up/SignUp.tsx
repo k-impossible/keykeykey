@@ -1,13 +1,20 @@
-import { useState } from "react";
-import { auth, db } from "@/firebase";
+import { useEffect, useState } from "react";
+import { auth } from "@/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import UserAuthForm from "@/components/form/UserAuthForm";
-import { addDoc, collection } from "firebase/firestore";
+import useAddCollection from "@/hooks/useAddCollection";
+import useUserStore from "@/store/useUserStore";
 
 const SignUp = () => {
 	const navigate = useNavigate();
+	const { setUserState } = useUserStore();
 	const [firebaseError, setFirebaseError] = useState("");
+	const { isLoggedIn } = useUserStore((state) => state);
+
+	useEffect(() => {
+		if (isLoggedIn) navigate("/");
+	}, [isLoggedIn]);
 
 	const handleSignUp = async (
 		email: string,
@@ -20,29 +27,26 @@ const SignUp = () => {
 				email,
 				password
 			);
-			addCollectionUser(userCredential.user.uid, email, password, nickname!);
+			const newUser: UserSignUp = {
+				id: userCredential.user.uid,
+				email,
+				displayName: nickname!,
+			};
+
+			await useAddCollection("users", newUser);
+
+			const user: UserState = {
+				id: userCredential.user.uid,
+				email,
+				displayName: nickname!,
+				isLoggedIn: true,
+				isSeller: false,
+			};
+
+			setUserState(user);
 		} catch (error: any) {
 			error && setFirebaseError("입력 정보를 다시 확인해주세요.");
 		}
-	};
-
-	const addCollectionUser = async (
-		id: string,
-		email: string,
-		password: string,
-		displayName: string
-	) => {
-		try {
-			const newUser: User = {
-				id,
-				email,
-				password,
-				displayName,
-			};
-			const collectionRef = collection(db, "users");
-			await addDoc(collectionRef, newUser);
-			navigate("/");
-		} catch (error) {}
 	};
 
 	return (

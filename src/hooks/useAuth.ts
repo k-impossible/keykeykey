@@ -1,52 +1,19 @@
 import { auth } from "@/firebase";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import { useEffect, useState } from "react";
+import useUserStore from "@/store/useUserStore";
+import { signOut } from "firebase/auth";
 
-export const useAuthCheck = async (role: string) => {
-	const [authChk, setAuthChk] = useState(false);
+export const useAuthCheck = (role?: string): boolean => {
+	const { isLoggedIn, id } = useUserStore((state) => state);
 
-	// onAuthStateChanged(auth, (user) => {
-	// 	console.log(user);
-	// 	if (role === "seller") {
-	// 		if (user?.uid === import.meta.env.VITE_SELLER_ID) setAuthChk(true);
-	// 	} else if (role === "user") {
-	// 	}
-	// });
+	console.log(isLoggedIn);
+	if (!isLoggedIn) return isLoggedIn;
 
-	// console.log(test(role));
+	if (role === "seller") {
+		if (id === import.meta.env.VITE_SELLER_ID) return isLoggedIn;
+		return false;
+	}
 
-	const getTest = await test(role);
-	// console.log(getTest);
-	setAuthChk(getTest);
-	// console.log(getTest);
-	return authChk;
-
-	// return new Promise((resolve, reject):Promise<void> => {
-	// 	onAuthStateChanged(auth, (user) => {
-	// 		console.log(user);
-	// 		if (role === "seller") {
-	// 			if (user?.uid === import.meta.env.VITE_SELLER_ID) resolve(true);
-	// 		} else if (role === "user") {
-	// 		}
-	// 	});
-	// }).then((data) => data);
-};
-
-export const test = (role: string) => {
-	const prom = new Promise<boolean>((resolve, reject) => {
-		onAuthStateChanged(auth, (user) => {
-			if (user === null) {
-				console.log(user);
-				resolve(false);
-			}
-			if (role === "seller") {
-				if (user?.uid === import.meta.env.VITE_SELLER_ID) resolve(true);
-			} else if (role === "user") {
-			}
-		});
-	}).then((data) => data);
-
-	return prom;
+	return isLoggedIn;
 };
 
 export const useLogOut = async () => await signOut(auth);
