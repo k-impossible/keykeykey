@@ -2,11 +2,14 @@ import SignUp from "./sign-up/SignUp";
 import { Link } from "react-router-dom";
 const SignUpPage = () => {
 	return (
-		<div className="w-full h-screen flex flex-col justify-start items-center">
-			<h1>회원가입</h1>
+		<div>
+			<h1 className="text-5xl font-bold mb-14">Sign Up</h1>
 			<SignUp />
-			<p>
-				계정이 있습니까? <Link to="/login">로그인하기</Link>
+			<p className="my-5 text-center">
+				계정이 있습니까?&nbsp;&nbsp;
+				<Link to="/login" className="text-sky-600">
+					로그인하기
+				</Link>
 			</p>
 		</div>
 	);

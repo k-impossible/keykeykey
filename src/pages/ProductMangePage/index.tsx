@@ -5,9 +5,11 @@ import { useNavigate } from "react-router-dom";
 const ProductMangePage = () => {
 	const { isSeller } = useUserStore((state) => state);
 	const navigate = useNavigate();
+
 	useEffect(() => {
 		if (!isSeller) navigate("/");
 	}, [isSeller]);
+
 	return (
 		<div>
 			ProductMangePage <br /> {isSeller}

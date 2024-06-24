@@ -1,24 +1,31 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { auth, db } from "@/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import UserAuthForm from "@/components/form/UserAuthForm";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import useUserStore from "@/store/useUserStore";
+import { useToast } from "@/components/ui/use-toast";
 const SignIn = () => {
 	const navigate = useNavigate();
-	const [firebaseError, setFirebaseError] = useState("");
 	const { setUserState } = useUserStore();
-	const { isLoggedIn, isSeller } = useUserStore((state) => state);
-
+	const { isLoggedIn, isSeller, displayName } = useUserStore((state) => state);
+	const { toast } = useToast();
 	useEffect(() => {
 		if (isLoggedIn) {
 			if (isSeller) navigate("/product-manage");
 			else navigate("/");
+
+			toast({
+				title: displayName + "님 반갑습니다",
+				duration: 3000,
+			});
 		}
 	}, [isLoggedIn]);
 
 	const handleLogin = async (email: string, password: string) => {
+		let successChk = true;
+
 		try {
 			const userCredential = await signInWithEmailAndPassword(
 				auth,
@@ -27,9 +34,18 @@ const SignIn = () => {
 			);
 
 			await getUserQuery(userCredential.user.uid);
-		} catch (error) {
-			error && setFirebaseError("이메일 또는 비밀번호가 잘못되었습니다.");
+		} catch (error: any) {
+			successChk = false;
+
+			toast({
+				title: "로그인 실패",
+				description: "이메일 또는 비밀번호가 잘못되었습니다.",
+				variant: "destructive",
+				duration: 2000,
+			});
 		}
+
+		return successChk;
 	};
 
 	const getUserQuery = async (uid: string) => {
@@ -50,13 +66,7 @@ const SignIn = () => {
 		} catch (error) {}
 	};
 
-	return (
-		<UserAuthForm
-			title="로그인"
-			getDataForm={handleLogin}
-			firebaseError={firebaseError}
-		/>
-	);
+	return <UserAuthForm title="로그인" getDataForm={handleLogin} />;
 };
 
 export default SignIn;

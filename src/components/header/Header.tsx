@@ -1,13 +1,24 @@
 import { auth } from "@/firebase";
-import { useLogOut } from "@/hooks/useAuth";
 import { signOut } from "firebase/auth";
-import React from "react";
 import logoImg from "@/assets/logo.png";
 import { Link } from "react-router-dom";
 import useUserStore from "@/store/useUserStore";
-const Header = () => {
-	const { initUserState } = useUserStore();
+import {
+	FaArrowRightFromBracket,
+	FaArrowRightToBracket,
+	FaCartShopping,
+} from "react-icons/fa6";
+import { FaClipboardList } from "react-icons/fa";
 
+import { buttonVariants } from "../ui/button";
+import { useEffect } from "react";
+
+const Header = () => {
+	const { initUserState, isSeller, isLoggedIn } = useUserStore();
+
+	useEffect(() => {
+		console.log(isSeller);
+	}, [isSeller]);
 	const handleLogOut = async () => {
 		await signOut(auth);
 		initUserState();
@@ -21,8 +32,49 @@ const Header = () => {
 				</Link>
 			</div>
 			<div>
-				<Link to="/login">login</Link>
-				<button onClick={handleLogOut}>logout</button>
+				{isLoggedIn ? (
+					isSeller ? (
+						<div className="flex justify-between items-center gap-7">
+							<Link
+								to="/product-manage"
+								className={buttonVariants({ variant: "default" })}
+							>
+								상품관리
+							</Link>
+							<Link
+								to="/product-manage"
+								className={buttonVariants({ variant: "link" })}
+							>
+								주문내역
+							</Link>
+							<FaArrowRightFromBracket
+								onClick={handleLogOut}
+								size={30}
+								title="로그아웃"
+								className="cursor-pointer"
+							/>
+						</div>
+					) : (
+						<div className="flex justify-between items-center gap-7">
+							<FaCartShopping size={30} className="cursor-pointer" />
+							<FaClipboardList size={30} className="cursor-pointer" />
+							<FaArrowRightFromBracket
+								onClick={handleLogOut}
+								size={30}
+								title="로그아웃"
+								className="cursor-pointer"
+							/>
+						</div>
+					)
+				) : (
+					<Link to="/login">
+						<FaArrowRightToBracket
+							size={30}
+							title="로그인"
+							className="cursor-pointer"
+						/>
+					</Link>
+				)}
 			</div>
 		</div>
 	);

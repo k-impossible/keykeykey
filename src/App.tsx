@@ -7,7 +7,7 @@ import ProductMangePage from "./pages/ProductMangePage";
 
 const App = () => {
 	return (
-		<div className="bg-slate-100 mx-auto mt-3 rounded-t-2xl w-full h-full">
+		<div className="bg-slate-100 mx-auto mt-3 rounded-t-2xl">
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<Layout />}>
