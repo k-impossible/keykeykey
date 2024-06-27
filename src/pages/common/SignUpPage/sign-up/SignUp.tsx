@@ -5,21 +5,17 @@ import { useNavigate } from "react-router-dom";
 import UserAuthForm from "@/components/form/UserAuthForm";
 import useAddCollection from "@/hooks/useAddCollection";
 import useUserStore from "@/store/useUserStore";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 
 const SignUp = () => {
 	const navigate = useNavigate();
 	const { setUserState } = useUserStore();
 	const { isLoggedIn, displayName } = useUserStore((state) => state);
-	const { toast } = useToast();
 
 	useEffect(() => {
 		if (isLoggedIn) {
 			navigate("/");
-			toast({
-				title: displayName + "님 반갑습니다.",
-				duration: 3000,
-			});
+			toast.success(displayName + "님 반갑습니다.");
 		}
 	}, [isLoggedIn]);
 
@@ -28,7 +24,6 @@ const SignUp = () => {
 		password: string,
 		nickname?: string
 	) => {
-		let successChk = true;
 		try {
 			const userCredential = await createUserWithEmailAndPassword(
 				auth,
@@ -41,7 +36,7 @@ const SignUp = () => {
 				displayName: nickname!,
 			};
 
-			await useAddCollection("users", newUser);
+			await useAddCollection(Collection.USER, newUser);
 
 			const user: UserState = {
 				id: userCredential.user.uid,
@@ -53,7 +48,6 @@ const SignUp = () => {
 
 			setUserState(user);
 		} catch (error: any) {
-			successChk = false;
 			let msg = "";
 			switch (error.code) {
 				case "auth/invalid-email":
@@ -66,18 +60,13 @@ const SignUp = () => {
 					msg = "이미 등록된 이메일 입니다.";
 					break;
 				default:
-					msg = "회원가입 실패";
+					msg = "입력 사항을 다시 확인해주세요.";
 					break;
 			}
-			toast({
-				title: "회원가입 실패",
+			toast.error("회원가입 실패", {
 				description: msg,
-				variant: "destructive",
-				duration: 2000,
 			});
 		}
-
-		return successChk;
 	};
 
 	return <UserAuthForm title="회원가입" getDataForm={handleSignUp} />;

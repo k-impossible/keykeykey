@@ -1,7 +1,7 @@
 import { auth } from "@/firebase";
 import { signOut } from "firebase/auth";
 import logoImg from "@/assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useUserStore from "@/store/useUserStore";
 import {
 	FaArrowRightFromBracket,
@@ -11,17 +11,16 @@ import {
 import { FaClipboardList } from "react-icons/fa";
 
 import { buttonVariants } from "../ui/button";
-import { useEffect } from "react";
+import { toast } from "sonner";
 
 const Header = () => {
 	const { initUserState, isSeller, isLoggedIn } = useUserStore();
+	const { pathname } = useLocation();
 
-	useEffect(() => {
-		console.log(isSeller);
-	}, [isSeller]);
 	const handleLogOut = async () => {
 		await signOut(auth);
 		initUserState();
+		toast("로그아웃 되었습니다.");
 	};
 
 	return (
@@ -37,13 +36,17 @@ const Header = () => {
 						<div className="flex justify-between items-center gap-7">
 							<Link
 								to="/product-manage"
-								className={buttonVariants({ variant: "default" })}
+								className={buttonVariants({
+									variant: pathname === "/product-manage" ? "default" : "link",
+								})}
 							>
 								상품관리
 							</Link>
 							<Link
-								to="/product-manage"
-								className={buttonVariants({ variant: "link" })}
+								to="/order-manage"
+								className={buttonVariants({
+									variant: pathname === "/order-manage" ? "default" : "link",
+								})}
 							>
 								주문내역
 							</Link>

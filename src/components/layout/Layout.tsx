@@ -1,7 +1,6 @@
 import Header from "../header/Header";
 import { Outlet } from "react-router-dom";
 import Footer from "../footer/Footer";
-import { Toaster } from "@/components/ui/toaster";
 
 const Layout = () => {
 	return (
@@ -12,7 +11,6 @@ const Layout = () => {
 				style={{ minHeight: "calc(100vh - 207px)" }}
 			>
 				<Outlet />
-				<Toaster />
 			</div>
 			<Footer />
 		</div>

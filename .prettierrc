@@ -4,7 +4,8 @@
 	"printWidth": 80,
 	"tabWidth": 2,
 	"trailingComma": "es5",
+	"semi": true,
 	"bracketSpacing": true,
-	"arrowParens": "always",
+	"jsxBracketSameLine": false,
 	"endOfLine": "auto"
 }

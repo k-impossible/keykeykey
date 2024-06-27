@@ -1,15 +1,11 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "../ui/button";
 type FormProps = {
 	title: string;
-	getDataForm: (
-		email: string,
-		password: string,
-		nickname?: string
-	) => Promise<boolean>;
+	getDataForm: (email: string, password: string, nickname?: string) => void;
 };
 
 type Inputs = {
@@ -24,7 +20,6 @@ const UserAuthForm: FC<FormProps> = ({ title, getDataForm }) => {
 		register,
 		handleSubmit,
 		formState: { errors },
-		reset,
 		setError,
 	} = useForm<Inputs>({
 		mode: "onChange",
@@ -33,9 +28,9 @@ const UserAuthForm: FC<FormProps> = ({ title, getDataForm }) => {
 	const onValid = (password: string, pwConfirm: string) => {
 		if (title === "회원가입" && password !== pwConfirm) {
 			setError(
-				"pwConfirm", // 에러 핸들링할 input요소 name
-				{ message: "비밀번호가 일치하지 않습니다." }, // 에러 메세지
-				{ shouldFocus: true } // 에러가 발생한 input으로 focus 이동
+				"pwConfirm",
+				{ message: "비밀번호가 일치하지 않습니다." },
+				{ shouldFocus: true }
 			);
 
 			return false;
@@ -50,9 +45,7 @@ const UserAuthForm: FC<FormProps> = ({ title, getDataForm }) => {
 		pwConfirm,
 	}) => {
 		if (onValid(password, pwConfirm)) {
-			getDataForm(email, password, nickname).then((data) => {
-				if (data) reset();
-			});
+			getDataForm(email, password, nickname);
 		}
 	};
 
