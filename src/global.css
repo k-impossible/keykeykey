@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-	background-color: rgb(24, 24, 27, 1);
-	box-sizing: border-box;
-}
-
 @layer base {
 	:root {
 		--background: 0 0% 100%;
@@ -77,6 +71,6 @@ body {
 		@apply border-border;
 	}
 	body {
-		@apply bg-background text-foreground;
+		@apply bg-zinc-900 text-foreground box-border;
 	}
 }

@@ -6,11 +6,12 @@ import UserAuthForm from "@/components/form/UserAuthForm";
 import useAddCollection from "@/hooks/useAddCollection";
 import useUserStore from "@/store/useUserStore";
 import { toast } from "sonner";
+import { Collection } from "@/enum/Collection";
 
 const SignUp = () => {
 	const navigate = useNavigate();
 	const { setUserState } = useUserStore();
-	const { isLoggedIn, displayName } = useUserStore((state) => state);
+	const { isLoggedIn, displayName } = useUserStore(state => state);
 
 	useEffect(() => {
 		if (isLoggedIn) {

@@ -9,13 +9,6 @@ module.exports = {
 	],
 	ignorePatterns: ["dist", ".eslintrc.cjs"],
 	parser: "@typescript-eslint/parser",
-	parserOption: {
-		ecmaFeatures: {
-			jsx: true,
-		},
-		ecmaVersion: 12,
-		sourceType: "module",
-	},
 	plugins: [
 		"react-refresh",
 		"react-hooks",
@@ -29,6 +22,9 @@ module.exports = {
 		"react/react-in-jsx-scope": "off",
 		"@typescript-eslint/no-unused-vars": ["error"],
 		"@typescript-eslint/explicit-module-boundary-types": "off",
+		"@typescript-eslint/no-explicit-any": "off",
+		"@typescript-eslint/explicit-function-return-type": "off",
+		"prefer-const": "off",
 		"react-refresh/only-export-components": [
 			"warn",
 			{ allowConstantExport: true },
