@@ -40,7 +40,9 @@ const formSchema = z.object({
 });
 
 const dataTransfer = new DataTransfer();
-export const useCreateProduct = (type: string) => {
+export const useInputProduct = (type: string) => {
+	const { setSheetState } = useSheetStore();
+
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -53,12 +55,10 @@ export const useCreateProduct = (type: string) => {
 			images: type == "create" ? dataTransfer.files : dataTransfer.files,
 		},
 	});
-	const { setSheetState } = useSheetStore();
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		try {
 			const filterBrand = brandData.filter(b => b.name == values.brandName);
-			console.log(values);
 
 			const newProduct: Product = {
 				brandId: filterBrand[0].id,
@@ -69,7 +69,6 @@ export const useCreateProduct = (type: string) => {
 				tagIds: values.tagIds,
 			};
 			const docRef = await useAddCollection(Collection.PRODUCT, newProduct);
-			console.log(docRef.id);
 
 			Array.from(values.images).forEach(async img => {
 				const imageRef = ref(storage, `${docRef.id}/${img.name}`);

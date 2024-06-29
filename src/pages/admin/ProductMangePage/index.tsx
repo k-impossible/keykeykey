@@ -1,10 +1,15 @@
+import ProductManageList from "./list/proudct-list";
 import ProductSheet from "./sheet/product-sheet";
 
 const ProductMangePage = () => {
-	const handleUpload = async () => {};
 	return (
-		<div>
-			<ProductSheet type={"create"} />
+		<div className="container">
+			<div className="flex justify-end">
+				<ProductSheet type={"create"} />
+			</div>
+			<main>
+				<ProductManageList />
+			</main>
 		</div>
 	);
 };
