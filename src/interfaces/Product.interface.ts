@@ -5,4 +5,6 @@ interface Product {
 	price: number;
 	amount: number;
 	tagIds: number[];
+	images: string[];
+	createdAt: string;
 }

@@ -6,11 +6,12 @@ import UserAuthForm from "@/components/form/UserAuthForm";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import useUserStore from "@/store/useUserStore";
 import { toast } from "sonner";
+import { Collection } from "@/enum/Collection";
 
 const SignIn = () => {
 	const navigate = useNavigate();
 	const { setUserState } = useUserStore();
-	const { isLoggedIn, isSeller, displayName } = useUserStore((state) => state);
+	const { isLoggedIn, isSeller, displayName } = useUserStore(state => state);
 
 	useEffect(() => {
 		if (isLoggedIn) {
@@ -38,7 +39,7 @@ const SignIn = () => {
 
 	const getUserQuery = async (uid: string) => {
 		try {
-			const col = collection(db, "users");
+			const col = collection(db, Collection.USER);
 			const q = query(col, where("id", "==", uid));
 			const result = await getDocs(q);
 			const { id, email, displayName } = result.docs[0].data();

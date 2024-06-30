@@ -5,8 +5,9 @@ import { brandData, tagData } from "@/data/productData";
 import useSheetStore from "@/store/useSheetStore";
 import useAddCollection from "./useAddCollection";
 import { Collection } from "@/enum/Collection";
-import { ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "@/firebase";
+import { toast } from "sonner";
 const MAX_IMAGE_SIZE = 5242880; // 5 MB
 const ALLOWED_IMAGE_TYPES = [
 	"image/jpeg",
@@ -58,28 +59,42 @@ export const useInputProduct = (type: string) => {
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		try {
-			const filterBrand = brandData.filter(b => b.name == values.brandName);
+			await handleUploadProduct(values, values.images);
+			setSheetState(false);
+			form.reset();
+			form.setValue("images", dataTransfer.files);
+			toast.success("상품 등록이 완료되었습니다.");
+		} catch (error) {
+			toast.error("상품 등록이 실패하였습니다.");
+		}
+	};
 
-			const newProduct: Product = {
+	const handleUploadProduct = async (values: any, images: FileList) => {
+		const date = Date.now().toString();
+		const filterBrand = brandData.filter(b => b.name == values.brandName);
+		const imageArr = Array.from(images);
+		let newArr: string[] = [];
+		(async () => {
+			for (let img of imageArr) {
+				const imageRef = ref(storage, `${date}/${img.name}`);
+				await uploadBytes(imageRef, img);
+				const downloadURL = await getDownloadURL(imageRef);
+				newArr.push(downloadURL);
+			}
+
+			const product: Product = {
 				brandId: filterBrand[0].id,
 				name: values.productName,
 				description: values.description,
 				price: values.price,
 				amount: values.amount,
 				tagIds: values.tagIds,
+				images: newArr,
+				createdAt: date,
 			};
-			const docRef = await useAddCollection(Collection.PRODUCT, newProduct);
 
-			Array.from(values.images).forEach(async img => {
-				const imageRef = ref(storage, `${docRef.id}/${img.name}`);
-				await uploadBytes(imageRef, img);
-			});
-			setSheetState(false);
-			form.reset();
-			form.setValue("images", dataTransfer.files);
-		} catch (error) {
-			console.log(error);
-		}
+			await useAddCollection(Collection.PRODUCT, product);
+		})();
 	};
 
 	return { form, onSubmit, brandData, tagData };

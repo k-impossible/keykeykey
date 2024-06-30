@@ -24,20 +24,12 @@ import {
 import { useInputProduct } from "@/hooks/useInputProduct";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
-import useSheetStore from "@/store/useSheetStore";
 
 type Props = { type: string };
 
 const ProductForm = ({ type }: Props) => {
-	// const { isOpened, setSheetState } = useSheetStore();
-	// const dataTransfer = new DataTransfer();
 	const { form, onSubmit, brandData, tagData } = useInputProduct(type);
 	const dataTransfer = new DataTransfer();
-	// if (!isOpened) {
-	// 	console.log("is");
-	// 	form.reset();
-	// 	form.setValue("images", dataTransfer.files);
-	// }
 
 	return (
 		<SheetContent className="overflow-y-scroll max-h-screen">
