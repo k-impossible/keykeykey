@@ -1,15 +1,31 @@
-import ProductManageList from "./list/proudct-list";
-import ProductSheet from "./sheet/product-sheet";
+import { Button } from "@/components/ui/button";
+import ProductManageList from "./list/product-list";
+import { FaAnglesRight } from "react-icons/fa6";
+import useSheetStore from "@/store/useSheetStore";
+import { Sheet } from "@/components/ui/sheet";
+import ProductForm from "./form/product-form";
 
 const ProductMangePage = () => {
+	const { isOpened, setSheetState } = useSheetStore();
+
 	return (
-		<div className="container">
-			<div className="flex justify-end">
-				<ProductSheet type={"create"} />
+		<div className="container py-10">
+			<div className="container flex justify-end">
+				<Button
+					variant="outline"
+					className="text-zinc-600 w-40 border-zinc-600 hover:text-zinc-800"
+					onClick={() => setSheetState(true)}
+				>
+					상품 등록
+					<FaAnglesRight className="ml-10" />
+				</Button>
 			</div>
-			<main>
+			<main className="container mt-10">
 				<ProductManageList />
 			</main>
+			<Sheet open={isOpened} onOpenChange={setSheetState}>
+				<ProductForm />
+			</Sheet>
 		</div>
 	);
 };

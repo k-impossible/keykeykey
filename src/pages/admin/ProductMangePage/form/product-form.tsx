@@ -25,16 +25,14 @@ import { useInputProduct } from "@/hooks/useInputProduct";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 
-type Props = { type: string };
-
-const ProductForm = ({ type }: Props) => {
-	const { form, onSubmit, brandData, tagData } = useInputProduct(type);
+const ProductForm = () => {
+	const { form, onSubmit, brandData, tagData } = useInputProduct();
 	const dataTransfer = new DataTransfer();
-
+	// console.log(type);
 	return (
 		<SheetContent className="overflow-y-scroll max-h-screen">
 			<SheetHeader className="mb-10">
-				<SheetTitle>상품 {type == "create" ? "등록" : "수정"}</SheetTitle>
+				<SheetTitle>상품 {"등록"}</SheetTitle>
 				<SheetDescription>상품 정보를 입력해주세요.</SheetDescription>
 			</SheetHeader>
 			<Form {...form}>
@@ -219,7 +217,7 @@ const ProductForm = ({ type }: Props) => {
 						}}
 					/>
 					<Button type="submit" className="mt-3 w-full">
-						{type == "create" ? "등록" : "수정"}
+						{"등록"}
 					</Button>
 				</form>
 			</Form>
