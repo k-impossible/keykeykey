@@ -5,8 +5,7 @@ import { addDoc, collection } from "firebase/firestore";
 const useAddCollection = async (collectionName: Collection, data: Object) => {
 	try {
 		const collectionRef = collection(db, collectionName);
-		const docRef = await addDoc(collectionRef, data);
-		return docRef;
+		return await addDoc(collectionRef, data);
 	} catch (error) {
 		throw error;
 	}

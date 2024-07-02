@@ -26,13 +26,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 
 const ProductForm = () => {
-	const { form, onSubmit, brandData, tagData } = useInputProduct();
+	const { form, onSubmit, brandData, tagData, title } = useInputProduct();
 	const dataTransfer = new DataTransfer();
-	// console.log(type);
+
 	return (
 		<SheetContent className="overflow-y-scroll max-h-screen">
 			<SheetHeader className="mb-10">
-				<SheetTitle>상품 {"등록"}</SheetTitle>
+				<SheetTitle>상품 {title}</SheetTitle>
 				<SheetDescription>상품 정보를 입력해주세요.</SheetDescription>
 			</SheetHeader>
 			<Form {...form}>
@@ -217,7 +217,7 @@ const ProductForm = () => {
 						}}
 					/>
 					<Button type="submit" className="mt-3 w-full">
-						{"등록"}
+						{title}
 					</Button>
 				</form>
 			</Form>

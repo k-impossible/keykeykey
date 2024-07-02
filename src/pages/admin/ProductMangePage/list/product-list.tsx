@@ -14,12 +14,13 @@ import {
 } from "@/components/ui/table";
 import ProductManageItem from "../item/product-item";
 import { useEffect } from "react";
+import useProductStore from "@/store/useProductStore";
 
 const ProductManageList = () => {
 	const queryByCreatedAt = query(
 		collection(db, Collection.PRODUCT),
-		orderBy("createdAt", "desc")
-		// limit(10)
+		orderBy("createdAt", "desc"),
+		limit(10)
 	);
 
 	const {

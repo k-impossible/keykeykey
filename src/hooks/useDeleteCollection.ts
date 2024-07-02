@@ -1,18 +1,17 @@
 import { Collection } from "@/enum/Collection";
 import { db } from "@/firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { deleteDoc, doc } from "firebase/firestore";
 
-const useUpdateCollection = async (
+const useDeleteCollection = async (
 	collectionName: Collection,
-	docId: string,
-	data: Object
+	docId: string
 ) => {
 	try {
 		const collectionRef = doc(db, collectionName, docId);
-		return await setDoc(collectionRef, data);
+		return await deleteDoc(collectionRef);
 	} catch (error) {
 		throw error;
 	}
 };
 
-export default useUpdateCollection;
+export default useDeleteCollection;

@@ -8,9 +8,12 @@ import { Collection } from "@/enum/Collection";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "@/firebase";
 import { toast } from "sonner";
-// import useProductMutation from "@/quries/useProductMutation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEY as productKey } from "@/queries/useProductsQuery";
+import useProductStore from "@/store/useProductStore";
+import useUpdateCollection from "./useUpdateCollection";
+import { useEffect } from "react";
+import useDeleteStorage from "./useDeleteStorage";
 
 const MAX_IMAGE_SIZE = 5242880; // 5 MB
 const ALLOWED_IMAGE_TYPES = [
@@ -45,55 +48,63 @@ const formSchema = z.object({
 });
 
 const dataTransfer = new DataTransfer();
+
 export const useInputProduct = () => {
 	const queryClient = useQueryClient();
 	const { setSheetState } = useSheetStore();
+	const productStoreData = useProductStore(state => state);
+	const docId = productStoreData.id as string;
+	let title = docId === "" ? "등록" : "수정";
+
+	useEffect(() => {
+		dataTransfer.items.clear();
+
+		(async () => {
+			for (let url of productStoreData.images) {
+				const imageName = url.split("?")[0].split("%2F")[1];
+				const response = await fetch(url);
+				const blob = await response.blob();
+				const file = new File([blob], imageName, { type: blob.type });
+				dataTransfer.items.add(file);
+			}
+			form.setValue("images", dataTransfer.files);
+		})();
+
+		form.setValue("brandName", brandData[productStoreData.brandId].name);
+		form.setValue("productName", productStoreData.name);
+		form.setValue("description", productStoreData.description);
+		form.setValue("price", productStoreData.price);
+		form.setValue("amount", productStoreData.amount);
+		form.setValue("tagIds", productStoreData.tagIds);
+	}, [docId]);
 
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
-		defaultValues: {
-			brandName: brandData[0].name,
-			productName: "aa1234",
-			description: "zc",
-			price: 10000,
-			amount: 10,
-			tagIds: [0, 1],
-			images: dataTransfer.files,
-			// brandName: type == "create" ? brandData[0].name : "",
-			// productName: type == "create" ? "" : "aa1234",
-			// description: type == "create" ? "" : "zc",
-			// price: type == "create" ? 0 : 10000,
-			// amount: type == "create" ? 0 : 10,
-			// tagIds: type == "create" ? [] : [0, 1],
-			// images: type == "create" ? dataTransfer.files : dataTransfer.files,
-		},
 	});
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		try {
 			await useProductMutation.mutateAsync(values);
-			console.log("mutation close");
 		} catch (error) {
 			console.log(error);
-			toast.error("상품 등록이 실패하였습니다.");
+			toast.error(`상품 ${title}이 실패하였습니다.`);
 		}
 	};
 
 	const useProductMutation = useMutation({
 		mutationFn: async (values: any) => {
-			console.log("mutation in");
 			await handleUploadProduct(values);
 		},
 		onSuccess: async () => {
 			await queryClient.invalidateQueries({
 				queryKey: [productKey],
-				refetchType: "all",
 			});
-			console.log("success");
+
 			setSheetState(false);
+			productStoreData.initProductState();
 			form.reset();
 			form.setValue("images", dataTransfer.files);
-			toast.success("상품 등록이 완료되었습니다.");
+			toast.success(`상품 ${title}이 완료되었습니다.`);
 		},
 		onError: error => {
 			console.log(error);
@@ -106,8 +117,15 @@ export const useInputProduct = () => {
 		const imageArr = Array.from(values.images as FileList);
 		let newArr: string[] = [];
 		(async () => {
+			if (docId !== "") {
+				useDeleteStorage(productStoreData.createdAt, productStoreData.images);
+			}
+
 			for (let img of imageArr) {
-				const imageRef = ref(storage, `${date}/${img.name}`);
+				const imageRef = ref(
+					storage,
+					`${docId === "" ? date : productStoreData.createdAt}/${img.name}`
+				);
 				await uploadBytes(imageRef, img);
 				const downloadURL = await getDownloadURL(imageRef);
 				newArr.push(downloadURL);
@@ -121,12 +139,14 @@ export const useInputProduct = () => {
 				amount: values.amount,
 				tagIds: values.tagIds,
 				images: newArr,
-				createdAt: date,
+				createdAt: docId === "" ? date : productStoreData.createdAt,
+				updatedAt: date,
 			};
 
-			await useAddCollection(Collection.PRODUCT, product);
+			if (docId === "") await useAddCollection(Collection.PRODUCT, product);
+			else await useUpdateCollection(Collection.PRODUCT, docId, product);
 		})();
 	};
 
-	return { form, onSubmit, brandData, tagData };
+	return { form, onSubmit, brandData, tagData, title };
 };

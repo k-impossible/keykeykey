@@ -8,4 +8,5 @@ interface Product {
 	tagIds: number[];
 	images: string[];
 	createdAt: string;
+	updatedAt: string;
 }
