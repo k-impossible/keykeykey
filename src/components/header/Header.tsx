@@ -12,11 +12,13 @@ import { FaClipboardList } from "react-icons/fa";
 
 import { buttonVariants } from "../ui/button";
 import { toast } from "sonner";
+import { Sheet, SheetContent } from "../ui/sheet";
+import { useCartSheetStore } from "@/store/useSheetStore";
 
 const Header = () => {
 	const { initUserState, isSeller, isLoggedIn } = useUserStore();
 	const { pathname } = useLocation();
-
+	const { isCartSheetOpened, setCartSheetState } = useCartSheetStore();
 	const handleLogOut = async () => {
 		await signOut(auth);
 		initUserState();
@@ -24,7 +26,7 @@ const Header = () => {
 	};
 
 	return (
-		<div className="lg:container py-8 flex justify-between items-center">
+		<div className="lg:container py-8 flex justify-between items-center m-auto">
 			<div className="w-20">
 				<Link to="/">
 					<img src={logoImg} alt="logo" />
@@ -59,7 +61,13 @@ const Header = () => {
 						</div>
 					) : (
 						<div className="flex justify-between items-center gap-7">
-							<FaCartShopping size={30} className="cursor-pointer" />
+							<FaCartShopping
+								onClick={() => {
+									setCartSheetState(true);
+								}}
+								size={30}
+								className="cursor-pointer"
+							/>
 							<FaClipboardList size={30} className="cursor-pointer" />
 							<FaArrowRightFromBracket
 								onClick={handleLogOut}
@@ -79,6 +87,11 @@ const Header = () => {
 					</Link>
 				)}
 			</div>
+			<Sheet open={isCartSheetOpened} onOpenChange={setCartSheetState}>
+				<SheetContent>
+					<div>124</div>
+				</SheetContent>
+			</Sheet>
 		</div>
 	);
 };

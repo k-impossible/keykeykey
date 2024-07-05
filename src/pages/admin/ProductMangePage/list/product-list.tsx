@@ -6,15 +6,12 @@ import { useInView } from "react-intersection-observer";
 import {
 	Table,
 	TableBody,
-	TableCaption,
-	TableCell,
 	TableHead,
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
 import ProductManageItem from "../item/product-item";
 import { useEffect } from "react";
-import useProductStore from "@/store/useProductStore";
 
 const ProductManageList = () => {
 	const queryByCreatedAt = query(
@@ -23,14 +20,8 @@ const ProductManageList = () => {
 		limit(10)
 	);
 
-	const {
-		data,
-		isLoading,
-		error,
-		fetchNextPage,
-		hasNextPage,
-		isFetchingNextPage,
-	} = useProductsQuery(queryByCreatedAt);
+	const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage } =
+		useProductsQuery(queryByCreatedAt);
 
 	const { ref, inView } = useInView();
 
@@ -54,7 +45,7 @@ const ProductManageList = () => {
 						<TableHead className="w-[50px] text-center text-white">#</TableHead>
 						<TableHead className="text-center text-white">브랜드</TableHead>
 						<TableHead className="text-center text-white">상품명</TableHead>
-						<TableHead className="w-[400px] text-center text-white">
+						<TableHead className="w-[250px] text-center text-white">
 							상품 설명
 						</TableHead>
 						<TableHead className="text-center text-white">가격</TableHead>

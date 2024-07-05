@@ -39,9 +39,12 @@ const getDocsInProducts = async (
 	};
 };
 
-const useProductsQuery = (productQuery: Query<DocumentData, DocumentData>) => {
+const useProductsQuery = (
+	productQuery: Query<DocumentData, DocumentData>,
+	...keys: any
+) => {
 	return useInfiniteQuery<QueryResponse>({
-		queryKey: [QUERY_KEY],
+		queryKey: [QUERY_KEY, ...keys],
 		queryFn: ({ pageParam }) => getDocsInProducts(productQuery, pageParam),
 		initialPageParam: undefined,
 		getNextPageParam: lastPage => lastPage.nextList ?? undefined,
