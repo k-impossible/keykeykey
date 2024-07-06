@@ -17,9 +17,20 @@ const SwiperItem = ({ images, auto, nav, pag }: SwiperProps) => {
 				"--swiper-pagination-color": "#333",
 			}}
 			modules={[Autoplay, Navigation, Pagination]}
-			autoplay={auto}
+			autoplay={
+				auto && {
+					delay: 4500,
+					disableOnInteraction: false,
+					pauseOnMouseEnter: true,
+				}
+			}
 			navigation={nav}
-			pagination={pag}
+			pagination={
+				pag && {
+					type: "progressbar",
+				}
+			}
+			loop={true}
 		>
 			{images &&
 				Array.from(images).map((img, idx) => (

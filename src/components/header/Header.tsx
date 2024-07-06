@@ -1,7 +1,7 @@
 import { auth } from "@/firebase";
 import { signOut } from "firebase/auth";
 import logoImg from "@/assets/logo.png";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useUserStore from "@/store/useUserStore";
 import {
 	FaArrowRightFromBracket,
@@ -18,11 +18,21 @@ import { useCartSheetStore } from "@/store/useSheetStore";
 const Header = () => {
 	const { initUserState, isSeller, isLoggedIn } = useUserStore();
 	const { pathname } = useLocation();
+	const navigate = useNavigate();
 	const { isCartSheetOpened, setCartSheetState } = useCartSheetStore();
 	const handleLogOut = async () => {
 		await signOut(auth);
 		initUserState();
 		toast("로그아웃 되었습니다.");
+	};
+
+	const handleActionToast = () => {
+		toast("로그인 후 이용하실 수 있습니다.", {
+			action: {
+				label: "로그인",
+				onClick: () => navigate("/login"),
+			},
+		});
 	};
 
 	return (
@@ -32,51 +42,53 @@ const Header = () => {
 					<img src={logoImg} alt="logo" />
 				</Link>
 			</div>
-			<div>
+			<div className="flex justify-between items-center gap-7">
+				{isSeller ? (
+					<div className="flex justify-between items-center gap-7">
+						<Link
+							to="/product-manage"
+							className={buttonVariants({
+								variant: pathname === "/product-manage" ? "default" : "link",
+							})}
+						>
+							상품관리
+						</Link>
+						<Link
+							to="/order-manage"
+							className={buttonVariants({
+								variant: pathname === "/order-manage" ? "default" : "link",
+							})}
+						>
+							주문내역
+						</Link>
+					</div>
+				) : (
+					<div className="flex justify-between items-center gap-7">
+						<FaCartShopping
+							onClick={() => {
+								if (isLoggedIn) setCartSheetState(true);
+								else handleActionToast();
+							}}
+							size={30}
+							className="cursor-pointer"
+						/>
+						<FaClipboardList
+							size={30}
+							onClick={() => {
+								if (isLoggedIn) navigate("/orders");
+								else handleActionToast();
+							}}
+							className="cursor-pointer"
+						/>
+					</div>
+				)}
 				{isLoggedIn ? (
-					isSeller ? (
-						<div className="flex justify-between items-center gap-7">
-							<Link
-								to="/product-manage"
-								className={buttonVariants({
-									variant: pathname === "/product-manage" ? "default" : "link",
-								})}
-							>
-								상품관리
-							</Link>
-							<Link
-								to="/order-manage"
-								className={buttonVariants({
-									variant: pathname === "/order-manage" ? "default" : "link",
-								})}
-							>
-								주문내역
-							</Link>
-							<FaArrowRightFromBracket
-								onClick={handleLogOut}
-								size={30}
-								title="로그아웃"
-								className="cursor-pointer"
-							/>
-						</div>
-					) : (
-						<div className="flex justify-between items-center gap-7">
-							<FaCartShopping
-								onClick={() => {
-									setCartSheetState(true);
-								}}
-								size={30}
-								className="cursor-pointer"
-							/>
-							<FaClipboardList size={30} className="cursor-pointer" />
-							<FaArrowRightFromBracket
-								onClick={handleLogOut}
-								size={30}
-								title="로그아웃"
-								className="cursor-pointer"
-							/>
-						</div>
-					)
+					<FaArrowRightFromBracket
+						onClick={handleLogOut}
+						size={30}
+						title="로그아웃"
+						className="cursor-pointer"
+					/>
 				) : (
 					<Link to="/login">
 						<FaArrowRightToBracket

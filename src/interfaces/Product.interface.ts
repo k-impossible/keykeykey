@@ -7,6 +7,7 @@ interface Product {
 	amount: number;
 	tagIds: number[];
 	images: string[];
-	createdAt: string;
-	updatedAt: string;
+	createdAt: number;
+	updatedAt: number;
+	match: string;
 }

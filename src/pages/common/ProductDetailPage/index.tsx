@@ -1,9 +1,8 @@
 import useProductQuery from "@/queries/useProductQuery";
 import { useParams } from "react-router-dom";
-import RecommendList from "./recommend-list/RecommendList";
+import RecommendList from "./recommend-list/recommend-list";
 import SwiperItem from "@/components/swiper/SwiperItem";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { brandData, tagData } from "@/data/productData";
+import { brandData, tagData } from "@/lib/productData";
 import { Button } from "@/components/ui/button";
 
 const ProductDetailPage = () => {
@@ -17,20 +16,13 @@ const ProductDetailPage = () => {
 	return (
 		<div className="lg:container py-24 flex flex-col">
 			<div className="flex m-auto">
-				<div className="w-[700px] h-[500px] mr-10">
+				<div className="w-[700px] h-[500px] mr-4">
 					<SwiperItem images={data.images} auto={false} nav={true} pag={true} />
 				</div>
 				<div className="w-[400px] h-[500px] bg-white p-5 rounded-lg flex flex-col justify-between">
-					<div className="flex flex-row justify-start items-center">
-						<Avatar>
-							<AvatarImage
-								src={brandData[data.brandId].imagePath}
-								className="bg-white"
-							/>
-							<AvatarFallback>{brandData[data.brandId].name}</AvatarFallback>
-						</Avatar>
-						<h1>{brandData[data.brandId].name}</h1>
-					</div>
+					<h1>
+						{brandData[data.brandId].korName} {brandData[data.brandId].name}
+					</h1>
 					<h1>{data.name}</h1>
 					<p>{data.description}</p>
 					<div className="w-full">
@@ -50,6 +42,7 @@ const ProductDetailPage = () => {
 			<RecommendList
 				id={data.brandId}
 				brand={brandData[data.brandId].korName}
+				name={data.name}
 			/>
 		</div>
 	);

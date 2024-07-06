@@ -118,3 +118,10 @@
 	background-repeat: no-repeat;
 	@apply border border-zinc-400 rounded-full;
 }
+
+.sortBtn {
+	@apply cursor-pointer;
+}
+.sortActiveBtn {
+	@apply font-bold text-zinc-800 underline;
+}

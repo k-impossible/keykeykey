@@ -10,8 +10,8 @@ const ProductMangePage = () => {
 	const { isOpened, setSheetState } = useSheetStore();
 	const { initProductState } = useProductStore();
 	return (
-		<div className="container py-10">
-			<div className="container flex justify-end">
+		<div className="lg:container py-10">
+			<div className="flex justify-end">
 				<Button
 					variant="outline"
 					className="text-zinc-600 w-40 border-zinc-600 hover:text-zinc-800"
@@ -24,7 +24,7 @@ const ProductMangePage = () => {
 					<FaAnglesRight className="ml-10" />
 				</Button>
 			</div>
-			<main className="container mt-10">
+			<main className="mt-6">
 				<ProductManageList />
 			</main>
 			<Sheet open={isOpened} onOpenChange={setSheetState}>

@@ -19,7 +19,7 @@ const CategoryItem = ({ brand }: BrandProps) => {
 	const queryCategory = query(
 		collection(db, Collection.PRODUCT),
 		where("brandId", "==", brand.id),
-		// orderBy("createdAt", "desc"),
+		orderBy("createdAt", "desc"),
 		limit(4)
 	);
 	const { data, error } = useProductsQuery(queryCategory, brand.id);
@@ -44,7 +44,7 @@ const CategoryItem = ({ brand }: BrandProps) => {
 			<Link to={`/products/${brand.name.toLowerCase()}`}>
 				<Button className="flex items-center rounded-full">
 					more
-					<FaAngleRight className="ml-2" size={16} />
+					<FaAngleRight size={16} />
 				</Button>
 			</Link>
 		</div>

@@ -1,4 +1,4 @@
-import { brandData } from "@/data/productData";
+import { brandData } from "@/lib/productData";
 import CategoryItem from "../category-item/category-item";
 
 const CategoryList = () => {
@@ -6,7 +6,7 @@ const CategoryList = () => {
 		<div className="flex flex-col gap-20">
 			{brandData.map(brand => (
 				<div key={brand.id}>
-					<h1 className="text-2xl">{brand.name}</h1>
+					<h1 className="text-2xl mb-6 font-semibold">{brand.name}</h1>
 					<CategoryItem brand={brand} />
 				</div>
 			))}

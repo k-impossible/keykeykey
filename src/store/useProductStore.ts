@@ -15,8 +15,9 @@ const initialState: Product = {
 	amount: 0,
 	tagIds: [],
 	images: [],
-	createdAt: "",
-	updatedAt: "",
+	createdAt: Date.now(),
+	updatedAt: Date.now(),
+	match: "",
 };
 
 const useProductStore = create<Product & Action>()(

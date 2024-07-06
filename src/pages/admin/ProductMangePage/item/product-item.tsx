@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { brandData, tagData } from "@/data/productData";
+import { brandData, tagData } from "@/lib/productData";
 import { useFormatDate } from "@/hooks/useFormatDate";
 import { FaRegTrashCan } from "react-icons/fa6";
 import useSheetStore from "@/store/useSheetStore";
@@ -40,6 +40,7 @@ const ProductManageItem = ({ product, index }: ProductProps) => {
 		images: product.images,
 		createdAt: product.createdAt,
 		updatedAt: product.updatedAt,
+		match: product.match,
 	};
 	return (
 		<TableRow className="hover:bg-zinc-200">
@@ -49,7 +50,7 @@ const ProductManageItem = ({ product, index }: ProductProps) => {
 			<TableCell className="text-xs">{product.description}</TableCell>
 			<TableCell>{product.price}원</TableCell>
 			<TableCell>{product.amount}개</TableCell>
-			<TableCell>
+			<TableCell className="text-xs">
 				{product.tagIds.map(tag => `#${tagData[tag].name} `)}
 			</TableCell>
 			<TableCell>{product.images.length}장</TableCell>

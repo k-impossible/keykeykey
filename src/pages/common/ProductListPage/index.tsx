@@ -1,64 +1,62 @@
-import ProductItem from "@/components/product/ProductItem";
-import { brandData } from "@/data/productData";
-import { Collection } from "@/enum/Collection";
-import { db } from "@/firebase";
-import useProductsQuery from "@/queries/useProductsQuery";
-import { collection, limit, orderBy, query, where } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { useInView } from "react-intersection-observer";
-import { useParams } from "react-router-dom";
+import { brandData } from "@/lib/productData";
 
-type SortCriteriaType = "createAt" | "price";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import ProductList from "./product-list/product-list";
+
+type SortCriteriaType = "createdAt" | "price";
 type SortSequenceType = "desc" | "asc";
 
 const ProductListPage = () => {
 	const paramId = useParams();
 	const findBrand = brandData.find(b => paramId.id === b.name.toLowerCase());
-	const { ref, inView } = useInView();
 	const [sortCriteria, setSortCriteria] =
-		useState<SortCriteriaType>("createAt");
+		useState<SortCriteriaType>("createdAt");
 	const [sortSequence, setSortSequence] = useState<SortSequenceType>("desc");
-
-	let basicQuery = query(
-		collection(db, Collection.PRODUCT),
-		limit(10)
-		// orderBy(sortCriteria, sortSequence)
-	);
-
-	const whereQuery =
-		paramId.id === "all"
-			? where("brandId", ">=", 0)
-			: where("brandId", "==", findBrand?.id);
-
-	const finalQuery = query(basicQuery, whereQuery);
-
-	const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage } =
-		useProductsQuery(finalQuery, findBrand?.id, "category");
-
-	useEffect(() => {
-		if (inView && hasNextPage) {
-			fetchNextPage();
-		}
-	}, [inView, fetchNextPage, hasNextPage]);
-	if (!data || error) {
-		return null;
-	}
-
-	const products = data.pages.flatMap(page => page.products);
+	const [sortFlag, setSortFlag] = useState(0);
+	const handleFilter = (
+		criteria: SortCriteriaType,
+		sequence: SortSequenceType,
+		flag: number
+	) => {
+		setSortCriteria(criteria);
+		setSortSequence(sequence);
+		setSortFlag(flag);
+	};
 
 	return (
-		<div className="lg:container py-24 flex flex-wrap gap-16">
-			{products.map(product => (
-				<ProductItem
-					key={product.id}
-					product={product}
-					auto={true}
-					nav={false}
-					pag={false}
-				/>
-			))}
-			{isFetchingNextPage && <div>Loading ... </div>}
-			<div ref={ref}></div>
+		<div className="lg:container py-24">
+			<div className="flex mb-6 justify-between items-center">
+				<h1 className="text-2xl font-semibold">
+					{findBrand !== undefined ? findBrand.name : "전체상품"}
+				</h1>
+				<div className="flex gap-4 text-sm text-zinc-500">
+					<span
+						onClick={() => handleFilter("createdAt", "desc", 0)}
+						className={`sortBtn ${sortFlag === 0 ? "sortActiveBtn" : ""}`}
+					>
+						최신 등록순
+					</span>
+					<span
+						onClick={() => handleFilter("price", "asc", 1)}
+						className={`sortBtn ${sortFlag === 1 ? "sortActiveBtn" : ""}`}
+					>
+						가격 낮은순
+					</span>
+					<span
+						onClick={() => handleFilter("price", "desc", 2)}
+						className={`sortBtn ${sortFlag === 2 ? "sortActiveBtn" : ""}`}
+					>
+						가격 높은순
+					</span>
+				</div>
+			</div>
+			<ProductList
+				allParam={paramId.id === "all"}
+				brandId={findBrand !== undefined ? findBrand!.id : 0}
+				sortCriteria={sortCriteria}
+				sortSequence={sortSequence}
+			/>
 		</div>
 	);
 };

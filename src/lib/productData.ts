@@ -7,36 +7,36 @@ import leoPoldLogo from "../assets/brand/leopold.png";
 export const brandData = [
 	{
 		id: 0,
-		name: "LOGITECH",
-		korName: "로지텍",
+		name: "Keychron",
+		korName: "키크론",
 		imagePath: logiTechLogo,
 	},
-	{ id: 1, name: "RAZER", korName: "레이저", imagePath: razerLogo },
+	{ id: 1, name: "RealForce", korName: "리얼포스", imagePath: razerLogo },
 	{
 		id: 2,
-		name: "CORSAIR",
-		korName: "커세어",
+		name: "HappyHacking",
+		korName: "해피해킹",
 		imagePath: corsairLogo,
 	},
 	{
 		id: 3,
-		name: "KEYCHRON",
-		korName: "키크론",
+		name: "Logitech",
+		korName: "로지텍",
 		imagePath: keyChronLogo,
 	},
 	{
 		id: 4,
-		name: "LEOPOLD",
+		name: "Leopold",
 		korName: "레오폴드",
 		imagePath: leoPoldLogo,
 	},
 ];
 
 export const tagData = [
-	{ id: 0, name: "유선" },
-	{ id: 1, name: "무선" },
-	{ id: 2, name: "텐키리스" },
-	{ id: 3, name: "RGB" },
+	{ id: 0, name: "블루투스" },
+	{ id: 1, name: "Mac 호환" },
+	{ id: 2, name: "인체공학" },
+	{ id: 3, name: "저소음" },
 ];
 
 export const optionData = [

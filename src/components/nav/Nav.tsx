@@ -14,44 +14,53 @@ const NavData = [
 	},
 	{
 		id: 2,
-		name: "LOGITECH",
-		path: "/products/logitech",
+		name: "Keychron",
+		path: "/products/keychron",
 	},
-	{ id: 3, name: "RAZER", path: "/products/razer" },
+	{ id: 3, name: "RealForce", path: "/products/realforce" },
 	{
 		id: 4,
-		name: "CORSAIR",
-		path: "/products/corsair",
+		name: "HappyHacking",
+		path: "/products/happyhacking",
 	},
 	{
 		id: 5,
-		name: "KEYCHRON",
-		path: "/products/keychron",
+		name: "Logitech",
+		path: "/products/logitech",
 	},
 	{
 		id: 6,
-		name: "LEOPOLD",
+		name: "Leopold",
 		path: "/products/leopold",
 	},
 ];
 
 const Nav = () => {
 	const { pathname } = useLocation();
-	return (
-		<nav className="w-full border-b border-b-zinc-800">
-			<div className=" w-fit mx-auto">
-				{NavData.map(nav => (
-					<Link to={nav.path} key={nav.id}>
-						<Button
-							className={`navBtn ${pathname === nav.path ? "activeNavBtn" : ""}`}
-						>
-							{nav.name}
-						</Button>
-					</Link>
-				))}
-			</div>
-		</nav>
-	);
+	console.log();
+
+	if (
+		(pathname === "/" || pathname.includes("/product")) &&
+		pathname !== "/product-manage"
+	) {
+		return (
+			<nav className="w-full border-b border-b-zinc-800">
+				<div className=" w-fit mx-auto">
+					{NavData.map(nav => (
+						<Link to={nav.path} key={nav.id}>
+							<Button
+								className={`navBtn ${pathname === nav.path ? "activeNavBtn" : ""}`}
+							>
+								{nav.name}
+							</Button>
+						</Link>
+					))}
+				</div>
+			</nav>
+		);
+	} else {
+		return null;
+	}
 };
 
 export default Nav;

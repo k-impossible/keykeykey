@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { brandData, tagData } from "@/data/productData";
+import { brandData, tagData } from "@/lib/productData";
 import useSheetStore from "@/store/useSheetStore";
 import useAddCollection from "./useAddCollection";
 import { Collection } from "@/enum/Collection";
@@ -29,7 +29,7 @@ const formSchema = z.object({
 	description: z.string().min(1, "상품 설명을 입력해주세요."),
 	price: z.coerce.number().int(),
 	amount: z.coerce.number().int().min(1, "재고는 1이상으로 설정해주세요."),
-	tagIds: z.array(z.number()).length(1, "1개 이상의 태그를 선택해주세요."),
+	tagIds: z.array(z.number()),
 	images: z
 		.custom<FileList>(val => val instanceof FileList, "Required")
 		.refine(files => files.length > 1, `사진은 2장 이상 필수입니다.`)
@@ -84,12 +84,7 @@ export const useInputProduct = () => {
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		try {
-			await useProductMutation.mutateAsync(values);
-			setSheetState(false);
-			productStoreData.initProductState();
-			form.reset();
-			form.setValue("images", dataTransfer.files);
-			toast.success(`상품 ${title}이 완료되었습니다.`);
+			useProductMutation.mutate(values);
 		} catch (error) {
 			console.log(error);
 			toast.error(`상품 ${title}이 실패하였습니다.`);
@@ -100,7 +95,12 @@ export const useInputProduct = () => {
 		mutationFn: async (values: any) => {
 			await handleUploadProduct(values);
 		},
-		onSettled: async () => {
+		onSuccess: async () => {
+			setSheetState(false);
+			productStoreData.initProductState();
+			form.reset();
+			form.setValue("images", dataTransfer.files);
+			toast.success(`상품 ${title}이 완료되었습니다.`);
 			return await queryClient.invalidateQueries({
 				queryKey: [productKey],
 			});
@@ -111,39 +111,46 @@ export const useInputProduct = () => {
 	});
 
 	const handleUploadProduct = async (values: any) => {
-		const date = Date.now().toString();
-		const filterBrand = brandData.filter(b => b.name == values.brandName);
-		const imageArr = Array.from(values.images as FileList);
-		let newArr: string[] = [];
 		(async () => {
-			if (docId !== "") {
-				useDeleteStorage(productStoreData.createdAt, productStoreData.images);
+			const date = Date.now();
+			const filterBrand = brandData.filter(b => b.name == values.brandName);
+			const imageArr = Array.from(values.images as FileList);
+			let newArr: string[] = [];
+			try {
+				if (docId !== "") {
+					await useDeleteStorage(
+						productStoreData.createdAt,
+						productStoreData.images
+					);
+				}
+				for (let img of imageArr) {
+					const imageRef = ref(
+						storage,
+						`${docId === "" ? date : productStoreData.createdAt}/${img.name}`
+					);
+					await uploadBytes(imageRef, img);
+					const downloadURL = await getDownloadURL(imageRef);
+					newArr.push(downloadURL);
+				}
+
+				const product: Product = {
+					brandId: filterBrand[0].id,
+					name: values.productName,
+					description: values.description,
+					price: values.price,
+					amount: values.amount,
+					tagIds: values.tagIds,
+					images: newArr,
+					createdAt: docId === "" ? date : productStoreData.createdAt,
+					updatedAt: date,
+					match: `#${filterBrand[0].korName}#${filterBrand[0].name}#${values.productName}#${values.description}`,
+				};
+
+				if (docId === "") await useAddCollection(Collection.PRODUCT, product);
+				else await useUpdateCollection(Collection.PRODUCT, docId, product);
+			} catch (error) {
+				console.log(error);
 			}
-
-			for (let img of imageArr) {
-				const imageRef = ref(
-					storage,
-					`${docId === "" ? date : productStoreData.createdAt}/${img.name}`
-				);
-				await uploadBytes(imageRef, img);
-				const downloadURL = await getDownloadURL(imageRef);
-				newArr.push(downloadURL);
-			}
-
-			const product: Product = {
-				brandId: filterBrand[0].id,
-				name: values.productName,
-				description: values.description,
-				price: values.price,
-				amount: values.amount,
-				tagIds: values.tagIds,
-				images: newArr,
-				createdAt: docId === "" ? date : productStoreData.createdAt,
-				updatedAt: date,
-			};
-
-			if (docId === "") await useAddCollection(Collection.PRODUCT, product);
-			else await useUpdateCollection(Collection.PRODUCT, docId, product);
 		})();
 	};
 
