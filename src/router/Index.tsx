@@ -27,13 +27,13 @@ const router = createBrowserRouter(
 			<Route path="login" element={<LoginPage />} />
 			<Route path="sign-up" element={<SignUpPage />} />
 			<Route path="products/:id" element={<ProductListPage />} />
-			<Route path="product/:id" element={<ProductDetailPage />} />
-			{/* user */}
+			<Route path="product/:category/:id" element={<ProductDetailPage />} />
+			{/* only user */}
 			<Route element={<PrivateRoute role="user" />}>
 				<Route path="order" element={<OrderPage />} />
 				<Route path="orders" element={<OrderListPage />} />
 			</Route>
-			{/* admin */}
+			{/* only admin */}
 			<Route element={<PrivateRoute role="admin" />}>
 				<Route path="product-manage" element={<ProductMangePage />} />
 				<Route path="order-manage" element={<OrderManagePage />} />

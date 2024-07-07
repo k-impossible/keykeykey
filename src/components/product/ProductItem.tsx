@@ -1,12 +1,4 @@
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
 import SwiperItem from "../swiper/SwiperItem";
 import { brandData, tagData } from "@/lib/productData";
 import { Link } from "react-router-dom";
@@ -19,7 +11,9 @@ type ProductProps = {
 };
 const ProductItem = ({ product, auto, nav, pag }: ProductProps) => {
 	return (
-		<Link to={`/product/${product.id}`}>
+		<Link
+			to={`/product/${brandData[product.brandId].name.toLowerCase()}/${product.id}`}
+		>
 			<Card className="w-[270px]">
 				<CardContent className="p-1">
 					<div className="w-[260px] h-[220px]">

@@ -7,10 +7,12 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import useUserStore from "@/store/useUserStore";
 import { toast } from "sonner";
 import { Collection } from "@/enum/Collection";
+import useCartStore from "@/store/useCartStore";
 
 const SignIn = () => {
 	const navigate = useNavigate();
 	const { setUserState } = useUserStore();
+	const { setMyCart } = useCartStore();
 	const { isLoggedIn, isSeller, displayName } = useUserStore(state => state);
 
 	useEffect(() => {
@@ -52,6 +54,7 @@ const SignIn = () => {
 				isSeller: id === import.meta.env.VITE_SELLER_ID ? true : false,
 			};
 			setUserState(user);
+			setMyCart(id);
 		} catch (error) {}
 	};
 

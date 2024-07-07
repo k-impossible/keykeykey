@@ -14,21 +14,21 @@ export const brandData = [
 	{ id: 1, name: "RealForce", korName: "리얼포스", imagePath: razerLogo },
 	{
 		id: 2,
+		name: "Leopold",
+		korName: "레오폴드",
+		imagePath: leoPoldLogo,
+	},
+	{
+		id: 3,
 		name: "HappyHacking",
 		korName: "해피해킹",
 		imagePath: corsairLogo,
 	},
 	{
-		id: 3,
+		id: 4,
 		name: "Logitech",
 		korName: "로지텍",
 		imagePath: keyChronLogo,
-	},
-	{
-		id: 4,
-		name: "Leopold",
-		korName: "레오폴드",
-		imagePath: leoPoldLogo,
 	},
 ];
 

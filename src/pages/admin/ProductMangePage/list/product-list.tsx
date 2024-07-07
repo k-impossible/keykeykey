@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/table";
 import ProductManageItem from "../item/product-item";
 import { useEffect } from "react";
+import useSheetStore from "@/store/useSheetStore";
 
 const ProductManageList = () => {
 	const queryByCreatedAt = query(
@@ -21,7 +22,7 @@ const ProductManageList = () => {
 	);
 
 	const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage } =
-		useProductsQuery(queryByCreatedAt);
+		useProductsQuery(queryByCreatedAt, "manage");
 
 	const { ref, inView } = useInView();
 

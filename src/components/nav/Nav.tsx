@@ -49,7 +49,7 @@ const Nav = () => {
 					{NavData.map(nav => (
 						<Link to={nav.path} key={nav.id}>
 							<Button
-								className={`navBtn ${pathname === nav.path ? "activeNavBtn" : ""}`}
+								className={`navBtn ${pathname.includes(nav.name.toLowerCase()) ? "activeNavBtn" : ""}`}
 							>
 								{nav.name}
 							</Button>

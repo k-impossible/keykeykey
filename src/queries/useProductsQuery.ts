@@ -9,7 +9,7 @@ import {
 	startAfter,
 } from "firebase/firestore";
 
-export const QUERY_KEY = "product";
+export const QUERY_KEY = "products";
 type QueryResponse = {
 	products: Product[];
 	nextList: QueryDocumentSnapshot<DocumentData, DocumentData>;

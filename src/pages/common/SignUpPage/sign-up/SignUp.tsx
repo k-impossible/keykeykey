@@ -7,10 +7,12 @@ import useAddCollection from "@/hooks/useAddCollection";
 import useUserStore from "@/store/useUserStore";
 import { toast } from "sonner";
 import { Collection } from "@/enum/Collection";
+import useCartStore from "@/store/useCartStore";
 
 const SignUp = () => {
 	const navigate = useNavigate();
 	const { setUserState } = useUserStore();
+	const { setMyCart } = useCartStore();
 	const { isLoggedIn, displayName } = useUserStore(state => state);
 
 	useEffect(() => {
@@ -48,6 +50,7 @@ const SignUp = () => {
 			};
 
 			setUserState(user);
+			setMyCart(userCredential.user.uid);
 		} catch (error: any) {
 			let msg = "";
 			switch (error.code) {

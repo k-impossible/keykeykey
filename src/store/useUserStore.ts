@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, devtools, persist } from "zustand/middleware";
-const STORAGE_KEY = "3keyStore";
+const STORAGE_KEY = "user";
 
 type Action = {
 	setUserState: (data: UserState) => void;
@@ -18,9 +18,9 @@ const initialState: UserState = {
 const useUserStore = create<UserState & Action>()(
 	devtools(
 		persist(
-			(set) => ({
+			set => ({
 				...initialState,
-				setUserState: (data) => set(() => data),
+				setUserState: data => set(() => data),
 				initUserState: () => set(() => initialState),
 			}),
 			{ name: STORAGE_KEY, storage: createJSONStorage(() => sessionStorage) }

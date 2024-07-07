@@ -6,28 +6,33 @@ import useUserStore from "@/store/useUserStore";
 import {
 	FaArrowRightFromBracket,
 	FaArrowRightToBracket,
-	FaCartShopping,
+	FaBagShopping,
 } from "react-icons/fa6";
 import { FaClipboardList } from "react-icons/fa";
 
 import { buttonVariants } from "../ui/button";
 import { toast } from "sonner";
-import { Sheet, SheetContent } from "../ui/sheet";
+import { Sheet } from "../ui/sheet";
 import { useCartSheetStore } from "@/store/useSheetStore";
+import useCartStore from "@/store/useCartStore";
+import CartSheet from "../cart/CartSheet";
 
 const Header = () => {
 	const { initUserState, isSeller, isLoggedIn } = useUserStore();
 	const { pathname } = useLocation();
 	const navigate = useNavigate();
 	const { isCartSheetOpened, setCartSheetState } = useCartSheetStore();
+	const { removeMyCart, myCart } = useCartStore();
+
 	const handleLogOut = async () => {
 		await signOut(auth);
 		initUserState();
-		toast("로그아웃 되었습니다.");
+		removeMyCart();
+		toast.info("로그아웃 되었습니다.");
 	};
 
 	const handleActionToast = () => {
-		toast("로그인 후 이용하실 수 있습니다.", {
+		toast.info("로그인 후 이용하실 수 있습니다.", {
 			action: {
 				label: "로그인",
 				onClick: () => navigate("/login"),
@@ -64,14 +69,23 @@ const Header = () => {
 					</div>
 				) : (
 					<div className="flex justify-between items-center gap-7">
-						<FaCartShopping
-							onClick={() => {
-								if (isLoggedIn) setCartSheetState(true);
-								else handleActionToast();
-							}}
-							size={30}
-							className="cursor-pointer"
-						/>
+						<div className="cart-btn-wrap">
+							<FaBagShopping
+								onClick={() => {
+									if (isLoggedIn) setCartSheetState(true);
+									else handleActionToast();
+								}}
+								size={30}
+								className="cursor-pointer"
+							/>
+							{isLoggedIn && (
+								<span
+									className={`cart-cnt ${0 < myCart.totalAmount && "cart-cnt-active"}`}
+								>
+									{myCart.totalAmount}
+								</span>
+							)}
+						</div>
 						<FaClipboardList
 							size={30}
 							onClick={() => {
@@ -100,9 +114,7 @@ const Header = () => {
 				)}
 			</div>
 			<Sheet open={isCartSheetOpened} onOpenChange={setCartSheetState}>
-				<SheetContent>
-					<div>124</div>
-				</SheetContent>
+				<CartSheet />
 			</Sheet>
 		</div>
 	);

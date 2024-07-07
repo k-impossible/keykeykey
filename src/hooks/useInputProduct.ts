@@ -84,7 +84,12 @@ export const useInputProduct = () => {
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		try {
-			useProductMutation.mutate(values);
+			await useProductMutation.mutateAsync(values);
+			setSheetState(false);
+			productStoreData.initProductState();
+			form.reset();
+			form.setValue("images", dataTransfer.files);
+			toast.success(`상품 ${title}이 완료되었습니다.`);
 		} catch (error) {
 			console.log(error);
 			toast.error(`상품 ${title}이 실패하였습니다.`);
@@ -95,18 +100,23 @@ export const useInputProduct = () => {
 		mutationFn: async (values: any) => {
 			await handleUploadProduct(values);
 		},
-		onSuccess: async () => {
-			setSheetState(false);
-			productStoreData.initProductState();
-			form.reset();
-			form.setValue("images", dataTransfer.files);
-			toast.success(`상품 ${title}이 완료되었습니다.`);
-			return await queryClient.invalidateQueries({
-				queryKey: [productKey],
-			});
+		// onMutate: async val => {
+		// 	await queryClient.cancelQueries({ queryKey: ["products"] });
+		// 	const previousTodos = queryClient.getQueryData<QueryResponse>(["products"]);
+
+		// 	queryClient.setQueryData<QueryResponse>(["products"], {
+		// 		product,
+
+		// 	});
+		// 	return { previousTodos };
+		// },
+		onError: (err, val, context) => {
+			console.log(err);
+			// queryClient.setQueryData(["products"], context?.previousTodos);
 		},
-		onError: error => {
-			console.log(error);
+		onSettled: () => {
+			queryClient.invalidateQueries({ queryKey: [productKey, "manage"] });
+			// queryClient.refetchQueries({ queryKey: [productKey, "manage"] });
 		},
 	});
 

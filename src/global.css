@@ -125,3 +125,12 @@
 .sortActiveBtn {
 	@apply font-bold text-zinc-800 underline;
 }
+.cart-btn-wrap {
+	position: relative;
+}
+.cart-cnt {
+	@apply absolute -top-0 -right-3 bg-zinc-400 text-white rounded-full w-[20px] h-[20px] text-center text-xs flex justify-center items-center font-semibold;
+}
+.cart-cnt-active {
+	@apply bg-red-500;
+}
