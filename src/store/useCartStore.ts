@@ -97,10 +97,37 @@ const handleUpdateMyCart = (
 	flag: "increase" | "decrease"
 ) => {
 	const myCart = state.myCart;
+	const product = myCart.products.find(
+		p => p.productId === productId
+	) as CartItem;
+	const productIdx = myCart.products.findIndex(p => p.productId === productId);
+	let deleteChk = false;
 
-	myCart.products = [];
-	myCart.totalAmount = 0;
-	myCart.totalPrice = 0;
+	switch (flag) {
+		case "increase":
+			product.productAmount += 1;
+			myCart.totalAmount += 1;
+			myCart.totalPrice += product.productPrice;
+			break;
+
+		case "decrease":
+			if (1 < product.productAmount) {
+				product.productAmount -= 1;
+			} else {
+				deleteChk = true;
+			}
+			myCart.totalAmount -= 1;
+			myCart.totalPrice -= product.productPrice;
+			break;
+	}
+
+	if (deleteChk) {
+		const filterArr = myCart.products.filter(p => p.productId !== productId);
+		myCart.products = [...filterArr];
+	} else {
+		product.productTotalPrice = product.productPrice * product.productAmount;
+		myCart.products[productIdx] = product;
+	}
 
 	state.setCarts(myCart);
 	return myCart;

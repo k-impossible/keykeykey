@@ -10,6 +10,7 @@ interface CartItem {
 	brandId: number;
 	productName: string;
 	productPrice: number;
+	productTotalPrice: number;
 	productAmount: number;
 	productImage: string;
 }

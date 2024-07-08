@@ -58,6 +58,7 @@ const ProductDetailPage = () => {
 					productName: data.name,
 					productAmount: 1,
 					productPrice: data.price,
+					productTotalPrice: data.price,
 					productImage: data.images[0],
 				};
 				addMyCart(item);
