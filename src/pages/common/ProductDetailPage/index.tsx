@@ -33,6 +33,12 @@ const ProductDetailPage = () => {
 		} else setCartInProductChk(false);
 	}, [paramId]);
 
+	useEffect(() => {
+		if (0 <= myCart.products.findIndex(p => p.productId === paramId.id)) {
+			setCartInProductChk(true);
+		} else setCartInProductChk(false);
+	}, [myCart.totalAmount]);
+
 	if (!data || error) {
 		return null;
 	}

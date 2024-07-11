@@ -32,12 +32,20 @@ const Header = () => {
 	};
 
 	const handleActionToast = () => {
-		toast.info("로그인 후 이용하실 수 있습니다.", {
-			action: {
-				label: "로그인",
-				onClick: () => navigate("/login"),
-			},
-		});
+		if (isLoggedIn) {
+			if (pathname === "/order") {
+				toast.error("주문 중에는 장바구니를 확인할 수 없습니다.");
+			} else {
+				setCartSheetState(true);
+			}
+		} else {
+			toast.info("로그인 후 이용하실 수 있습니다.", {
+				action: {
+					label: "로그인",
+					onClick: () => navigate("/login"),
+				},
+			});
+		}
 	};
 
 	return (
@@ -71,10 +79,7 @@ const Header = () => {
 					<div className="flex justify-between items-center gap-7">
 						<div className="cart-btn-wrap">
 							<FaBagShopping
-								onClick={() => {
-									if (isLoggedIn) setCartSheetState(true);
-									else handleActionToast();
-								}}
+								onClick={handleActionToast}
 								size={30}
 								className="cursor-pointer"
 							/>

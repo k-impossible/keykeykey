@@ -1,13 +1,18 @@
-import { Button } from "@/components/ui/button";
 import { brandData } from "@/lib/productData";
 import useCartStore from "@/store/useCartStore";
+import { FaRegSquarePlus, FaRegSquareMinus, FaTrashCan } from "react-icons/fa6";
 import {
-	FaPlus,
-	FaRegSquarePlus,
-	FaRegSquareMinus,
-	FaRegTrashCan,
-	FaTrashCan,
-} from "react-icons/fa6";
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+	AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 
 type CartItemProps = {
 	item: CartItem;
@@ -24,25 +29,51 @@ const CartItem = ({ item }: CartItemProps) => {
 				<h1 className="">{item.productName}</h1>
 				<div className="flex items-center justify-end mt-4 mb-2">
 					{item.productAmount === 1 ? (
-						<FaTrashCan
-							size={16}
-							className="text-zinc-400 cursor-pointer"
-							onClick={() => updateMyCart(item.productId, "decrease")}
-						/>
+						<AlertDialog>
+							<AlertDialogTrigger asChild>
+								<Button variant={"ghost"}>
+									<FaTrashCan
+										size={16}
+										className="text-zinc-400 cursor-pointer"
+									/>
+								</Button>
+							</AlertDialogTrigger>
+							<AlertDialogContent>
+								<AlertDialogHeader>
+									<AlertDialogTitle>장바구니 상품 삭제</AlertDialogTitle>
+									<AlertDialogDescription>
+										상품을 장바구니에서 삭제하시겠습니까?
+									</AlertDialogDescription>
+								</AlertDialogHeader>
+								<AlertDialogFooter>
+									<AlertDialogCancel>취소</AlertDialogCancel>
+									<AlertDialogAction
+										className="bg-red-600"
+										onClick={() => updateMyCart(item.productId, "decrease")}
+									>
+										삭제
+									</AlertDialogAction>
+								</AlertDialogFooter>
+							</AlertDialogContent>
+						</AlertDialog>
 					) : (
-						<FaRegSquareMinus
-							size={19}
-							className="text-zinc-500 cursor-pointer"
-							onClick={() => updateMyCart(item.productId, "decrease")}
-						/>
+						<Button variant={"ghost"}>
+							<FaRegSquareMinus
+								size={19}
+								className="text-zinc-500 cursor-pointer"
+								onClick={() => updateMyCart(item.productId, "decrease")}
+							/>
+						</Button>
 					)}
 
-					<p className="mx-4 font-semibold">{item.productAmount}</p>
-					<FaRegSquarePlus
-						className="text-zinc-500 cursor-pointer"
-						size={19}
-						onClick={() => updateMyCart(item.productId, "increase")}
-					/>
+					<p className="mx-4 font-semibold">{item.productAmount}개</p>
+					<Button variant={"ghost"}>
+						<FaRegSquarePlus
+							className="text-zinc-500 cursor-pointer"
+							size={19}
+							onClick={() => updateMyCart(item.productId, "increase")}
+						/>
+					</Button>
 				</div>
 				<p className="font-semibold">{item.productTotalPrice}원</p>
 			</div>

@@ -17,6 +17,8 @@ import ProductDetailPage from "@/pages/common/ProductDetailPage";
 import OrderListPage from "@/pages/user/OrderListPage";
 import OrderPage from "@/pages/user/OrderPage";
 import PrivateRoute from "./PrivateRoute";
+import SuccessPage from "@/pages/user/OrderPage/checkout/SuccessPage";
+import FailPage from "@/pages/user/OrderPage/checkout/FailPage";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -31,6 +33,8 @@ const router = createBrowserRouter(
 			{/* only user */}
 			<Route element={<PrivateRoute role="user" />}>
 				<Route path="order" element={<OrderPage />} />
+				<Route path="order/success" element={<SuccessPage />} />
+				<Route path="order/fail" element={<FailPage />} />
 				<Route path="orders" element={<OrderListPage />} />
 			</Route>
 			{/* only admin */}
