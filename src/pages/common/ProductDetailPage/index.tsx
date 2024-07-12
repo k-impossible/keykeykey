@@ -69,7 +69,12 @@ const ProductDetailPage = () => {
 				};
 				addMyCart(item);
 				setCartInProductChk(true);
-				toast.success("상품이 장바구니에 담겼습니다.");
+				toast("상품이 장바구니에 담겼습니다.", {
+					action: {
+						label: "확인",
+						onClick: () => setCartSheetState(true),
+					},
+				});
 			}
 		}
 	};
@@ -96,7 +101,7 @@ const ProductDetailPage = () => {
 						</div>
 					</div>
 					<p>{data.amount}개</p>
-					<h2>{data.price}원</h2>
+					<h2>{data.price.toLocaleString()}원</h2>
 					<Button
 						onClick={handleCartBtn}
 						variant={cartInProductChk ? "secondary" : "default"}

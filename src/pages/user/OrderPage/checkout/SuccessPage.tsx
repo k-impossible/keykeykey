@@ -4,25 +4,44 @@ import {
 	Card,
 	CardContent,
 	CardDescription,
-	CardFooter,
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import OrderItem from "../order-item/order-item";
 import useCartStore from "@/store/useCartStore";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import useAddCollection from "@/hooks/useAddCollection";
+import { Collection } from "@/enum/Collection";
+import { Order } from "@/interfaces/Order.interface";
+import { OrderStatus } from "@/enum/OrderStatus";
+import useUserStore from "@/store/useUserStore";
 
 const SuccessPage = () => {
 	const [searchParams] = useSearchParams();
 	const { myCart, clearMyCart } = useCartStore();
-	// 서버로 승인 요청
+	const { email } = useUserStore();
 
 	useEffect(() => {
-		// order doc 생성
-		// 장바구니 초기화
+		(async () => {
+			console.log("object");
+			// order doc 생성
+			const date = Date.now();
+			const newOrder: Order = {
+				id: searchParams.get("orderId") as string,
+				userId: myCart.userId,
+				userEmail: email,
+				products: myCart.products,
+				totalAmount: myCart.totalAmount,
+				totalPrice: myCart.totalPrice,
+				status: OrderStatus.DONE,
+				createdAt: date,
+				updatedAt: date,
+			};
+			await useAddCollection(Collection.ORDER, newOrder);
 
-		console.log(searchParams.get("orderId"));
+			// 장바구니 초기화
+			clearMyCart();
+		})();
 	}, []);
 
 	return (
@@ -34,20 +53,14 @@ const SuccessPage = () => {
 						<FaRegCircleCheck size={60} className="mx-auto my-6" />
 					</CardDescription>
 				</CardHeader>
-				<CardContent className="flex flex-col w-full justify-end items-center border-b">
+				<CardContent className="flex flex-col w-full justify-end items-center">
+					<div className="font-bold text-xl mb-6">
+						결제 금액 : {Number(searchParams.get("amount")).toLocaleString()}원
+					</div>
 					<Link to="/orders">
 						<Button variant={"outline"}>주문 내역 확인</Button>
 					</Link>
-					<div className=" my-6">총 주문 상품: {myCart.totalAmount}개</div>
-					<div className="font-bold text-xl">
-						결제 금액 : {myCart.totalPrice}원
-					</div>
 				</CardContent>
-				<CardFooter className="flex flex-col w-full">
-					{myCart.products.map(item => (
-						<OrderItem key={item.productId} item={item} />
-					))}
-				</CardFooter>
 			</Card>
 		</div>
 	);

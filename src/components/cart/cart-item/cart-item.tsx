@@ -75,7 +75,9 @@ const CartItem = ({ item }: CartItemProps) => {
 						/>
 					</Button>
 				</div>
-				<p className="font-semibold">{item.productTotalPrice}원</p>
+				<p className="font-semibold">
+					{item.productTotalPrice.toLocaleString()}원
+				</p>
 			</div>
 		</div>
 	);

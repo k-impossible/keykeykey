@@ -33,7 +33,7 @@ const ProductItem = ({ product, auto, nav, pag }: ProductProps) => {
 						{product.name}
 					</CardTitle>
 					<h1 className="w-full text-right font-semibold text-md my-3">
-						{product.price}원
+						{product.price.toLocaleString()}원
 					</h1>
 					<div className="w-full">
 						<div className="flex gap-1 justify-end">

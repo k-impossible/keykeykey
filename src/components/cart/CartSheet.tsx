@@ -36,7 +36,9 @@ const CartSheet = () => {
 					<SheetFooter className="pr-6 py-4 flex  justify-around items-center w-full border-t border-zinc-400">
 						<div className="text-right mr-4">
 							<div>{myCart.totalAmount}개</div>
-							<div className="font-bold text-lg">{myCart.totalPrice}원</div>
+							<div className="font-bold text-lg">
+								{myCart.totalPrice.toLocaleString()}원
+							</div>
 						</div>
 						<Link to="/order">
 							<Button

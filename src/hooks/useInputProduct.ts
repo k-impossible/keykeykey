@@ -8,8 +8,16 @@ import { Collection } from "@/enum/Collection";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "@/firebase";
 import { toast } from "sonner";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { QUERY_KEY as productKey } from "@/queries/useProductsQuery";
+import {
+	InfiniteData,
+	useMutation,
+	useQueryClient,
+} from "@tanstack/react-query";
+import {
+	QUERY_KEY as productKey,
+	QUERY_KEY,
+	QueryResponse,
+} from "@/queries/useProductsQuery";
 import useProductStore from "@/store/useProductStore";
 import useUpdateCollection from "./useUpdateCollection";
 import { useEffect } from "react";
@@ -98,41 +106,34 @@ export const useInputProduct = () => {
 
 	const useProductMutation = useMutation({
 		mutationFn: async (values: any) => {
-			await handleUploadProduct(values);
+			return await handleUploadProduct(values);
 		},
-		// onMutate: async val => {
-		// 	await queryClient.cancelQueries({ queryKey: ["products"] });
-		// 	const previousTodos = queryClient.getQueryData<QueryResponse>(["products"]);
-
-		// 	queryClient.setQueryData<QueryResponse>(["products"], {
-		// 		product,
-
-		// 	});
-		// 	return { previousTodos };
-		// },
-		onError: (err, val, context) => {
+		onSuccess: () => {
+			return queryClient.invalidateQueries({ queryKey: [productKey] });
+		},
+		onError: err => {
 			console.log(err);
-			// queryClient.setQueryData(["products"], context?.previousTodos);
-		},
-		onSettled: () => {
-			queryClient.invalidateQueries({ queryKey: [productKey, "manage"] });
-			// queryClient.refetchQueries({ queryKey: [productKey, "manage"] });
 		},
 	});
 
 	const handleUploadProduct = async (values: any) => {
+		try {
+			if (docId !== "") {
+				await useDeleteStorage(
+					productStoreData.createdAt,
+					productStoreData.images
+				);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+
 		(async () => {
 			const date = Date.now();
 			const filterBrand = brandData.filter(b => b.name == values.brandName);
 			const imageArr = Array.from(values.images as FileList);
 			let newArr: string[] = [];
 			try {
-				if (docId !== "") {
-					await useDeleteStorage(
-						productStoreData.createdAt,
-						productStoreData.images
-					);
-				}
 				for (let img of imageArr) {
 					const imageRef = ref(
 						storage,

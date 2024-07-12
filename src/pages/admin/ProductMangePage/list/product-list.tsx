@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/table";
 import ProductManageItem from "../item/product-item";
 import { useEffect } from "react";
-import useSheetStore from "@/store/useSheetStore";
 
 const ProductManageList = () => {
 	const queryByCreatedAt = query(

@@ -48,7 +48,7 @@ const ProductManageItem = ({ product, index }: ProductProps) => {
 			<TableCell>{brandData[product.brandId].korName}</TableCell>
 			<TableCell>{product.name}</TableCell>
 			<TableCell className="text-xs">{product.description}</TableCell>
-			<TableCell>{product.price}원</TableCell>
+			<TableCell>{product.price.toLocaleString()}원</TableCell>
 			<TableCell>{product.amount}개</TableCell>
 			<TableCell className="text-xs">
 				{product.tagIds.map(tag => `#${tagData[tag].name} `)}
