@@ -8,16 +8,8 @@ import { Collection } from "@/enum/Collection";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "@/firebase";
 import { toast } from "sonner";
-import {
-	InfiniteData,
-	useMutation,
-	useQueryClient,
-} from "@tanstack/react-query";
-import {
-	QUERY_KEY as productKey,
-	QUERY_KEY,
-	QueryResponse,
-} from "@/queries/useProductsQuery";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { QUERY_KEY as productKey } from "@/queries/useProductsQuery";
 import useProductStore from "@/store/useProductStore";
 import useUpdateCollection from "./useUpdateCollection";
 import { useEffect } from "react";

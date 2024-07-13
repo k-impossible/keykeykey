@@ -1,6 +1,6 @@
 import useProductQuery from "@/queries/useProductQuery";
 import { useNavigate, useParams } from "react-router-dom";
-import RecommendList from "./recommend-list/recommend-list";
+import RecommendList from "./list/recommend-list";
 import SwiperItem from "@/components/swiper/SwiperItem";
 import { brandData, tagData } from "@/lib/productData";
 import { Button } from "@/components/ui/button";

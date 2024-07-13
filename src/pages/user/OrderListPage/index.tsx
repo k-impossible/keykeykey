@@ -5,8 +5,7 @@ import useUserStore from "@/store/useUserStore";
 import { collection, limit, orderBy, query, where } from "firebase/firestore";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import OrderListItem from "./order-list-item/order-list-item";
-import { useMutation } from "@tanstack/react-query";
+import OrderListItem from "./item/order-list-item";
 
 const OrderListPage = () => {
 	const { id } = useUserStore();
@@ -31,7 +30,7 @@ const OrderListPage = () => {
 		return null;
 	}
 	const orders = data.pages.flatMap(page => page.orders);
-	console.log(orders);
+
 	return (
 		<div className="py-10 max-w-[600px] w-full">
 			<h1 className="text-3xl font-bold mb-10">내 주문내역</h1>

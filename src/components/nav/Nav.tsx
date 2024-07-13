@@ -3,11 +3,6 @@ import { Button } from "../ui/button";
 
 const NavData = [
 	{
-		id: 0,
-		name: "HOME",
-		path: "/",
-	},
-	{
 		id: 1,
 		name: "ALL",
 		path: "/products/all",
@@ -37,7 +32,6 @@ const NavData = [
 
 const Nav = () => {
 	const { pathname } = useLocation();
-	console.log();
 
 	if (
 		(pathname === "/" || pathname.includes("/product")) &&
@@ -46,6 +40,13 @@ const Nav = () => {
 		return (
 			<nav className="w-full border-b border-b-zinc-800">
 				<div className=" w-fit mx-auto">
+					<Link to="/">
+						<Button
+							className={`navBtn ${pathname === "/" ? "activeNavBtn" : ""}`}
+						>
+							HOME
+						</Button>
+					</Link>
 					{NavData.map(nav => (
 						<Link to={nav.path} key={nav.id}>
 							<Button

@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import useUpdateCollection from "@/hooks/useUpdateCollection";
 import { Collection } from "@/enum/Collection";
-import { OrderStatus } from "@/enum/OrderStatus";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEY } from "@/queries/useOrdersQuery";
 import {
@@ -29,43 +28,43 @@ import {
 type OrderProps = {
 	order: Order;
 };
+
+export const orderStatusRender = (status: number) => {
+	switch (status) {
+		case 0:
+			return "주문완료";
+		case 1:
+			return "배송준비중";
+		case 2:
+			return "배송중";
+		case 3:
+			return "주문취소";
+		default:
+			break;
+	}
+};
+
+export const orderStatusChange = async (order: Order, status: number) => {
+	try {
+		const orderObj: Order = {
+			...order,
+			status,
+			updatedAt: Date.now(),
+		};
+		await useUpdateCollection(
+			Collection.ORDER,
+			order.docId as string,
+			orderObj
+		);
+	} catch (error) {
+		console.log(error);
+	}
+};
 const OrderListItem = ({ order }: OrderProps) => {
-	const orderStatusChange = async () => {
-		try {
-			const orderObj: Order = {
-				...order,
-				status: OrderStatus.CANCEL,
-				updatedAt: Date.now(),
-			};
-			await useUpdateCollection(
-				Collection.ORDER,
-				order.docId as string,
-				orderObj
-			);
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	const orderStatusRender = (status: number) => {
-		switch (status) {
-			case 0:
-				return "주문완료";
-			case 1:
-				return "배송준비중";
-			case 2:
-				return "배송중";
-			case 3:
-				return "주문취소";
-			default:
-				break;
-		}
-	};
-
 	const queryClient = useQueryClient();
 	const mutation = useMutation({
-		mutationFn: () => {
-			return orderStatusChange();
+		mutationFn: (status: number) => {
+			return orderStatusChange(order, status);
 		},
 		onSuccess: () => {
 			return queryClient.invalidateQueries({ queryKey: [QUERY_KEY] });
@@ -109,7 +108,7 @@ const OrderListItem = ({ order }: OrderProps) => {
 								</AlertDialogHeader>
 								<AlertDialogFooter>
 									<AlertDialogCancel>닫기</AlertDialogCancel>
-									<AlertDialogAction onClick={() => mutation.mutate()}>
+									<AlertDialogAction onClick={() => mutation.mutate(3)}>
 										주문취소
 									</AlertDialogAction>
 								</AlertDialogFooter>

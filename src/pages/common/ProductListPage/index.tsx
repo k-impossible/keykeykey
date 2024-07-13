@@ -2,7 +2,7 @@ import { brandData } from "@/lib/productData";
 
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import ProductList from "./product-list/product-list";
+import ProductList from "./list/product-list";
 
 type SortCriteriaType = "createdAt" | "price";
 type SortSequenceType = "desc" | "asc";

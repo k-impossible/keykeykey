@@ -7,7 +7,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import useCartStore from "@/store/useCartStore";
-import OrderItem from "./order-item/order-item";
+import OrderItem from "./item/order-item";
 
 import CheckoutPage from "./checkout";
 const OrderPage = () => {
