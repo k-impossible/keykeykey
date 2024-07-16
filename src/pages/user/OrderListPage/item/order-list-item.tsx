@@ -120,16 +120,17 @@ const OrderListItem = ({ order }: OrderProps) => {
 			<CardContent className="border-t border-dashed pt-6">
 				<ul>
 					{order.products.map(item => (
-						<li
-							className="hover:underline text-zinc-600 text-sm mb-2 text-right"
-							key={item.productId}
-						>
+						<li className="mb-2 text-right" key={item.productId}>
 							<Link
+								className="hover:underline text-zinc-600 text-sm "
 								to={`/product/${brandData[item.brandId].name}/${item.productId}`}
 							>
-								[{brandData[item.brandId].korName}] {item.productName}&nbsp;
-								{item.productAmount}개
+								[{brandData[item.brandId].korName}] {item.productName}
 							</Link>
+							<p className="text-gray-500 text-sm">
+								{item.productAmount}개&nbsp;&nbsp;
+								{(item.productAmount * item.productPrice).toLocaleString()}원
+							</p>
 						</li>
 					))}
 				</ul>

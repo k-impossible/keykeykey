@@ -66,6 +66,7 @@ const ProductDetailPage = () => {
 					productPrice: data.price,
 					productTotalPrice: data.price,
 					productImage: data.images[0],
+					originalAmount: data.amount,
 				};
 				addMyCart(item);
 				setCartInProductChk(true);
@@ -85,29 +86,41 @@ const ProductDetailPage = () => {
 				<div className="w-[700px] h-[500px] mr-4">
 					<SwiperItem images={data.images} auto={false} nav={true} pag={true} />
 				</div>
-				<div className="w-[400px] h-[500px] bg-white p-5 rounded-lg flex flex-col justify-between">
-					<h1>
-						{brandData[data.brandId].korName} {brandData[data.brandId].name}
+				<div className="w-[400px] h-[500px] bg-white p-5 rounded-lg flex flex-col justify-between text-right">
+					<h1 className="font-semibold text-sm">
+						{brandData[data.brandId].korName}
 					</h1>
-					<h1>{data.name}</h1>
-					<p>{data.description}</p>
-					<div className="w-full">
-						<div className="flex gap-1 justify-start">
-							{data.tagIds.map(t => (
-								<span className="tag-style" key={tagData[t].id}>
-									{tagData[t].name}
-								</span>
-							))}
+					<h1 className="font-bold text-3xl">{data.name}</h1>
+					<div>
+						<p className="text-gray-500 mb-5">{data.description}</p>
+						<div className="w-full">
+							<div className="flex gap-1 justify-end">
+								{data.tagIds.map(t => (
+									<span className="tag-style" key={tagData[t].id}>
+										{tagData[t].name}
+									</span>
+								))}
+							</div>
 						</div>
 					</div>
-					<p>{data.amount}개</p>
-					<h2>{data.price.toLocaleString()}원</h2>
-					<Button
-						onClick={handleCartBtn}
-						variant={cartInProductChk ? "secondary" : "default"}
+					<p
+						className={`text-sm ${data.amount < 5 ? "text-red-500" : "text-gray-500"}`}
 					>
-						장바구니 {cartInProductChk ? "확인" : "담기"}
-					</Button>
+						{data.amount}개 남음
+					</p>
+					<h2 className="font-bold text-xl">{data.price.toLocaleString()}원</h2>
+					{data.amount < 1 ? (
+						<Button disabled variant={"secondary"}>
+							품절
+						</Button>
+					) : (
+						<Button
+							onClick={handleCartBtn}
+							variant={cartInProductChk ? "secondary" : "default"}
+						>
+							장바구니 {cartInProductChk ? "확인" : "담기"}
+						</Button>
+					)}
 				</div>
 			</div>
 			<RecommendList

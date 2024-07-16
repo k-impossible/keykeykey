@@ -13,4 +13,5 @@ interface CartItem {
 	productTotalPrice: number;
 	productAmount: number;
 	productImage: string;
+	originalAmount: number;
 }

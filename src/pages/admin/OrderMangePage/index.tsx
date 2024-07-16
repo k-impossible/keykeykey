@@ -41,17 +41,17 @@ const OrderManagePage = () => {
 			<Table className="text-center">
 				<TableHeader className="bg-zinc-700">
 					<TableRow className="hover:bg-transparent">
-						<TableHead className="w-[50px] text-center text-white">#</TableHead>
-						<TableHead className="w-[120px] text-center text-white">
+						<TableHead className="w-[30px] text-center text-white">#</TableHead>
+						<TableHead className="w-[100px] text-center text-white">
 							주문 ID
 						</TableHead>
 						<TableHead className="w-[100px] text-center text-white">
 							주문 유저
 						</TableHead>
-						<TableHead className="w-[70px] text-center text-white">
+						<TableHead className="w-[90px] text-center text-white">
 							주문 금액
 						</TableHead>
-						<TableHead className="w-[70px] text-center text-white">
+						<TableHead className="w-[90px] text-center text-white">
 							주문 수량
 						</TableHead>
 						<TableHead className="w-[300px] text-center text-white">

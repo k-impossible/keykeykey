@@ -27,13 +27,13 @@ const CartSheet = () => {
 					<h1 className="text-sm">상품을 추가해주세요.</h1>
 				</div>
 			) : (
-				<div style={{ height: "calc(100% - 124px)" }}>
+				<div style={{ height: "calc(100% - 140px)" }}>
 					<div className="overflow-y-auto h-full flex flex-col gap-7">
 						{myCart.products.map(item => (
 							<CartItem key={item.productId} item={item} />
 						))}
 					</div>
-					<SheetFooter className="pr-6 py-4 flex  justify-around items-center w-full border-t border-zinc-400">
+					<SheetFooter className="pr-6 py-6 flex  justify-around items-center w-full border-t border-zinc-400">
 						<div className="text-right mr-4">
 							<div>{myCart.totalAmount}개</div>
 							<div className="font-bold text-lg">

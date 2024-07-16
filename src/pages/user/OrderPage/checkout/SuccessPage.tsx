@@ -8,13 +8,15 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import useCartStore from "@/store/useCartStore";
-import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import useAddCollection from "@/hooks/useAddCollection";
 import { Collection } from "@/enum/Collection";
 import { Order } from "@/interfaces/Order.interface";
 import { OrderStatus } from "@/enum/OrderStatus";
 import useUserStore from "@/store/useUserStore";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "@/firebase";
+import { useEffect } from "react";
 
 const SuccessPage = () => {
 	const [searchParams] = useSearchParams();
@@ -23,24 +25,35 @@ const SuccessPage = () => {
 
 	useEffect(() => {
 		(async () => {
-			console.log("object");
-			// order doc 생성
-			const date = Date.now();
-			const newOrder: Order = {
-				id: searchParams.get("orderId") as string,
-				userId: myCart.userId,
-				userEmail: email,
-				products: myCart.products,
-				totalAmount: myCart.totalAmount,
-				totalPrice: myCart.totalPrice,
-				status: OrderStatus.DONE,
-				createdAt: date,
-				updatedAt: date,
-			};
-			await useAddCollection(Collection.ORDER, newOrder);
+			try {
+				const filterProducts = myCart.products.filter(
+					item => 0 < item.productAmount
+				);
+				const date = Date.now();
+				const newOrder: Order = {
+					id: searchParams.get("orderId") as string,
+					userId: myCart.userId,
+					userEmail: email,
+					products: filterProducts,
+					totalAmount: myCart.totalAmount,
+					totalPrice: myCart.totalPrice,
+					status: OrderStatus.DONE,
+					createdAt: date,
+					updatedAt: date,
+				};
 
-			// 장바구니 초기화
-			clearMyCart();
+				await useAddCollection(Collection.ORDER, newOrder);
+
+				for (let product of filterProducts) {
+					await updateDoc(doc(db, Collection.PRODUCT, product.productId), {
+						amount: Number(product.originalAmount - product.productAmount),
+					});
+				}
+
+				clearMyCart();
+			} catch (error) {
+				console.log(error);
+			}
 		})();
 	}, []);
 

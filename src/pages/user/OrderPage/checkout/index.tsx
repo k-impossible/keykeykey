@@ -40,7 +40,7 @@ const CheckoutPage = () => {
 		<div className="w-full">
 			<div id="payment-widget" />
 			<div className="flex flex-col justify-end items-end w-full border-t pt-4">
-				<div>총 주문 상품: {myCart.totalAmount}개</div>
+				<div>주문 수량 : {myCart.totalAmount}개</div>
 				<div className="font-bold text-xl my-6">
 					결제 금액 : {myCart.totalPrice.toLocaleString()}원
 				</div>

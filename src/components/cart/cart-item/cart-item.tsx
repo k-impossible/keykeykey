@@ -13,22 +13,53 @@ import {
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import useProductQuery from "@/queries/useProductQuery";
+import { toast } from "sonner";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 type CartItemProps = {
 	item: CartItem;
 };
 const CartItem = ({ item }: CartItemProps) => {
 	const { updateMyCart } = useCartStore();
+	const { data, error } = useProductQuery(item.productId, item.productId);
+
+	useEffect(() => {
+		if (data?.amount === 0) {
+			updateMyCart(item.productId, "soldOut");
+		} else {
+			updateMyCart(item.productId, "sync", data?.amount);
+		}
+	}, [data]);
+
+	if (!data || error) {
+		return null;
+	}
 	return (
-		<div className="flex justify-between mx-6 border-b pb-5">
-			<div className="w-[120px]">
-				<img src={item.productImage} alt="cartItem" />
+		<div className=" mx-6 border-b pb-3 last:border-b-0">
+			<div className="flex justify-between">
+				<div className="w-[150px]">
+					<img src={item.productImage} alt="cartItem" />
+				</div>
+				<div className="text-right">
+					<h1 className="text-xs">{brandData[item.brandId].korName}</h1>
+					<Link
+						className={`font-semibold my-4 block hover:underline ${data.amount === 0 ? "line-through text-gray-500" : ""}`}
+						to={`/product/${brandData[item.brandId].name}/${item.productId}`}
+					>
+						{item.productName}
+					</Link>
+					<p
+						className={`text-xs ${data.amount < 5 ? "text-red-500" : "text-gray-500"}`}
+					>
+						{data.amount}개 남음
+					</p>
+				</div>
 			</div>
-			<div className="text-right text-sm">
-				<h1 className="text-xs">{brandData[item.brandId].korName}</h1>
-				<h1 className="">{item.productName}</h1>
-				<div className="flex items-center justify-end mt-4 mb-2">
-					{item.productAmount === 1 ? (
+			<div className="flex justify-between items-center mt-3">
+				<div className="flex items-center">
+					{item.productAmount <= 1 ? (
 						<AlertDialog>
 							<AlertDialogTrigger asChild>
 								<Button variant={"ghost"}>
@@ -66,16 +97,25 @@ const CartItem = ({ item }: CartItemProps) => {
 						</Button>
 					)}
 
-					<p className="mx-4 font-semibold">{item.productAmount}개</p>
+					<p className="mx-4 text-sm">{item.productAmount}개</p>
 					<Button variant={"ghost"}>
 						<FaRegSquarePlus
 							className="text-zinc-500 cursor-pointer"
 							size={19}
-							onClick={() => updateMyCart(item.productId, "increase")}
+							onClick={() => {
+								if (item.productAmount < data.amount) {
+									updateMyCart(item.productId, "increase");
+								} else {
+									toast.error("상품의 남은 재고보다 더 담을 수 없습니다.");
+								}
+							}}
 						/>
 					</Button>
 				</div>
-				<p className="font-semibold">
+
+				<p
+					className={`font-semibold ${data.amount === 0 ? "line-through text-gray-500" : ""}`}
+				>
 					{item.productTotalPrice.toLocaleString()}원
 				</p>
 			</div>

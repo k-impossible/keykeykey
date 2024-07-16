@@ -12,7 +12,7 @@ const OrderItem = ({ item }: CartItemProps) => {
 			</div>
 			<div className="text-right ">
 				<h1 className="text-sm">{brandData[item.brandId].korName}</h1>
-				<h1 className="mb-3">{item.productName}</h1>
+				<h1 className="my-3 font-semibold">{item.productName}</h1>
 				<p>{item.productAmount}개</p>
 				<p>{item.productTotalPrice.toLocaleString()}원</p>
 			</div>

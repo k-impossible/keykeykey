@@ -3,6 +3,7 @@ import { db } from "@/firebase";
 import { useQuery } from "@tanstack/react-query";
 import { doc, getDoc } from "firebase/firestore";
 
+export const QUERY_KEY = "product";
 const getDocInProducts = async (id: string) => {
 	const docRef = doc(db, Collection.PRODUCT, id);
 	const docSnap = await getDoc(docRef);
@@ -16,8 +17,10 @@ const getDocInProducts = async (id: string) => {
 
 const useProductQuery = (id: string, ...keys: any) => {
 	return useQuery({
-		queryKey: [...keys],
+		queryKey: [QUERY_KEY, ...keys],
 		queryFn: () => getDocInProducts(id),
+		gcTime: 0,
+		staleTime: 0,
 	});
 };
 

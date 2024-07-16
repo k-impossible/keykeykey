@@ -11,7 +11,11 @@ type Action = {
 	setCarts: (cart: Cart) => void;
 	setMyCart: (userId: string) => void;
 	addMyCart: (item: CartItem) => void;
-	updateMyCart: (productId: string, flag: "increase" | "decrease") => void;
+	updateMyCart: (
+		productId: string,
+		flag: "increase" | "decrease" | "soldOut" | "sync",
+		amount?: number
+	) => void;
 	removeMyCart: () => void;
 	clearMyCart: () => void;
 };
@@ -41,9 +45,9 @@ const useCartStore = create<CartState & Action>()(
 					})),
 				removeMyCart: () => set(() => ({ myCart: initCartState.myCart })),
 				clearMyCart: () => set(state => ({ myCart: handleClearMyCart(state) })),
-				updateMyCart: (productId, flag) =>
+				updateMyCart: (productId, flag, amount?) =>
 					set(state => ({
-						myCart: handleUpdateMyCart(state, productId, flag),
+						myCart: handleUpdateMyCart(state, productId, flag, amount),
 					})),
 			}),
 
@@ -94,7 +98,8 @@ const handleClearMyCart = (state: CartState & Action) => {
 const handleUpdateMyCart = (
 	state: CartState & Action,
 	productId: string,
-	flag: "increase" | "decrease"
+	flag: "increase" | "decrease" | "soldOut" | "sync",
+	amount?: number
 ) => {
 	const myCart = state.myCart;
 	const product = myCart.products.find(
@@ -118,6 +123,15 @@ const handleUpdateMyCart = (
 			}
 			myCart.totalAmount -= 1;
 			myCart.totalPrice -= product.productPrice;
+			break;
+		case "soldOut":
+			myCart.totalAmount -= product.productAmount;
+			myCart.totalPrice -= product.productAmount * product.productPrice;
+			product.productAmount = 0;
+			product.productPrice = 0;
+			break;
+		case "sync":
+			product.originalAmount = amount as number;
 			break;
 	}
 
