@@ -32,7 +32,7 @@ const RecommendList = ({ brand, id, name }: RecommendProps) => {
 			<h1 className="text-2xl font-semibold mb-8">
 				{brand}의 다른 상품은 어떠세요?
 			</h1>
-			<div className="flex justify-between  gap-10 items-center ">
+			<div className="flex justify-between  gap-8 items-center ">
 				{products.map(product => (
 					<ProductItem
 						key={product.id}
@@ -42,7 +42,10 @@ const RecommendList = ({ brand, id, name }: RecommendProps) => {
 						pag={false}
 					/>
 				))}
-				<Link to={`/products/${name.toLowerCase()}`}>
+				<Link
+					to={`/products/${name.toLowerCase()}`}
+					title="브랜드 페이지로 이동"
+				>
 					<Button className="flex items-center rounded-full">
 						more
 						<FaAngleRight size={16} />

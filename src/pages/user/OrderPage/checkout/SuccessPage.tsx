@@ -70,7 +70,7 @@ const SuccessPage = () => {
 					<div className="font-bold text-xl mb-6">
 						결제 금액 : {Number(searchParams.get("amount")).toLocaleString()}원
 					</div>
-					<Link to="/orders">
+					<Link to="/orders" title="주문내역 페이지로 이동">
 						<Button variant={"outline"}>주문 내역 확인</Button>
 					</Link>
 				</CardContent>

@@ -51,7 +51,7 @@ const Header = () => {
 	return (
 		<div className="lg:container py-8 flex justify-between items-center m-auto">
 			<div className="w-20">
-				<Link to="/">
+				<Link to="/" title="메인페이지로 이동">
 					<img src={logoImg} alt="logo" />
 				</Link>
 			</div>
@@ -59,6 +59,7 @@ const Header = () => {
 				{isSeller ? (
 					<div className="flex justify-between items-center gap-7">
 						<Link
+							title="상품관리 페이지로 이동"
 							to="/product-manage"
 							className={buttonVariants({
 								variant: pathname === "/product-manage" ? "default" : "link",
@@ -67,6 +68,7 @@ const Header = () => {
 							상품관리
 						</Link>
 						<Link
+							title="주문내역 페이지로 이동"
 							to="/order-manage"
 							className={buttonVariants({
 								variant: pathname === "/order-manage" ? "default" : "link",
@@ -109,7 +111,7 @@ const Header = () => {
 						className="cursor-pointer"
 					/>
 				) : (
-					<Link to="/login">
+					<Link to="/login" title="로그인 페이지로 이동">
 						<FaArrowRightToBracket
 							size={30}
 							title="로그인"

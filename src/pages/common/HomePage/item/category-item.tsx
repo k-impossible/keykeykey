@@ -31,7 +31,7 @@ const CategoryItem = ({ brand }: BrandProps) => {
 	const products = data.pages.flatMap(page => page.products);
 
 	return (
-		<div className="flex gap-10 items-center justify-between">
+		<div className="flex gap-8 items-center justify-between">
 			{products.map(product => (
 				<ProductItem
 					key={product.id}
@@ -41,7 +41,10 @@ const CategoryItem = ({ brand }: BrandProps) => {
 					pag={false}
 				/>
 			))}
-			<Link to={`/products/${brand.name.toLowerCase()}`}>
+			<Link
+				to={`/products/${brand.name.toLowerCase()}`}
+				title="브랜드 페이지로 이동"
+			>
 				<Button className="flex items-center rounded-full">
 					more
 					<FaAngleRight size={14} className="mt-1 ml-1" />

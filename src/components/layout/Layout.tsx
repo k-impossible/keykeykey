@@ -8,7 +8,7 @@ const Layout = () => {
 			<Header />
 			<div
 				className="w-full h-full flex flex-col justify-start items-center"
-				style={{ minHeight: "calc(100vh - 207px)" }}
+				style={{ minHeight: "calc(100vh - 214px)" }}
 			>
 				<Nav />
 				<Outlet />

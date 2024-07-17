@@ -12,11 +12,12 @@ type ProductProps = {
 const ProductItem = ({ product, auto, nav, pag }: ProductProps) => {
 	return (
 		<Link
+			title="상품 상세페이지로 이동"
 			to={`/product/${brandData[product.brandId].name.toLowerCase()}/${product.id}`}
 		>
-			<Card className="w-[270px]">
+			<Card className="w-[280px]">
 				<CardContent className="p-1">
-					<div className="w-[260px] h-[220px]">
+					<div className="w-[270px] h-[220px]">
 						<SwiperItem
 							images={product.images}
 							auto={auto}
