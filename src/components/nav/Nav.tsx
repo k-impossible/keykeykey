@@ -7,26 +7,27 @@ const NavData = [
 		name: "ALL",
 		path: "/products/all",
 	},
+
 	{
 		id: 2,
-		name: "Keychron",
-		path: "/products/keychron",
-	},
-	{ id: 3, name: "RealForce", path: "/products/realforce" },
-	{
-		id: 4,
-		name: "HappyHacking",
-		path: "/products/happyhacking",
-	},
-	{
-		id: 5,
 		name: "Logitech",
 		path: "/products/logitech",
 	},
 	{
-		id: 6,
+		id: 3,
+		name: "HappyHacking",
+		path: "/products/happyhacking",
+	},
+	{ id: 4, name: "RealForce", path: "/products/realforce" },
+	{
+		id: 5,
 		name: "Leopold",
 		path: "/products/leopold",
+	},
+	{
+		id: 6,
+		name: "Keychron",
+		path: "/products/keychron",
 	},
 ];
 

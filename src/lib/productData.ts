@@ -1,34 +1,48 @@
-import logiTechLogo from "../assets/brand/logitech.png";
-import razerLogo from "../assets/brand/razer.png";
-import corsairLogo from "../assets/brand/corsair.png";
-import keyChronLogo from "../assets/brand/keychron.jpeg";
-import leoPoldLogo from "../assets/brand/leopold.png";
-
+import keyChronBG from "../assets/brand/keychron-bg.webp";
+import logiTechBG from "../assets/brand/logitech-bg.webp";
+import happyBG from "../assets/brand/happy-bg.webp";
+import realBG from "../assets/brand/realforce-bg.webp";
+import leoPoldBG from "../assets/brand/leopold-bg.webp";
+import keyChronLogo from "@/assets/brand/keychron-logo.png";
+import logitechLogo from "@/assets/brand/logitech-logo.svg";
+import happyLogo from "@/assets/brand/happy-logo.png";
+import realLogo from "@/assets/brand/realforce-logo.svg";
+import leopoldLogo from "@/assets/brand/leopold-logo.png";
 export const brandData = [
 	{
 		id: 0,
-		name: "Keychron",
-		korName: "키크론",
-		imagePath: logiTechLogo,
+		name: "Logitech",
+		korName: "로지텍",
+		imagePath: logiTechBG,
+		logoPath: logitechLogo,
 	},
-	{ id: 1, name: "RealForce", korName: "리얼포스", imagePath: razerLogo },
+	{
+		id: 1,
+		name: "HappyHacking",
+		korName: "해피해킹",
+		imagePath: happyBG,
+		logoPath: happyLogo,
+	},
 	{
 		id: 2,
-		name: "Leopold",
-		korName: "레오폴드",
-		imagePath: leoPoldLogo,
+		name: "RealForce",
+		korName: "리얼포스",
+		imagePath: realBG,
+		logoPath: realLogo,
 	},
 	{
 		id: 3,
-		name: "HappyHacking",
-		korName: "해피해킹",
-		imagePath: corsairLogo,
+		name: "Leopold",
+		korName: "레오폴드",
+		imagePath: leoPoldBG,
+		logoPath: leopoldLogo,
 	},
 	{
 		id: 4,
-		name: "Logitech",
-		korName: "로지텍",
-		imagePath: keyChronLogo,
+		name: "Keychron",
+		korName: "키크론",
+		imagePath: keyChronBG,
+		logoPath: keyChronLogo,
 	},
 ];
 

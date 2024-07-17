@@ -28,7 +28,7 @@ const ProductList = ({
 	const { ref, inView } = useInView();
 
 	const whereQuery = allParam
-		? where("brandId", ">=", 0)
+		? where("brandId", ">", -1)
 		: where("brandId", "==", brandId);
 
 	const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -39,7 +39,7 @@ const ProductList = ({
 				limit(10),
 				whereQuery
 			),
-			brandId,
+			allParam ? -1 : brandId,
 			sortCriteria,
 			sortSequence
 		);

@@ -46,10 +46,10 @@ const OrderManagePage = () => {
 							주문 ID
 						</TableHead>
 						<TableHead className="w-[100px] text-center text-white">
-							주문 유저
+							구매자 ID
 						</TableHead>
 						<TableHead className="w-[90px] text-center text-white">
-							주문 금액
+							결제 금액
 						</TableHead>
 						<TableHead className="w-[90px] text-center text-white">
 							주문 수량

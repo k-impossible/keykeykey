@@ -1,6 +1,6 @@
 import { auth } from "@/firebase";
 import { signOut } from "firebase/auth";
-import logoImg from "@/assets/logo.png";
+import logoImg from "@/assets/logo.webp";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useUserStore from "@/store/useUserStore";
 import {

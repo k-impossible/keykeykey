@@ -44,7 +44,7 @@ const CategoryItem = ({ brand }: BrandProps) => {
 			<Link to={`/products/${brand.name.toLowerCase()}`}>
 				<Button className="flex items-center rounded-full">
 					more
-					<FaAngleRight size={16} />
+					<FaAngleRight size={14} className="mt-1 ml-1" />
 				</Button>
 			</Link>
 		</div>

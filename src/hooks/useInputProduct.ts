@@ -85,11 +85,6 @@ export const useInputProduct = () => {
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		try {
 			await useProductMutation.mutateAsync(values);
-			setSheetState(false);
-			productStoreData.initProductState();
-			form.reset();
-			form.setValue("images", dataTransfer.files);
-			toast.success(`상품 ${title}이 완료되었습니다.`);
 		} catch (error) {
 			console.log(error);
 			toast.error(`상품 ${title}이 실패하였습니다.`);
@@ -101,6 +96,11 @@ export const useInputProduct = () => {
 			return await handleUploadProduct(values);
 		},
 		onSuccess: () => {
+			setSheetState(false);
+			productStoreData.initProductState();
+			form.reset();
+			form.setValue("images", dataTransfer.files);
+			toast.success(`상품 ${title}이 완료되었습니다.`);
 			return queryClient.invalidateQueries({ queryKey: [productKey] });
 		},
 		onError: err => {

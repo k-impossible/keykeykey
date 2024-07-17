@@ -86,15 +86,15 @@ const ProductDetailPage = () => {
 				<div className="w-[700px] h-[500px] mr-4">
 					<SwiperItem images={data.images} auto={false} nav={true} pag={true} />
 				</div>
-				<div className="w-[400px] h-[500px] bg-white p-5 rounded-lg flex flex-col justify-between text-right">
-					<h1 className="font-semibold text-sm">
+				<div className="w-[400px] h-[500px] bg-white p-5 rounded-lg flex flex-col justify-between text-right break-keep">
+					<h1 className="font-semibold text-sm text-left">
 						{brandData[data.brandId].korName}
 					</h1>
-					<h1 className="font-bold text-3xl">{data.name}</h1>
+					<h1 className="font-bold text-3xl text-left">{data.name}</h1>
 					<div>
-						<p className="text-gray-500 mb-5">{data.description}</p>
+						<p className="text-gray-500 mb-5 text-left">{data.description}</p>
 						<div className="w-full">
-							<div className="flex gap-1 justify-end">
+							<div className="flex gap-1 justify-start">
 								{data.tagIds.map(t => (
 									<span className="tag-style" key={tagData[t].id}>
 										{tagData[t].name}

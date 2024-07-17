@@ -120,14 +120,21 @@ const OrderListItem = ({ order }: OrderProps) => {
 			<CardContent className="border-t border-dashed pt-6">
 				<ul>
 					{order.products.map(item => (
-						<li className="mb-2 text-right" key={item.productId}>
+						<li
+							className="mb-2 flex items-center justify-between"
+							key={item.productId}
+						>
+							<div className="w-[100px]">
+								<img src={item.productImage} alt="" />
+							</div>
 							<Link
-								className="hover:underline text-zinc-600 text-sm "
+								className="hover:underline text-zinc-600 mr-5"
 								to={`/product/${brandData[item.brandId].name}/${item.productId}`}
 							>
 								[{brandData[item.brandId].korName}] {item.productName}
 							</Link>
-							<p className="text-gray-500 text-sm">
+
+							<p className="text-gray-500 ">
 								{item.productAmount}개&nbsp;&nbsp;
 								{(item.productAmount * item.productPrice).toLocaleString()}원
 							</p>
