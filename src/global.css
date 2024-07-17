@@ -2,13 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-	background-color: rgb(24, 24, 27, 1);
-	box-sizing: border-box;
-}
-
 @layer base {
+	* {
+		@apply border-border;
+		font-family: "Noto Sans KR", sans-serif;
+	}
+	body {
+		@apply bg-zinc-900 text-foreground box-border;
+	}
 	:root {
 		--background: 0 0% 100%;
 		--foreground: 222.2 84% 4.9%;
@@ -71,12 +72,68 @@ body {
 		--ring: 212.7 26.8% 83.9%;
 	}
 }
+.container {
+	@apply p-8;
+}
+.navBtn {
+	@apply rounded-b-none rounded-t-lg bg-slate-100 text-zinc-800 border border-zinc-300 border-b-0 font-light px-7;
+}
+.navBtn:hover {
+	@apply bg-zinc-400 text-white;
+}
+.activeNavBtn {
+	@apply border border-zinc-800 border-b-slate-100 font-bold z-10 translate-y-[1px];
+}
 
-@layer base {
-	* {
-		@apply border-border;
-	}
-	body {
-		@apply bg-background text-foreground;
-	}
+.swiper {
+	width: 100%;
+	height: 100%;
+}
+
+.swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+
+	/* Center slide text vertically */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.swiper-slide img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.tag-style {
+	@apply rounded-full px-2 py-1 bg-zinc-400 text-[10px] text-white text-center;
+}
+.brandLogo-style {
+	height: 50px;
+	width: 50px;
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	@apply border border-zinc-400 rounded-full;
+}
+
+.sortBtn {
+	@apply cursor-pointer;
+}
+.sortActiveBtn {
+	@apply font-bold text-zinc-800 underline;
+}
+.cart-btn-wrap {
+	position: relative;
+}
+.cart-cnt {
+	@apply absolute -top-0 -right-3 bg-zinc-400 text-white rounded-full w-[20px] h-[20px] text-center text-xs flex justify-center items-center font-semibold;
+}
+.cart-cnt-active {
+	@apply bg-red-500;
+}
+.category-bg {
+	@apply h-[350px] bg-cover bg-center bg-no-repeat bg-fixed;
 }
