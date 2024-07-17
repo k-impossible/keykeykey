@@ -12,10 +12,6 @@ type SwiperProps = {
 const SwiperItem = ({ images, auto, nav, pag }: SwiperProps) => {
 	return (
 		<Swiper
-			style={{
-				"--swiper-navigation-color": "#333",
-				"--swiper-pagination-color": "#333",
-			}}
 			modules={[Autoplay, Navigation, Pagination]}
 			autoplay={
 				auto && {
