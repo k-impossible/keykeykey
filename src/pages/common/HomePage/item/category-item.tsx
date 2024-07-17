@@ -1,11 +1,8 @@
 import ProductItem from "@/components/product/ProductItem";
-import { Button } from "@/components/ui/button";
 import { Collection } from "@/enum/Collection";
 import { db } from "@/firebase";
 import useProductsQuery from "@/queries/useProductsQuery";
 import { collection, limit, orderBy, query, where } from "firebase/firestore";
-import { FaAngleRight } from "react-icons/fa6";
-import { Link } from "react-router-dom";
 
 export type BrandProps = {
 	brand: {
@@ -41,15 +38,6 @@ const CategoryItem = ({ brand }: BrandProps) => {
 					pag={false}
 				/>
 			))}
-			<Link
-				to={`/products/${brand.name.toLowerCase()}`}
-				title="브랜드 페이지로 이동"
-			>
-				<Button className="flex items-center rounded-full">
-					more
-					<FaAngleRight size={14} className="mt-1 ml-1" />
-				</Button>
-			</Link>
 		</div>
 	);
 };

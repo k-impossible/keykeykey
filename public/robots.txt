@@ -1,5 +1,4 @@
 User-agent: *
-Disallow: /
 Allow: /products/
 Allow: /product/
-Sitemap: https://test.co.kr/sitemap.xml       
+Disallow: /
