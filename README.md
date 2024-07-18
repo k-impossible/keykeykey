@@ -1,6 +1,5 @@
 <a href="https://keykeykey.store" target="_blank">
-<img alt="Static Badge" src="https://img.shields.io/badge/keykeykey-web-orange?
-style=for-the-badge&label=www.keykeykey.store">
+<img alt="Static Badge" src="https://img.shields.io/badge/keykeykey-web-orange?style=for-the-badge&logoColor=white&label=www.keykeykey.store">
 </a>
 &nbsp;
 <a href="https://github.com/users/k-impossible/projects/5" target="_blank">
@@ -11,7 +10,7 @@ style=for-the-badge&label=www.keykeykey.store">
 <br/>
 
 <div align="center">
-<img src="src/assets/logo.webp" width="150px" style="background-color: white;padding:.5rem;border-radius:.25rem">
+<img src="src/assets/logo.webp" width="150px" >
 <h3>키키키 (KEY KEY KEY)</h3>
 </div>
 
