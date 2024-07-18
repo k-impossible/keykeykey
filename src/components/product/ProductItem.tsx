@@ -1,4 +1,4 @@
-import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import SwiperItem from "../swiper/SwiperItem";
 import { brandData, tagData } from "@/lib/productData";
 import { Link } from "react-router-dom";
@@ -30,9 +30,9 @@ const ProductItem = ({ product, auto, nav, pag }: ProductProps) => {
 					<span className="font-light text-sm">
 						{brandData[product.brandId].korName}
 					</span>
-					<CardTitle className="font-semibold text-lg text-ellipsis overflow-hidden w-full whitespace-nowrap">
+					<p className="font-semibold text-lg text-ellipsis overflow-hidden w-full whitespace-nowrap">
 						{product.name}
-					</CardTitle>
+					</p>
 					<h1 className="w-full text-right font-semibold text-md my-3">
 						{product.price.toLocaleString()}원
 					</h1>
