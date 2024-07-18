@@ -41,7 +41,7 @@ const Nav = () => {
 		return (
 			<nav className="w-full border-b border-b-zinc-800">
 				<div className=" w-fit mx-auto">
-					<Link to="/">
+					<Link to="/" title="메인페이지로 이동">
 						<Button
 							className={`navBtn ${pathname === "/" ? "activeNavBtn" : ""}`}
 						>
@@ -49,7 +49,7 @@ const Nav = () => {
 						</Button>
 					</Link>
 					{NavData.map(nav => (
-						<Link to={nav.path} key={nav.id}>
+						<Link to={nav.path} key={nav.id} title="브랜드 페이지로 이동">
 							<Button
 								className={`navBtn ${pathname.includes(nav.name.toLowerCase()) ? "activeNavBtn" : ""}`}
 							>

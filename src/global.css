@@ -107,8 +107,16 @@
 	height: 100%;
 	object-fit: cover;
 }
+
+.swiper-button-prev,
+.swiper-button-next {
+	@apply text-zinc-600;
+}
+.swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+	@apply bg-zinc-800;
+}
 .tag-style {
-	@apply rounded-full px-2 py-1 bg-zinc-400 text-[10px] text-white text-center;
+	@apply rounded-full px-2 py-1 bg-neutral-500 text-xs text-white text-center;
 }
 .brandLogo-style {
 	height: 50px;

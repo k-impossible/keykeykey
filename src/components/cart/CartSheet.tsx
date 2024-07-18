@@ -40,7 +40,7 @@ const CartSheet = () => {
 								{myCart.totalPrice.toLocaleString()}원
 							</div>
 						</div>
-						<Link to="/order">
+						<Link to="/order" title="주문하기 페이지로 이동">
 							<Button
 								className="py-6 w-32"
 								onClick={() => setCartSheetState(false)}

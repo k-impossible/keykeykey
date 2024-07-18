@@ -125,9 +125,10 @@ const OrderListItem = ({ order }: OrderProps) => {
 							key={item.productId}
 						>
 							<div className="w-[100px]">
-								<img src={item.productImage} alt="" />
+								<img src={item.productImage} alt="product image" />
 							</div>
 							<Link
+								title="상품 상세페이지로 이동"
 								className="hover:underline text-zinc-600 mr-5"
 								to={`/product/${brandData[item.brandId].name}/${item.productId}`}
 							>

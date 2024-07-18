@@ -38,7 +38,11 @@ const OrderListPage = () => {
 			{orders.length === 0 ? (
 				<div className="text-center pt-10">
 					<h1>상품을 주문한 내역이 아직 없습니다.</h1>
-					<Link to="/" className="text-sky-600 underline mt-5 block">
+					<Link
+						to="/"
+						className="text-sky-600 underline mt-5 block"
+						title="메인페이지로 이동"
+					>
 						메인페이지로
 					</Link>
 				</div>

@@ -45,6 +45,7 @@ const CartItem = ({ item }: CartItemProps) => {
 				<div className="text-right">
 					<h1 className="text-xs">{brandData[item.brandId].korName}</h1>
 					<Link
+						title="상품 상세 페이지로 이동"
 						className={`font-semibold my-4 block hover:underline w-[150px]  text-ellipsis overflow-hidden whitespace-nowrap ${data.amount === 0 ? "line-through text-gray-500" : ""}`}
 						to={`/product/${brandData[item.brandId].name}/${item.productId}`}
 					>

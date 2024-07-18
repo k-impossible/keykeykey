@@ -27,12 +27,12 @@ const FailPage = () => {
 				<CardContent className="flex flex-col w-full justify-end items-center border-b">
 					<div>{`실패 사유: ${searchParams.get("message")}`}</div>
 					<div>
-						<Link to="/order">
+						<Link to="/order" title="주문하기 페이지로 이동">
 							<Button variant={"outline"} className="my-5 mr-3">
 								다시 주문하기
 							</Button>
 						</Link>
-						<Link to="/">
+						<Link to="/" title="메인페이지로 이동">
 							<Button variant={"outline"}>메인 페이지로</Button>
 						</Link>
 					</div>

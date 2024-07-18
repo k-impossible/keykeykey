@@ -55,7 +55,7 @@ const ProductList = ({
 	}
 	const products = data.pages.flatMap(page => page.products);
 	return (
-		<div className=" flex flex-wrap gap-16">
+		<div className=" flex flex-wrap gap-10 justify-between">
 			{products.map(product => (
 				<ProductItem
 					key={product.id}

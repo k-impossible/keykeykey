@@ -8,7 +8,11 @@ const LoginPage = () => {
 			<SignIn />
 			<p className="my-5 text-center">
 				계정이 없습니까?&nbsp;&nbsp;
-				<Link to="/sign-up" className="text-sky-600">
+				<Link
+					to="/sign-up"
+					className="text-sky-600"
+					title="회원가입 페이지로 이동"
+				>
 					가입하기
 				</Link>
 			</p>

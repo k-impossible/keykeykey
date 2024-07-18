@@ -7,7 +7,7 @@ const SignUpPage = () => {
 			<SignUp />
 			<p className="my-5 text-center">
 				계정이 있습니까?&nbsp;&nbsp;
-				<Link to="/login" className="text-sky-600">
+				<Link to="/login" className="text-sky-600" title="로그인 페이지로 이동">
 					로그인하기
 				</Link>
 			</p>

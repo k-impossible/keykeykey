@@ -42,7 +42,7 @@ const ProductListPage = () => {
 						{findBrand !== undefined ? (
 							<img
 								src={findBrand.logoPath}
-								alt=""
+								alt="brand-logo"
 								style={{
 									width: findBrand.id === 1 ? "100px" : "180px",
 									color: "white",

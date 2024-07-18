@@ -86,6 +86,7 @@ const UserAuthForm: FC<FormProps> = ({ title, getDataForm }) => {
 					id="email"
 					placeholder="Email"
 					className="w-64"
+					autoComplete="off"
 					{...register("email", userEmail)}
 				/>
 				<div className="ml-2 ">
@@ -104,6 +105,7 @@ const UserAuthForm: FC<FormProps> = ({ title, getDataForm }) => {
 					type="password"
 					id="password"
 					placeholder="Password"
+					autoComplete="off"
 					{...register("password", userPassword)}
 				/>
 				<div className="ml-2" style={{ maxWidth: "256px" }}>
@@ -124,6 +126,7 @@ const UserAuthForm: FC<FormProps> = ({ title, getDataForm }) => {
 							type="password"
 							id="pwConfirm"
 							placeholder="Password Confirm"
+							autoComplete="off"
 							{...register("pwConfirm", userPasswordConfirm)}
 						/>
 						<div className="ml-2" style={{ maxWidth: "256px" }}>
@@ -144,6 +147,7 @@ const UserAuthForm: FC<FormProps> = ({ title, getDataForm }) => {
 							type="text"
 							id="nickname"
 							placeholder="Nickname"
+							autoComplete="off"
 							{...register("nickname", userName)}
 						/>
 						<div className="ml-2 ">
