@@ -10,11 +10,13 @@
 <br/>
 
 <div align="center">
-<img src="src/assets/logo.webp" width="150px" >
+<img src="src/assets/logo-jpg.jpg" width="150px">
 <h3>키키키 (KEY KEY KEY)</h3>
 </div>
 
-> 프로젝트 이름 '키키키(keykeykey)'는 "행복하게 코딩하자"라는 의미로 한글 채팅으로 웃음을 의미하는 'ㅋ'과 키보드를 뜻하는 영단어 keyboard의 'key'의 음성어를 합쳐서 표현했고, 로고는 'ㅋ'이 새겨진 키보드 모양을 표현했습니다.
+> 프로젝트 이름 '키키키(keykeykey)'는 한글 채팅으로 웃음을 의미하는 'ㅋ'과 키보드를 뜻하는 영단어 keyboard의 'key'의 음성어를 합쳐서 <strong>"행복하게 코딩하자"</strong>라는 의미를 담았고, 로고는 'ㅋ'이 새겨진 키보드 모양을 표현했습니다.
+
+<br>
 
 ![Home Screen Shot](/src/assets/readme/home.webp)
 <br>
@@ -33,13 +35,10 @@
 [키키키 - 개발자 키보드 전문 스토어](https://keykeykey.store)
 <br>
 
-<hr>
-
 ## 기술 스택
 
 ![Static Badge](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white)
 ![Static Badge](https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![Static Badge](https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 <br>
 
 ![Static Badge](https://img.shields.io/badge/reactquery-FF4154?style=for-the-badge&logo=reactquery&logoColor=white)
@@ -52,7 +51,6 @@
 ![Static Badge](https://img.shields.io/badge/zod-3E67B1?style=for-the-badge&logo=zod&logoColor=white)
 <br>
 
+![Static Badge](https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Static Badge](https://img.shields.io/badge/firebase-DD2C00?style=for-the-badge&logo=firebase&logoColor=white)
-<br>
-
 ![Static Badge](https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
