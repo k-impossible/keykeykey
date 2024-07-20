@@ -8,6 +8,7 @@
 
 <br/>
 <br/>
+<br/>
 
 <div align="center">
 <img src="src/assets/logo-jpg.jpg" width="150px">
@@ -25,10 +26,11 @@
 
 개발자들이 선호하는 키보드 브랜드의 제품을 판매하는 키보드 쇼핑 웹 서비스입니다.<br>
 
-#### 테스트 계정 (ID/PW)
-
+<!-- #### 테스트 계정 (ID/PW)
 - 유저 : `test1@test.com` / `qwer1234@@`
-- 관리자 : `admin@master.me` / `qwer1234@@`
+- 관리자 : `admin@master.me` / `qwer1234@@` -->
+
+#### <details> <summary>테스트 계정 (ID/PW)</summary><br/> <p>유저 : `test1@test.com` / `qwer1234@@`</p><p>관리자 : `admin@master.me` / `qwer1234@@`</p></details>
 
 #### 배포 링크
 
@@ -38,8 +40,7 @@
 ## 기술 스택
 
 ![Static Badge](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white)
-![Static Badge](https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-<br>
+![Static Badge](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 
 ![Static Badge](https://img.shields.io/badge/reactquery-FF4154?style=for-the-badge&logo=reactquery&logoColor=white)
 ![Static Badge](https://img.shields.io/badge/zustand-1E4CC9?style=for-the-badge&logo=react&logoColor=white)
@@ -54,3 +55,54 @@
 ![Static Badge](https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Static Badge](https://img.shields.io/badge/firebase-DD2C00?style=for-the-badge&logo=firebase&logoColor=white)
 ![Static Badge](https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+
+## 주요 기능
+
+#### <details> <summary>로그인 / 회원가입</summary><br/>asdf</details>
+
+## 성능 최적화
+
+## 트러블 슈팅
+
+## 와이어프레임, 유저플로우
+
+> 디자인 툴 : miro <br> [링크](https://miro.com/app/board/uXjVK6Caq5o=/?share_link_id=586957999401)
+
+![Home Screen Shot](/src/assets/readme/wireframe.png)
+
+## 폴더 구조
+
+```text
+📂src
+ ┣ 📂assets
+ ┣ 📂enum
+ ┣ 📂hooks
+ ┣ 📂interfaces
+ ┣ 📂lib
+ ┣ 📂queries
+ ┣ 📂router
+ ┣ 📂store
+ ┣ 📂components
+ ┃ ┣ 📂cart
+ ┃ ┣ 📂footer
+ ┃ ┣ 📂form
+ ┃ ┣ 📂header
+ ┃ ┣ 📂layout
+ ┃ ┣ 📂nav
+ ┃ ┣ 📂product
+ ┃ ┣ 📂swiper
+ ┣ 📂pages
+ ┃ ┣ 📂admin
+ ┃ ┃ ┣ 📂OrderMangePage
+ ┃ ┃ ┗ 📂ProductMangePage
+ ┃ ┣ 📂common
+ ┃ ┃ ┣ 📂ErrorPage
+ ┃ ┃ ┣ 📂HomePage
+ ┃ ┃ ┣ 📂LoginPage
+ ┃ ┃ ┣ 📂ProductDetailPage
+ ┃ ┃ ┣ 📂ProductListPage
+ ┃ ┃ ┗ 📂SignUpPage
+ ┃ ┗ 📂user
+ ┃ ┃ ┣ 📂OrderListPage
+ ┃ ┃ ┗ 📂OrderPage
+```
