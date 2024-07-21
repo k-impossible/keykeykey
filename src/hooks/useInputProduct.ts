@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -50,6 +51,9 @@ const formSchema = z.object({
 const dataTransfer = new DataTransfer();
 
 export const useInputProduct = () => {
+	const form = useForm<z.infer<typeof formSchema>>({
+		resolver: zodResolver(formSchema),
+	});
 	const queryClient = useQueryClient();
 	const { setSheetState } = useSheetStore();
 	const productStoreData = useProductStore(state => state);
@@ -76,32 +80,37 @@ export const useInputProduct = () => {
 		form.setValue("price", productStoreData.price);
 		form.setValue("amount", productStoreData.amount);
 		form.setValue("tagIds", productStoreData.tagIds);
-	}, [docId]);
+	}, [
+		docId,
+		form,
+		productStoreData.amount,
+		productStoreData.brandId,
+		productStoreData.description,
+		productStoreData.images,
+		productStoreData.name,
+		productStoreData.price,
+		productStoreData.tagIds,
+	]);
 
-	const form = useForm<z.infer<typeof formSchema>>({
-		resolver: zodResolver(formSchema),
-	});
+	const onSubmit = (values: z.infer<typeof formSchema>) => {
+		useProductMutation.mutate(values);
+	};
 
-	const onSubmit = async (values: z.infer<typeof formSchema>) => {
-		try {
-			await useProductMutation.mutateAsync(values);
-		} catch (error) {
-			console.log(error);
-			toast.error(`상품 ${title}이 실패하였습니다.`);
-		}
+	const init = () => {
+		setSheetState(false);
+		form.reset();
+		form.setValue("images", dataTransfer.files);
+		productStoreData.initProductState();
 	};
 
 	const useProductMutation = useMutation({
-		mutationFn: async (values: any) => {
-			return await handleUploadProduct(values);
+		mutationFn: (values: any) => {
+			return handleUploadProduct(values);
 		},
 		onSuccess: () => {
-			setSheetState(false);
-			productStoreData.initProductState();
-			form.reset();
-			form.setValue("images", dataTransfer.files);
-			toast.success(`상품 ${title}이 완료되었습니다.`);
-			return queryClient.invalidateQueries({ queryKey: [productKey] });
+			return queryClient.invalidateQueries({
+				queryKey: [productKey, "manage"],
+			});
 		},
 		onError: err => {
 			console.log(err);
@@ -116,46 +125,57 @@ export const useInputProduct = () => {
 					productStoreData.images
 				);
 			}
+			const imageArr = Array.from(values.images as FileList);
+			const date = Date.now();
+			const filterBrand = brandData.filter(b => b.name == values.brandName);
+
+			const product: Product = {
+				brandId: filterBrand[0].id,
+				name: values.productName,
+				description: values.description,
+				price: values.price,
+				amount: values.amount,
+				tagIds: values.tagIds,
+				images: (await makeImageArr(imageArr, date)) as string[],
+				createdAt: docId === "" ? date : productStoreData.createdAt,
+				updatedAt: date,
+				match: `#${filterBrand[0].korName}#${filterBrand[0].name}#${values.productName}#${values.description}`,
+			};
+
+			if (docId === "") await useAddCollection(Collection.PRODUCT, product);
+			else await useUpdateCollection(Collection.PRODUCT, docId, product);
+
+			init();
+			toast.success(`상품 ${title}이 완료되었습니다.`);
+		} catch (error) {
+			toast.error(`상품 ${title}이 실패하였습니다.`);
+			console.log(error);
+		}
+	};
+
+	const makeImageArr = async (imageArr: File[], date: number) => {
+		let newArr: string[] = [];
+		try {
+			for (let img of imageArr) {
+				const imageRef = ref(
+					storage,
+					`${docId === "" ? date : productStoreData.createdAt}/${img.name}`
+				);
+				await uploadBytes(imageRef, img);
+				const downloadURL = await getDownloadURL(imageRef);
+				newArr.push(downloadURL);
+			}
+			return newArr;
 		} catch (error) {
 			console.log(error);
 		}
-
-		(async () => {
-			const date = Date.now();
-			const filterBrand = brandData.filter(b => b.name == values.brandName);
-			const imageArr = Array.from(values.images as FileList);
-			let newArr: string[] = [];
-			try {
-				for (let img of imageArr) {
-					const imageRef = ref(
-						storage,
-						`${docId === "" ? date : productStoreData.createdAt}/${img.name}`
-					);
-					await uploadBytes(imageRef, img);
-					const downloadURL = await getDownloadURL(imageRef);
-					newArr.push(downloadURL);
-				}
-
-				const product: Product = {
-					brandId: filterBrand[0].id,
-					name: values.productName,
-					description: values.description,
-					price: values.price,
-					amount: values.amount,
-					tagIds: values.tagIds,
-					images: newArr,
-					createdAt: docId === "" ? date : productStoreData.createdAt,
-					updatedAt: date,
-					match: `#${filterBrand[0].korName}#${filterBrand[0].name}#${values.productName}#${values.description}`,
-				};
-
-				if (docId === "") await useAddCollection(Collection.PRODUCT, product);
-				else await useUpdateCollection(Collection.PRODUCT, docId, product);
-			} catch (error) {
-				console.log(error);
-			}
-		})();
 	};
 
-	return { form, onSubmit, brandData, tagData, title };
+	return {
+		form,
+		onSubmit,
+		brandData,
+		tagData,
+		title,
+	};
 };

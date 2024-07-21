@@ -21,12 +21,36 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { QUERY_KEY } from "@/queries/useProductsQuery";
 
 type ProductProps = {
 	index: number;
 	product: Product;
 };
 const ProductManageItem = ({ product, index }: ProductProps) => {
+	const useHandleDeleteProduct = async () => {
+		try {
+			useDeleteCollection(Collection.PRODUCT, product.id as string);
+			// eslint-disable-next-line react-hooks/rules-of-hooks
+			useDeleteStorage(product.createdAt, product.images);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+	const queryClient = useQueryClient();
+	const mutation = useMutation({
+		mutationFn: useHandleDeleteProduct,
+		onSuccess: () => {
+			toast.success("상품 삭제가 완료되었습니다.");
+			return queryClient.invalidateQueries({ queryKey: [QUERY_KEY, "manage"] });
+		},
+		onError: error => {
+			toast.error("상품 삭제가 실패하였습니다.");
+			console.log(error);
+		},
+	});
+
 	const { setSheetState } = useSheetStore();
 	const { setProductState } = useProductStore();
 	const fetchedProduct: Product = {
@@ -42,6 +66,7 @@ const ProductManageItem = ({ product, index }: ProductProps) => {
 		updatedAt: product.updatedAt,
 		match: product.match,
 	};
+
 	return (
 		<TableRow className="hover:bg-zinc-200">
 			<TableCell className="font-medium">{index + 1}</TableCell>
@@ -82,18 +107,7 @@ const ProductManageItem = ({ product, index }: ProductProps) => {
 							<AlertDialogCancel>취소</AlertDialogCancel>
 							<AlertDialogAction
 								className="bg-red-600"
-								onClick={() => {
-									try {
-										useDeleteCollection(
-											Collection.PRODUCT,
-											product.id as string
-										);
-										useDeleteStorage(product.createdAt, product.images);
-										toast.success("상품 삭제가 완료되었습니다.");
-									} catch (error) {
-										toast.error("상품 삭제가 실패하였습니다.");
-									}
-								}}
+								onClick={() => mutation.mutate()}
 							>
 								삭제
 							</AlertDialogAction>

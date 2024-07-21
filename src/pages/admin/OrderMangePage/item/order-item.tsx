@@ -2,13 +2,10 @@ import { Order } from "@/interfaces/Order.interface";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { brandData } from "@/lib/productData";
 import { useFormatDate } from "@/hooks/useFormatDate";
-import {
-	orderStatusChange,
-	orderStatusRender,
-} from "@/pages/user/OrderListPage/item/order-list-item";
 import { Button } from "@/components/ui/button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEY } from "@/queries/useOrdersQuery";
+import { orderStatusChange, orderStatusRender } from "@/hooks/useOrderStatus";
 type OrderProps = {
 	index: number;
 	order: Order;

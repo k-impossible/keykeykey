@@ -1,8 +1,3 @@
-import { Collection } from "@/enum/Collection";
-import { db } from "@/firebase";
-import useProductsQuery from "@/queries/useProductsQuery";
-import { collection, limit, orderBy, query } from "firebase/firestore";
-import { useInView } from "react-intersection-observer";
 import {
 	Table,
 	TableBody,
@@ -11,32 +6,12 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import ProductManageItem from "../item/product-item";
-import { useEffect } from "react";
 
-const ProductManageList = () => {
-	const queryByCreatedAt = query(
-		collection(db, Collection.PRODUCT),
-		orderBy("createdAt", "desc"),
-		limit(10)
-	);
+type ListProps = {
+	products: Product[];
+};
 
-	const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage } =
-		useProductsQuery(queryByCreatedAt, "manage");
-
-	const { ref, inView } = useInView();
-
-	useEffect(() => {
-		if (inView && hasNextPage) {
-			fetchNextPage();
-		}
-	}, [inView, fetchNextPage, hasNextPage]);
-
-	if (!data || error) {
-		return null;
-	}
-
-	const products = data.pages.flatMap(page => page.products);
-
+const ProductManageList = ({ products }: ListProps) => {
 	return (
 		<>
 			<Table className="text-center">
@@ -84,8 +59,6 @@ const ProductManageList = () => {
 					})}
 				</TableBody>
 			</Table>
-			{isFetchingNextPage && <div>Loading ... </div>}
-			<div ref={ref}></div>
 		</>
 	);
 };

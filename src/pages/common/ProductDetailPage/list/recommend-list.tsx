@@ -1,6 +1,7 @@
 import ProductItem from "@/components/product/ProductItem";
 import { Collection } from "@/enum/Collection";
 import { db } from "@/firebase";
+import { brandData } from "@/lib/productData";
 import useProductsQuery from "@/queries/useProductsQuery";
 import { collection, limit, orderBy, query, where } from "firebase/firestore";
 import { Link } from "react-router-dom";
@@ -29,7 +30,7 @@ const RecommendList = ({ brand, id, name }: RecommendProps) => {
 		<div className="mt-36">
 			<h1 className="text-2xl mb-8">
 				<Link
-					to={`/products/${name.toLowerCase()}`}
+					to={`/products/${brandData[id].name.toLowerCase()}`}
 					title="브랜드 페이지로 이동"
 					className="underline font-bold"
 				>

@@ -5,13 +5,13 @@ import { doc, setDoc } from "firebase/firestore";
 const useUpdateCollection = async (
 	collectionName: Collection,
 	docId: string,
-	data: Object
+	data: object
 ) => {
 	try {
 		const collectionRef = doc(db, collectionName, docId);
 		return await setDoc(collectionRef, data);
 	} catch (error) {
-		throw error;
+		console.log(error);
 	}
 };
 

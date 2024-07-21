@@ -28,16 +28,13 @@ const ProductDetailPage = () => {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		if (0 <= myCart.products.findIndex(p => p.productId === paramId.id)) {
-			setCartInProductChk(true);
-		} else setCartInProductChk(false);
-	}, [paramId]);
+	}, []);
 
 	useEffect(() => {
 		if (0 <= myCart.products.findIndex(p => p.productId === paramId.id)) {
 			setCartInProductChk(true);
 		} else setCartInProductChk(false);
-	}, [myCart.totalAmount]);
+	}, [myCart.products, myCart.totalAmount, paramId.id]);
 
 	if (!data || error) {
 		return null;

@@ -48,8 +48,6 @@ const useProductsQuery = (
 		queryFn: ({ pageParam }) => getDocsInProducts(productQuery, pageParam),
 		initialPageParam: undefined,
 		getNextPageParam: lastPage => lastPage.nextList ?? undefined,
-		staleTime: 0, // 데이터가 즉시 stale 상태가 되도록 설정
-		// refetchInterval: 500,
 	});
 };
 

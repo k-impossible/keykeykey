@@ -10,8 +10,7 @@ import { useFormatDate } from "@/hooks/useFormatDate";
 import { brandData } from "@/lib/productData";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import useUpdateCollection from "@/hooks/useUpdateCollection";
-import { Collection } from "@/enum/Collection";
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEY } from "@/queries/useOrdersQuery";
 import {
@@ -25,41 +24,12 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { orderStatusChange, orderStatusRender } from "@/hooks/useOrderStatus";
+import { toast } from "sonner";
 type OrderProps = {
 	order: Order;
 };
 
-export const orderStatusRender = (status: number) => {
-	switch (status) {
-		case 0:
-			return "주문완료";
-		case 1:
-			return "배송준비중";
-		case 2:
-			return "배송중";
-		case 3:
-			return "주문취소";
-		default:
-			break;
-	}
-};
-
-export const orderStatusChange = async (order: Order, status: number) => {
-	try {
-		const orderObj: Order = {
-			...order,
-			status,
-			updatedAt: Date.now(),
-		};
-		await useUpdateCollection(
-			Collection.ORDER,
-			order.docId as string,
-			orderObj
-		);
-	} catch (error) {
-		console.log(error);
-	}
-};
 const OrderListItem = ({ order }: OrderProps) => {
 	const queryClient = useQueryClient();
 	const mutation = useMutation({
@@ -67,9 +37,11 @@ const OrderListItem = ({ order }: OrderProps) => {
 			return orderStatusChange(order, status);
 		},
 		onSuccess: () => {
+			toast.success("주문이 취소되었습니다.");
 			return queryClient.invalidateQueries({ queryKey: [QUERY_KEY] });
 		},
 		onError: error => {
+			toast.error("주문취소가 실패했습니다.");
 			console.log(error);
 		},
 	});

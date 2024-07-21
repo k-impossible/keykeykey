@@ -10,7 +10,7 @@ const useDeleteCollection = async (
 		const collectionRef = doc(db, collectionName, docId);
 		return await deleteDoc(collectionRef);
 	} catch (error) {
-		throw error;
+		console.log(error);
 	}
 };
 
