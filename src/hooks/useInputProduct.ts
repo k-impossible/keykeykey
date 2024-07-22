@@ -15,6 +15,7 @@ import useProductStore from "@/store/useProductStore";
 import useUpdateCollection from "./useUpdateCollection";
 import { useEffect } from "react";
 import useDeleteStorage from "./useDeleteStorage";
+import useLoadingStore from "@/store/useLoadingStore";
 
 const MAX_IMAGE_SIZE = 5242880; // 5 MB
 const ALLOWED_IMAGE_TYPES = [
@@ -56,6 +57,7 @@ export const useInputProduct = () => {
 	});
 	const queryClient = useQueryClient();
 	const { setSheetState } = useSheetStore();
+	const { setLoadingState } = useLoadingStore();
 	const productStoreData = useProductStore(state => state);
 	const docId = productStoreData.id as string;
 	let title = docId === "" ? "등록" : "수정";
@@ -119,6 +121,7 @@ export const useInputProduct = () => {
 
 	const handleUploadProduct = async (values: any) => {
 		try {
+			setLoadingState(true);
 			if (docId !== "") {
 				await useDeleteStorage(
 					productStoreData.createdAt,
@@ -146,6 +149,7 @@ export const useInputProduct = () => {
 			else await useUpdateCollection(Collection.PRODUCT, docId, product);
 
 			init();
+			setLoadingState(false);
 			toast.success(`상품 ${title}이 완료되었습니다.`);
 		} catch (error) {
 			toast.error(`상품 ${title}이 실패하였습니다.`);

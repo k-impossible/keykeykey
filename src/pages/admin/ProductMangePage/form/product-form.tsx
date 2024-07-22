@@ -24,10 +24,13 @@ import {
 import { useInputProduct } from "@/hooks/useInputProduct";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
+import useLoadingStore from "@/store/useLoadingStore";
+import { Loader2 } from "lucide-react";
 
 const ProductForm = () => {
 	const { form, onSubmit, brandData, tagData, title } = useInputProduct();
 	const dataTransfer = new DataTransfer();
+	const { isLoading } = useLoadingStore();
 
 	return (
 		<SheetContent className="overflow-y-scroll max-h-screen">
@@ -51,6 +54,7 @@ const ProductForm = () => {
 										value={field.value}
 										name={field.name}
 										onValueChange={field.onChange}
+										disabled={isLoading}
 									>
 										<SelectTrigger className="w-[250px]">
 											<SelectValue aria-label={field.value} />
@@ -77,7 +81,7 @@ const ProductForm = () => {
 							<FormItem>
 								<FormLabel>상품명</FormLabel>
 								<FormControl>
-									<Input required={true} {...field} />
+									<Input required={true} disabled={isLoading} {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -90,7 +94,7 @@ const ProductForm = () => {
 							<FormItem>
 								<FormLabel>상품설명</FormLabel>
 								<FormControl>
-									<Textarea required={true} {...field} />
+									<Textarea required={true} disabled={isLoading} {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -103,7 +107,12 @@ const ProductForm = () => {
 							<FormItem>
 								<FormLabel>상품가격</FormLabel>
 								<FormControl>
-									<Input type="number" required={true} {...field} />
+									<Input
+										type="number"
+										required={true}
+										disabled={isLoading}
+										{...field}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -116,7 +125,12 @@ const ProductForm = () => {
 							<FormItem>
 								<FormLabel>상품재고</FormLabel>
 								<FormControl>
-									<Input type="number" required={true} {...field} />
+									<Input
+										type="number"
+										required={true}
+										disabled={isLoading}
+										{...field}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -134,6 +148,7 @@ const ProductForm = () => {
 										<FormItem key={tag.id} className="flex items-center">
 											<FormControl className="mt-2 mr-1">
 												<Checkbox
+													disabled={isLoading}
 													checked={field.value?.includes(tag.id)}
 													onCheckedChange={checked => {
 														return checked
@@ -171,6 +186,7 @@ const ProductForm = () => {
 											type="file"
 											accept="image/*"
 											multiple={true}
+											disabled={isLoading}
 											{...field.value.item}
 											onChange={event => {
 												if (images) {
@@ -202,6 +218,7 @@ const ProductForm = () => {
 												variant={"outline"}
 												className="text-xs mt-3"
 												type="button"
+												disabled={isLoading}
 												onClick={() => {
 													form.resetField("images");
 													form.setValue("images", dataTransfer.files);
@@ -217,8 +234,8 @@ const ProductForm = () => {
 						}}
 					/>
 
-					<Button type="submit" className="mt-3 w-full">
-						{title}
+					<Button type="submit" className="mt-3 w-full" disabled={isLoading}>
+						{isLoading ? <Loader2 className="animate-spin" /> : title}
 					</Button>
 				</form>
 			</Form>
