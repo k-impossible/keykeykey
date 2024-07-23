@@ -8,19 +8,20 @@ import useUserStore from "@/store/useUserStore";
 import { toast } from "sonner";
 import { Collection } from "@/enum/Collection";
 import useCartStore from "@/store/useCartStore";
+import useLoadingStore from "@/store/useLoadingStore";
 
 const SignUp = () => {
 	const navigate = useNavigate();
 	const { setUserState } = useUserStore();
 	const { setMyCart } = useCartStore();
 	const { isLoggedIn, displayName } = useUserStore(state => state);
-
+	const { setLoadingState } = useLoadingStore();
 	useEffect(() => {
 		if (isLoggedIn) {
 			navigate("/");
 			toast.success(displayName + "님 반갑습니다.");
 		}
-	}, [isLoggedIn]);
+	}, [displayName, isLoggedIn, navigate]);
 
 	const handleSignUp = async (
 		email: string,
@@ -28,6 +29,7 @@ const SignUp = () => {
 		nickname?: string
 	) => {
 		try {
+			setLoadingState(true);
 			const userCredential = await createUserWithEmailAndPassword(
 				auth,
 				email,
@@ -39,6 +41,7 @@ const SignUp = () => {
 				displayName: nickname!,
 			};
 
+			// eslint-disable-next-line react-hooks/rules-of-hooks
 			await useAddCollection(Collection.USER, newUser);
 
 			const user: UserState = {
@@ -51,6 +54,7 @@ const SignUp = () => {
 
 			setUserState(user);
 			setMyCart(userCredential.user.uid);
+			setLoadingState(false);
 		} catch (error: any) {
 			let msg = "";
 			switch (error.code) {
@@ -70,6 +74,7 @@ const SignUp = () => {
 			toast.error("회원가입 실패", {
 				description: msg,
 			});
+			setLoadingState(false);
 		}
 	};
 

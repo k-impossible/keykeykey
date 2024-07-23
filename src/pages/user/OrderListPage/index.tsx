@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import OrderListItem from "./item/order-list-item";
 import { Link } from "react-router-dom";
+import Loading from "@/components/loading/Loading";
 
 const OrderListPage = () => {
 	const { id } = useUserStore();
@@ -53,7 +54,7 @@ const OrderListPage = () => {
 					))}
 				</div>
 			)}
-			{isFetchingNextPage && <div>Loading ... </div>}
+			{isFetchingNextPage && <Loading />}
 			<div ref={ref}></div>
 		</div>
 	);

@@ -11,6 +11,7 @@ import useProductsQuery from "@/queries/useProductsQuery";
 import { collection, limit, orderBy, query } from "firebase/firestore";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
+import Loading from "@/components/loading/Loading";
 
 const ProductMangePage = () => {
 	const { isOpened, setSheetState } = useSheetStore();
@@ -54,16 +55,10 @@ const ProductMangePage = () => {
 					<FaAnglesRight className="ml-10" />
 				</Button>
 			</div>
-			{/* {products.map(item => (
-				<div key={item.id}>
-					{item.id} <br />
-					{item.amount}
-				</div>
-			))} */}
 			<main className="mt-6">
 				<ProductManageList products={products} />
 			</main>
-			{isFetchingNextPage && <div>Loading ... </div>}
+			{isFetchingNextPage && <Loading />}
 			<div ref={ref}></div>
 			<Sheet open={isOpened} onOpenChange={setSheetState}>
 				<ProductForm />

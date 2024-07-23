@@ -1,7 +1,9 @@
+import { Loader2 } from "lucide-react";
+
 const Loading = () => {
 	return (
-		<div className="w-full h-full bg-gray-400 absolute top-0 left-0 z-10 overflow-hidden">
-			Loading
+		<div className="w-full">
+			<Loader2 className="animate-spin m-auto my-5" size={50} />
 		</div>
 	);
 };

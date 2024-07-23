@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/table";
 import { Order } from "@/interfaces/Order.interface";
 import OrderManageItem from "./item/order-item";
+import Loading from "@/components/loading/Loading";
 
 const OrderManagePage = () => {
 	const queryByCreatedAt = query(
@@ -73,7 +74,7 @@ const OrderManagePage = () => {
 					})}
 				</TableBody>
 			</Table>
-			{isFetchingNextPage && <div>Loading ... </div>}
+			{isFetchingNextPage && <Loading />}
 			<div ref={ref}></div>
 		</div>
 	);

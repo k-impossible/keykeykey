@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 	<QueryClientProvider client={queryClient}>
 		<App />
 
-		<Toaster position="bottom-center" richColors />
+		<Toaster position="top-center" richColors />
 		{/* <ReactQueryDevtools initialIsOpen={false} /> */}
 	</QueryClientProvider>
 );

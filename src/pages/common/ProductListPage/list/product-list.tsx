@@ -1,3 +1,4 @@
+import Loading from "@/components/loading/Loading";
 import ProductItem from "@/components/product/ProductItem";
 import { Collection } from "@/enum/Collection";
 import { db } from "@/firebase";
@@ -65,7 +66,7 @@ const ProductList = ({
 					pag={false}
 				/>
 			))}
-			{isFetchingNextPage && <div>Loading ... </div>}
+			{isFetchingNextPage && <Loading />}
 			<div ref={ref}></div>
 		</div>
 	);

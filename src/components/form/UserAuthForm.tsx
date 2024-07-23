@@ -3,6 +3,8 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "../ui/button";
+import useLoadingStore from "@/store/useLoadingStore";
+import { Loader2 } from "lucide-react";
 type FormProps = {
 	title: string;
 	getDataForm: (email: string, password: string, nickname?: string) => void;
@@ -24,7 +26,7 @@ const UserAuthForm: FC<FormProps> = ({ title, getDataForm }) => {
 	} = useForm<Inputs>({
 		mode: "onChange",
 	});
-
+	const { isLoading } = useLoadingStore();
 	const onValid = (password: string, pwConfirm: string) => {
 		if (title === "회원가입" && password !== pwConfirm) {
 			setError(
@@ -87,6 +89,7 @@ const UserAuthForm: FC<FormProps> = ({ title, getDataForm }) => {
 					placeholder="Email"
 					className="w-64"
 					autoComplete="off"
+					disabled={isLoading}
 					{...register("email", userEmail)}
 				/>
 				<div className="ml-2 ">
@@ -106,6 +109,7 @@ const UserAuthForm: FC<FormProps> = ({ title, getDataForm }) => {
 					id="password"
 					placeholder="Password"
 					autoComplete="off"
+					disabled={isLoading}
 					{...register("password", userPassword)}
 				/>
 				<div className="ml-2" style={{ maxWidth: "256px" }}>
@@ -126,6 +130,7 @@ const UserAuthForm: FC<FormProps> = ({ title, getDataForm }) => {
 							type="password"
 							id="pwConfirm"
 							placeholder="Password Confirm"
+							disabled={isLoading}
 							autoComplete="off"
 							{...register("pwConfirm", userPasswordConfirm)}
 						/>
@@ -147,6 +152,7 @@ const UserAuthForm: FC<FormProps> = ({ title, getDataForm }) => {
 							type="text"
 							id="nickname"
 							placeholder="Nickname"
+							disabled={isLoading}
 							autoComplete="off"
 							{...register("nickname", userName)}
 						/>
@@ -164,8 +170,8 @@ const UserAuthForm: FC<FormProps> = ({ title, getDataForm }) => {
 				</>
 			)}
 			<div className="text-center mt-10">
-				<Button type="submit" className="w-full">
-					{title}
+				<Button type="submit" className="w-full" disabled={isLoading}>
+					{isLoading ? <Loader2 className="animate-spin" /> : title}
 				</Button>
 			</div>
 		</form>
