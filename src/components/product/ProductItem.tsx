@@ -33,9 +33,9 @@ const ProductItem = ({ product, auto, nav, pag }: ProductProps) => {
 					<p className="font-semibold text-lg text-ellipsis overflow-hidden w-full whitespace-nowrap">
 						{product.name}
 					</p>
-					<h1 className="w-full text-right font-semibold text-md my-3">
+					<p className="w-full text-right font-semibold text-md my-3">
 						{product.price.toLocaleString()}원
-					</h1>
+					</p>
 					<div className="w-full">
 						<div className="flex gap-1 justify-end">
 							{product.tagIds.map(t => (

@@ -16,6 +16,7 @@ import useUpdateCollection from "./useUpdateCollection";
 import { useEffect } from "react";
 import useDeleteStorage from "./useDeleteStorage";
 import useLoadingStore from "@/store/useLoadingStore";
+import imageCompression from "browser-image-compression";
 
 const MAX_IMAGE_SIZE = 5242880; // 5 MB
 const ALLOWED_IMAGE_TYPES = [
@@ -24,6 +25,13 @@ const ALLOWED_IMAGE_TYPES = [
 	"image/webp",
 	"image/jpg",
 ];
+
+const imageOption = {
+	maxSizeMB: 1,
+	maxWidthOrHeight: 800,
+	useWebWorker: true,
+	fileType: "image/webp",
+};
 
 const formSchema = z.object({
 	brandName: z.string(),
@@ -161,11 +169,13 @@ export const useInputProduct = () => {
 		let newArr: string[] = [];
 		try {
 			for (let img of imageArr) {
+				const compressedFile = await imageCompression(img, imageOption);
+				const compressedFileName = img.name.split(".")[0] + ".webp";
 				const imageRef = ref(
 					storage,
-					`${docId === "" ? date : productStoreData.createdAt}/${img.name}`
+					`${docId === "" ? date : productStoreData.createdAt}/${compressedFileName}`
 				);
-				await uploadBytes(imageRef, img);
+				await uploadBytes(imageRef, compressedFile);
 				const downloadURL = await getDownloadURL(imageRef);
 				newArr.push(downloadURL);
 			}
