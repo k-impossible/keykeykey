@@ -14,4 +14,12 @@ export default defineConfig({
 			"@": path.resolve(__dirname, "src/"),
 		},
 	},
+	build: {
+		outDir: "dist", // 빌드 출력 디렉토리
+		rollupOptions: {
+			output: {
+				manualChunks: undefined,
+			},
+		},
+	},
 });
