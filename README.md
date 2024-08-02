@@ -80,7 +80,7 @@ TypeScript와 React를 활용한 1인 사이드 프로젝트입니다. 개발자
  ┣ 📂router      // react-router의 router 파일
  ┣ 📂components  // header,nav,cart,form 등 UI 컴포넌트 파일
  ┃ ┗ 📂...
- ┗ 📂pages       // 유저 권한 별 페이지 컴포넌트 파일
+ ┗ 📂pages       // 유저 타입 별 페이지 컴포넌트 파일
    ┣ 📂admin
    ┃ ┗ 📂...
    ┣ 📂common
@@ -91,7 +91,7 @@ TypeScript와 React를 활용한 1인 사이드 프로젝트입니다. 개발자
 
 ## Git 컨벤션
 
-#### 브랜치
+### 브랜치 컨벤션
 
 - main : 최종 배포버전에 이상이 없을 시 deploy브랜치에서 pull 받음
 - opt : 기본 기능 작업 외 추가적인 성능 최적화 작업 등
@@ -104,11 +104,11 @@ TypeScript와 React를 활용한 1인 사이드 프로젝트입니다. 개발자
   - feature 브랜치에서 작업 완료된 기능을 push 받음, 다시 기능별 분기
   - 테스트가 완료 후 배포 버전 deploy로 push
 - feat/{요구사항명}
-  - feat/auth, feat/purchase …
-  - 요구사항 단위로 생성해 작업
+  - feat/auth, feat/order …
+  - 요구사항 기능 단위로 생성해 작업
   - 해당 작업이 완료되면 dev로 push
 
-#### 커밋
+### 커밋 컨벤션
 
 커밋 시 템플릿을 생성해 커밋 메세지의 type, title, body를 입력하게함
 
@@ -132,7 +132,7 @@ TypeScript와 React를 활용한 1인 사이드 프로젝트입니다. 개발자
 - test : 테스트 작업
 - deploy : 배포 작업
 - env : 환경 세팅, 라이브러리 추가 등
-- docs : 기타 문서 작업 등
+- doc : 기타 문서 작업 등
 
 ## 와이어프레임, 유저플로우
 
