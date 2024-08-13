@@ -110,10 +110,10 @@
 
 .swiper-button-prev,
 .swiper-button-next {
-	@apply text-zinc-600;
+	@apply !text-zinc-600;
 }
 .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
-	@apply bg-zinc-800;
+	@apply !bg-zinc-800;
 }
 .tag-style {
 	@apply rounded-md px-2 py-1 bg-neutral-500 text-xs text-white text-center;

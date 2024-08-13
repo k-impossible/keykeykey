@@ -15,10 +15,27 @@ export default defineConfig({
 		},
 	},
 	build: {
-		outDir: "dist", // 빌드 출력 디렉토리
+		outDir: "dist",
 		rollupOptions: {
 			output: {
-				manualChunks: undefined,
+				manualChunks: {
+					vendor: ["react", "react-dom", "react-router-dom"],
+					firebase: [
+						"firebase/app",
+						"firebase/auth",
+						"firebase/storage",
+						"firebase/firestore",
+					],
+					ui: [
+						"@radix-ui/react-alert-dialog",
+						"@radix-ui/react-avatar",
+						"@radix-ui/react-checkbox",
+						"@radix-ui/react-label",
+						"@radix-ui/react-select",
+						"@radix-ui/react-slot",
+						"@radix-ui/react-tooltip",
+					],
+				},
 			},
 		},
 	},

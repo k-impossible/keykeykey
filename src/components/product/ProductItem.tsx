@@ -1,5 +1,6 @@
+import { lazy } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import SwiperItem from "../swiper/SwiperItem";
+const SwiperItem = lazy(() => import("../swiper/SwiperItem"));
 import { brandData, tagData } from "@/lib/productData";
 import { Link } from "react-router-dom";
 

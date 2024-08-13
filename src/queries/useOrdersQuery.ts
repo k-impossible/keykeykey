@@ -1,5 +1,5 @@
 import { Order } from "@/interfaces/Order.interface";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
 import {
 	DocumentData,
@@ -44,7 +44,7 @@ const useOrdersQuery = (
 	orderQuery: Query<DocumentData, DocumentData>,
 	...keys: any
 ) => {
-	return useInfiniteQuery<QueryResponse>({
+	return useSuspenseInfiniteQuery<QueryResponse>({
 		queryKey: [QUERY_KEY, ...keys],
 		queryFn: ({ pageParam }) => getDocsInOrders(orderQuery, pageParam),
 		initialPageParam: undefined,

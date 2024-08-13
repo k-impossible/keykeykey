@@ -1,6 +1,6 @@
 import { Collection } from "@/enum/Collection";
 import { db } from "@/firebase";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { doc, getDoc } from "firebase/firestore";
 
 export const QUERY_KEY = "product";
@@ -16,7 +16,7 @@ const getDocInProducts = async (id: string) => {
 };
 
 const useProductQuery = (id: string, ...keys: any) => {
-	return useQuery({
+	return useSuspenseQuery({
 		queryKey: [QUERY_KEY, ...keys],
 		queryFn: () => getDocInProducts(id),
 		gcTime: 0,

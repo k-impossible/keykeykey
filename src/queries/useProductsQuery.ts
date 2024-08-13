@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
 import {
 	DocumentData,
@@ -43,7 +43,7 @@ const useProductsQuery = (
 	productQuery: Query<DocumentData, DocumentData>,
 	...keys: any
 ) => {
-	return useInfiniteQuery<QueryResponse>({
+	return useSuspenseInfiniteQuery<QueryResponse>({
 		queryKey: [QUERY_KEY, ...keys],
 		queryFn: ({ pageParam }) => getDocsInProducts(productQuery, pageParam),
 		initialPageParam: undefined,

@@ -1,14 +1,14 @@
+import { lazy, useEffect, useState } from "react";
 import useProductQuery from "@/queries/useProductQuery";
 import { useNavigate, useParams } from "react-router-dom";
 import RecommendList from "./list/recommend-list";
-import SwiperItem from "@/components/swiper/SwiperItem";
+const SwiperItem = lazy(() => import("@/components/swiper/SwiperItem"));
 import { brandData, tagData } from "@/lib/productData";
 import { Button } from "@/components/ui/button";
 import useUserStore from "@/store/useUserStore";
 import { toast } from "sonner";
 import useCartStore from "@/store/useCartStore";
 import { useCartSheetStore } from "@/store/useSheetStore";
-import { useEffect, useState } from "react";
 
 const ProductDetailPage = () => {
 	const paramId = useParams();
