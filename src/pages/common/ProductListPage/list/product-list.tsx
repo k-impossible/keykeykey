@@ -1,7 +1,6 @@
 import { lazy, useEffect } from "react";
 import Loading from "@/components/loading/Loading";
 const ProductItem = lazy(() => import("@/components/product/ProductItem"));
-// import ProductItem from "@/components/product/ProductItem";
 import { Collection } from "@/enum/Collection";
 import { db } from "@/firebase";
 import useProductsQuery from "@/queries/useProductsQuery";

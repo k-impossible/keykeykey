@@ -10,6 +10,7 @@ const Footer = () => {
 						src={logo}
 						className="w-[40px] bg-neutral-100 p-1 rounded-sm"
 						alt="logo"
+						loading="lazy"
 					/>
 					<FaPlus size={15} className="text-neutral-100" />
 					<div className="bg-neutral-100 rounded-sm p-2">

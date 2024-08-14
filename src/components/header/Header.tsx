@@ -52,7 +52,7 @@ const Header = () => {
 		<div className="lg:container py-8 flex justify-between items-center m-auto">
 			<div className="w-20">
 				<Link to="/" title="메인페이지로 이동">
-					<img src={logoImg} alt="logo" />
+					<img src={logoImg} alt="logo" loading="lazy" />
 				</Link>
 			</div>
 			<div className="flex justify-between items-center gap-7">

@@ -31,7 +31,7 @@ const SwiperItem = ({ images, auto, nav, pag }: SwiperProps) => {
 			{images &&
 				Array.from(images).map((img, idx) => (
 					<SwiperSlide key={idx}>
-						<img src={img} alt={`slideImg-${idx}`} />
+						<img src={img} alt={`slideImg-${idx}`} loading="lazy" />
 					</SwiperSlide>
 				))}
 		</Swiper>

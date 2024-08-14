@@ -97,7 +97,11 @@ const OrderListItem = ({ order }: OrderProps) => {
 							key={item.productId}
 						>
 							<div className="w-[100px]">
-								<img src={item.productImage} alt="product image" />
+								<img
+									src={item.productImage}
+									alt="product image"
+									loading="lazy"
+								/>
 							</div>
 							<Link
 								title="상품 상세페이지로 이동"

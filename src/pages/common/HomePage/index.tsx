@@ -12,6 +12,7 @@ const HomePage = () => {
 							<img
 								src={brand.logoPath}
 								alt="brand-logo"
+								loading="lazy"
 								style={{
 									width: brand.id === 1 ? "100px" : "150px",
 									marginBottom: "1rem",

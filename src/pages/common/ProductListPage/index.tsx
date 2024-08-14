@@ -43,6 +43,7 @@ const ProductListPage = () => {
 							<img
 								src={findBrand.logoPath}
 								alt="brand-logo"
+								loading="lazy"
 								style={{
 									width: findBrand.id === 1 ? "100px" : "180px",
 									color: "white",

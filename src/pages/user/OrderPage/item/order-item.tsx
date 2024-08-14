@@ -8,7 +8,7 @@ const OrderItem = ({ item }: CartItemProps) => {
 	return (
 		<div className="flex justify-between items-center border-b py-5 w-full">
 			<div className="w-[250px]">
-				<img src={item.productImage} alt="cartItem" />
+				<img src={item.productImage} alt="cartItem" loading="lazy" />
 			</div>
 			<div className="text-right ">
 				<h1 className="text-sm">{brandData[item.brandId].korName}</h1>

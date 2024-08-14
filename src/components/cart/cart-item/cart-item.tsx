@@ -40,7 +40,7 @@ const CartItem = ({ item }: CartItemProps) => {
 		<div className=" mx-6 border-b pb-3 last:border-b-0">
 			<div className="flex justify-between">
 				<div className="w-[150px]">
-					<img src={item.productImage} alt="cartItem" />
+					<img src={item.productImage} alt="cartItem" loading="lazy" />
 				</div>
 				<div className="text-right">
 					<h1 className="text-xs">{brandData[item.brandId].korName}</h1>
