@@ -1,4 +1,7 @@
 User-agent: *
-Allow: /products/
-Allow: /product/
-Disallow: /
+Allow: /
+Disallow: /product-manage
+Disallow: /order-manage
+Disallow: /order/
+Disallow: /orders
+Sitemap: https://www.keykeykey.store/sitemap.xml

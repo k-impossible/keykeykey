@@ -14,8 +14,12 @@ import {
 import { Order } from "@/interfaces/Order.interface";
 import OrderManageItem from "./item/order-item";
 import Loading from "@/components/loading/Loading";
+import MetaTag from "@/MetaTag";
+import { useLocation } from "react-router-dom";
 
 const OrderManagePage = () => {
+	const { pathname } = useLocation();
+	const imgSrc = `${import.meta.env.PUBLIC_URL}/logo-jpg.jpg`;
 	const queryByCreatedAt = query(
 		collection(db, Collection.ORDER),
 		orderBy("createdAt", "desc"),
@@ -39,6 +43,12 @@ const OrderManagePage = () => {
 
 	return (
 		<div className="lg:container py-10 mt-6">
+			<MetaTag
+				title={"주문 관리"}
+				description={"주문 관리 페이지입니다."}
+				imgSrc={imgSrc}
+				url={pathname}
+			/>
 			<Table className="text-center">
 				<TableHeader className="bg-zinc-700">
 					<TableRow className="hover:bg-transparent">

@@ -1,14 +1,17 @@
 import { brandData } from "@/lib/productData";
 
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import ProductList from "./list/product-list";
 import allBG from "@/assets/all-bg.webp";
+import MetaTag from "@/MetaTag";
 type SortCriteriaType = "createdAt" | "price";
 type SortSequenceType = "desc" | "asc";
 
 const ProductListPage = () => {
 	const paramId = useParams();
+	const { pathname } = useLocation();
+	const imgSrc = `${import.meta.env.PUBLIC_URL}/logo-jpg.jpg`;
 	const findBrand = brandData.find(b => paramId.id === b.name.toLowerCase());
 	const [sortCriteria, setSortCriteria] =
 		useState<SortCriteriaType>("createdAt");
@@ -31,6 +34,12 @@ const ProductListPage = () => {
 
 	return (
 		<div className="w-full pt-1">
+			<MetaTag
+				title={(findBrand == undefined ? "All" : findBrand.name) + " Products"}
+				description={"상품 목록 페이지입니다."}
+				imgSrc={imgSrc}
+				url={pathname}
+			/>
 			<div
 				className="category-bg"
 				style={{

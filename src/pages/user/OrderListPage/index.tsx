@@ -6,10 +6,13 @@ import { collection, limit, orderBy, query, where } from "firebase/firestore";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import OrderListItem from "./item/order-list-item";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Loading from "@/components/loading/Loading";
+import MetaTag from "@/MetaTag";
 
 const OrderListPage = () => {
+	const { pathname } = useLocation();
+	const imgSrc = `${import.meta.env.PUBLIC_URL}/logo-jpg.jpg`;
 	const { id } = useUserStore();
 	const queryByCreatedAt = query(
 		collection(db, Collection.ORDER),
@@ -35,6 +38,12 @@ const OrderListPage = () => {
 
 	return (
 		<div className="py-10 max-w-[600px] w-full">
+			<MetaTag
+				title={"주문 목록"}
+				description={"주문 목록 페이지입니다."}
+				imgSrc={imgSrc}
+				url={pathname}
+			/>
 			<h1 className="text-3xl font-bold mb-10">내 주문내역</h1>
 			{orders.length === 0 ? (
 				<div className="text-center pt-10">

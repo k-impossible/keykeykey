@@ -25,20 +25,6 @@ const SuccessPage = lazy(
 );
 const FailPage = lazy(() => import("@/pages/user/OrderPage/checkout/FailPage"));
 
-// import Layout from "@/components/layout/Layout";
-// import HomePage from "@/pages/common/HomePage";
-// import LoginPage from "@/pages/common/LoginPage";
-// import ProductMangePage from "@/pages/admin/ProductMangePage";
-// import OrderManagePage from "@/pages/admin/OrderMangePage";
-// import SignUpPage from "@/pages/common/SignUpPage";
-// import ErrorPage from "@/pages/common/ErrorPage";
-// import ProductListPage from "@/pages/common/ProductListPage";
-// import ProductDetailPage from "@/pages/common/ProductDetailPage";
-// import OrderListPage from "@/pages/user/OrderListPage";
-// import OrderPage from "@/pages/user/OrderPage";
-// import SuccessPage from "@/pages/user/OrderPage/checkout/SuccessPage";
-// import FailPage from "@/pages/user/OrderPage/checkout/FailPage";
-
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<Layout />}>

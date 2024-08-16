@@ -1,10 +1,21 @@
 import { brandData } from "@/lib/productData";
 import CategoryItem from "./item/category-item";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FaAngleRight } from "react-icons/fa6";
+import MetaTag from "@/MetaTag";
 const HomePage = () => {
+	const { pathname } = useLocation();
+	const imgSrc = `${import.meta.env.PUBLIC_URL}/logo-jpg.jpg`;
 	return (
 		<div className="lg:container py-24 m-auto">
+			<MetaTag
+				title={"Home"}
+				description={
+					"키키키(KEY KEY KEY)는 개발자들이 선호하는 키보드 브랜드의 제품을 취급하는 키보드 전문 스토어 입니다."
+				}
+				imgSrc={imgSrc}
+				url={pathname}
+			/>
 			<div className="flex flex-col gap-20">
 				{brandData.map(brand => (
 					<div key={brand.id}>

@@ -1,6 +1,6 @@
 import { lazy, useEffect, useState } from "react";
 import useProductQuery from "@/queries/useProductQuery";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import RecommendList from "./list/recommend-list";
 const SwiperItem = lazy(() => import("@/components/swiper/SwiperItem"));
 import { brandData, tagData } from "@/lib/productData";
@@ -9,8 +9,10 @@ import useUserStore from "@/store/useUserStore";
 import { toast } from "sonner";
 import useCartStore from "@/store/useCartStore";
 import { useCartSheetStore } from "@/store/useSheetStore";
+import MetaTag from "@/MetaTag";
 
 const ProductDetailPage = () => {
+	const { pathname } = useLocation();
 	const paramId = useParams();
 	const navigate = useNavigate();
 	const { isSeller, isLoggedIn } = useUserStore();
@@ -28,7 +30,7 @@ const ProductDetailPage = () => {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-	}, []);
+	}, [paramId]);
 
 	useEffect(() => {
 		if (0 <= myCart.products.findIndex(p => p.productId === paramId.id)) {
@@ -79,6 +81,12 @@ const ProductDetailPage = () => {
 
 	return (
 		<div className="lg:container py-24 flex flex-col">
+			<MetaTag
+				title={data.name}
+				description={`[${data.price.toLocaleString()}원] ${data.description}`}
+				imgSrc={data.images[0]}
+				url={pathname}
+			/>
 			<div className="flex m-auto">
 				<div className="w-[700px] h-[500px] mr-4">
 					<SwiperItem images={data.images} auto={false} nav={true} pag={true} />

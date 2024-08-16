@@ -12,8 +12,12 @@ import { collection, limit, orderBy, query } from "firebase/firestore";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 import Loading from "@/components/loading/Loading";
+import { useLocation } from "react-router-dom";
+import MetaTag from "@/MetaTag";
 
 const ProductMangePage = () => {
+	const { pathname } = useLocation();
+	const imgSrc = `${import.meta.env.PUBLIC_URL}/logo-jpg.jpg`;
 	const { isOpened, setSheetState } = useSheetStore();
 	const { initProductState } = useProductStore();
 	const queryByCreatedAt = query(
@@ -39,9 +43,14 @@ const ProductMangePage = () => {
 
 	const products = data.pages.flatMap(page => page.products);
 
-	// console.log(products);
 	return (
 		<div className="lg:container py-10">
+			<MetaTag
+				title={"상품 관리"}
+				description={"상품 관리 페이지입니다."}
+				imgSrc={imgSrc}
+				url={pathname}
+			/>
 			<div className="flex justify-end">
 				<Button
 					variant="outline"

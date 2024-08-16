@@ -10,10 +10,20 @@ import useCartStore from "@/store/useCartStore";
 import OrderItem from "./item/order-item";
 
 import CheckoutPage from "./checkout";
+import { useLocation } from "react-router-dom";
+import MetaTag from "@/MetaTag";
 const OrderPage = () => {
+	const { pathname } = useLocation();
+	const imgSrc = `${import.meta.env.PUBLIC_URL}/logo-jpg.jpg`;
 	const { myCart } = useCartStore();
 	return (
 		<div className="lg:container py-10">
+			<MetaTag
+				title={"주문하기"}
+				description={"주문하기 페이지입니다."}
+				imgSrc={imgSrc}
+				url={pathname}
+			/>
 			<Card className="max-w-[700px] mx-auto">
 				<CardHeader className="mb-6">
 					<CardTitle>주문하기</CardTitle>
