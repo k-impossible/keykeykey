@@ -2,7 +2,8 @@
 	"rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
 	"build": {
 		"env": {
-			"INSTALL_LIBNSS3": "sudo apt-get install -y libnss3"
+			"PUPPETEER_SKIP_CHROMIUM_DOWNLOAD": "true",
+			"PUPPETEER_EXECUTABLE_PATH": "/usr/bin/chromium-browser"
 		}
 	}
 }
