@@ -19,7 +19,7 @@ import { useLocation } from "react-router-dom";
 
 const OrderManagePage = () => {
 	const { pathname } = useLocation();
-	const imgSrc = `${import.meta.env.PUBLIC_URL}/logo-jpg.jpg`;
+	const imgSrc = "https://www.keykeykey.store/logo-jpg.jpg";
 	const queryByCreatedAt = query(
 		collection(db, Collection.ORDER),
 		orderBy("createdAt", "desc"),

@@ -7,7 +7,22 @@
 		"dev": "vite",
 		"build": "tsc && vite build && node generate-sitemap.mjs",
 		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"postbuild": "react-snap"
+	},
+	"reactSnap": {
+		"inlineCss": true,
+		"include": [
+			"/",
+			"/login",
+			"/sign-up",
+			"/products/",
+			"/product/",
+			"/order/",
+			"/orders",
+			"/product-manage",
+			"/order-manage"
+		]
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^3.6.0",
@@ -41,6 +56,7 @@
 		"react-icons": "^5.2.1",
 		"react-intersection-observer": "^9.10.3",
 		"react-router-dom": "^6.24.0",
+		"react-snap": "^1.23.0",
 		"sonner": "^1.5.0",
 		"swiper": "^11.1.4",
 		"tailwind-merge": "^2.3.0",

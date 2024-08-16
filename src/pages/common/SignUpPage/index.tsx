@@ -3,7 +3,7 @@ import SignUp from "./sign-up/SignUp";
 import { Link, useLocation } from "react-router-dom";
 const SignUpPage = () => {
 	const { pathname } = useLocation();
-	const imgSrc = `${import.meta.env.PUBLIC_URL}/logo-jpg.jpg`;
+	const imgSrc = "https://www.keykeykey.store/logo-jpg.jpg";
 	return (
 		<div>
 			<MetaTag

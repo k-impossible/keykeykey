@@ -17,7 +17,7 @@ import MetaTag from "@/MetaTag";
 
 const ProductMangePage = () => {
 	const { pathname } = useLocation();
-	const imgSrc = `${import.meta.env.PUBLIC_URL}/logo-jpg.jpg`;
+	const imgSrc = "https://www.keykeykey.store/logo-jpg.jpg";
 	const { isOpened, setSheetState } = useSheetStore();
 	const { initProductState } = useProductStore();
 	const queryByCreatedAt = query(

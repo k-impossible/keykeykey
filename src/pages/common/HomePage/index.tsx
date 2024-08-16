@@ -5,7 +5,7 @@ import { FaAngleRight } from "react-icons/fa6";
 import MetaTag from "@/MetaTag";
 const HomePage = () => {
 	const { pathname } = useLocation();
-	const imgSrc = `${import.meta.env.PUBLIC_URL}/logo-jpg.jpg`;
+	const imgSrc = "https://www.keykeykey.store/logo-jpg.jpg";
 	return (
 		<div className="lg:container py-24 m-auto">
 			<MetaTag

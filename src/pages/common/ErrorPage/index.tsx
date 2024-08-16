@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 
 const ErrorPage = () => {
 	const { pathname } = useLocation();
-	const imgSrc = `${import.meta.env.PUBLIC_URL}/logo-jpg.jpg`;
+	const imgSrc = "https://www.keykeykey.store/logo-jpg.jpg";
 	return (
 		<div>
 			<MetaTag

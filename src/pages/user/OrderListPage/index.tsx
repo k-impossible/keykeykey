@@ -12,7 +12,7 @@ import MetaTag from "@/MetaTag";
 
 const OrderListPage = () => {
 	const { pathname } = useLocation();
-	const imgSrc = `${import.meta.env.PUBLIC_URL}/logo-jpg.jpg`;
+	const imgSrc = "https://www.keykeykey.store/logo-jpg.jpg";
 	const { id } = useUserStore();
 	const queryByCreatedAt = query(
 		collection(db, Collection.ORDER),

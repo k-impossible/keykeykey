@@ -11,7 +11,7 @@ type SortSequenceType = "desc" | "asc";
 const ProductListPage = () => {
 	const paramId = useParams();
 	const { pathname } = useLocation();
-	const imgSrc = `${import.meta.env.PUBLIC_URL}/logo-jpg.jpg`;
+	const imgSrc = "https://www.keykeykey.store/logo-jpg.jpg";
 	const findBrand = brandData.find(b => paramId.id === b.name.toLowerCase());
 	const [sortCriteria, setSortCriteria] =
 		useState<SortCriteriaType>("createdAt");

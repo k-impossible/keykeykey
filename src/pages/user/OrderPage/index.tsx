@@ -14,7 +14,7 @@ import { useLocation } from "react-router-dom";
 import MetaTag from "@/MetaTag";
 const OrderPage = () => {
 	const { pathname } = useLocation();
-	const imgSrc = `${import.meta.env.PUBLIC_URL}/logo-jpg.jpg`;
+	const imgSrc = "https://www.keykeykey.store/logo-jpg.jpg";
 	const { myCart } = useCartStore();
 	return (
 		<div className="lg:container py-10">
