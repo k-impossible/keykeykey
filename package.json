@@ -11,7 +11,7 @@
 		"postbuild": "react-snap"
 	},
 	"reactSnap": {
-		"inlineCss": true,
+		"source": "./dist",
 		"include": [
 			"/",
 			"/login",
