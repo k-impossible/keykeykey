@@ -7,26 +7,7 @@
 		"dev": "vite",
 		"build": "tsc && vite build && node generate-sitemap.mjs",
 		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-		"preview": "vite preview",
-		"postbuild": "react-snap"
-	},
-	"reactSnap": {
-		"source": "./dist",
-		"puppeteerArgs": [
-			"--no-sandbox",
-			"--disable-setuid-sandbox"
-		],
-		"include": [
-			"/",
-			"/login",
-			"/sign-up",
-			"/products/",
-			"/product/",
-			"/order/",
-			"/orders",
-			"/product-manage",
-			"/order-manage"
-		]
+		"preview": "vite preview"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^3.6.0",
