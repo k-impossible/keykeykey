@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import React, { lazy } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 const SwiperItem = lazy(() => import("../swiper/SwiperItem"));
 import { brandData, tagData } from "@/lib/productData";
@@ -10,7 +10,7 @@ type ProductProps = {
 	nav: boolean;
 	pag: boolean;
 };
-const ProductItem = ({ product, auto, nav, pag }: ProductProps) => {
+const ProductItem = React.memo(({ product, auto, nav, pag }: ProductProps) => {
 	return (
 		<Link
 			title="상품 상세페이지로 이동"
@@ -50,6 +50,6 @@ const ProductItem = ({ product, auto, nav, pag }: ProductProps) => {
 			</Card>
 		</Link>
 	);
-};
+});
 
 export default ProductItem;
