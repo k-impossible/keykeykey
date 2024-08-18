@@ -10,8 +10,8 @@ const useUpdateCollection = async (
 	try {
 		const collectionRef = doc(db, collectionName, docId);
 		return await setDoc(collectionRef, data);
-	} catch (error) {
-		console.log(error);
+	} catch (error: any) {
+		throw new Error(error);
 	}
 };
 

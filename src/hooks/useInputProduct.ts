@@ -159,9 +159,8 @@ export const useInputProduct = () => {
 			init();
 			setLoadingState(false);
 			toast.success(`상품 ${title}이 완료되었습니다.`);
-		} catch (error) {
+		} catch (error: any) {
 			toast.error(`상품 ${title}이 실패하였습니다.`);
-			console.log(error);
 		}
 	};
 
@@ -180,8 +179,8 @@ export const useInputProduct = () => {
 				newArr.push(downloadURL);
 			}
 			return newArr;
-		} catch (error) {
-			console.log(error);
+		} catch (error: any) {
+			throw new Error(error);
 		}
 	};
 

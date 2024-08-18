@@ -34,8 +34,8 @@ const ProductManageItem = ({ product, index }: ProductProps) => {
 			useDeleteCollection(Collection.PRODUCT, product.id as string);
 			// eslint-disable-next-line react-hooks/rules-of-hooks
 			useDeleteStorage(product.createdAt, product.images);
-		} catch (error) {
-			console.log(error);
+		} catch (error: any) {
+			throw new Error(error);
 		}
 	};
 	const queryClient = useQueryClient();

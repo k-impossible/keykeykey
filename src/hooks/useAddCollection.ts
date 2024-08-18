@@ -6,8 +6,8 @@ const useAddCollection = async (collectionName: Collection, data: object) => {
 	try {
 		const collectionRef = collection(db, collectionName);
 		return await addDoc(collectionRef, data);
-	} catch (error) {
-		console.log(error);
+	} catch (error: any) {
+		throw new Error(error);
 	}
 };
 

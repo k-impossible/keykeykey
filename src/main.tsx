@@ -7,10 +7,11 @@ import { HelmetProvider } from "react-helmet-async";
 import { LoadingFull } from "./components/loading/Loading";
 import { ErrorBoundary } from "react-error-boundary";
 import { Suspense } from "react";
+import FallbackRender from "./pages/common/ErrorPage/fallback.tsx";
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-	<ErrorBoundary fallback={<div>Something went wrong</div>}>
+	<ErrorBoundary FallbackComponent={FallbackRender}>
 		<Suspense fallback={<LoadingFull />}>
 			<QueryClientProvider client={queryClient}>
 				<HelmetProvider>

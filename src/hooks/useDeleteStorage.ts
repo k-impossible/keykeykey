@@ -9,8 +9,8 @@ const useDeleteStorage = async (createdAt: number, images: string[]) => {
 				const imageRef = ref(storage, `${createdAt}/${imageName}`);
 				await deleteObject(imageRef);
 			}
-		} catch (error) {
-			console.log(error);
+		} catch (error: any) {
+			throw new Error(error);
 		}
 	})();
 };

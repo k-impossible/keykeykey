@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import useCartStore from "@/store/useCartStore";
 import useUserStore from "@/store/useUserStore";
+import { toast } from "sonner";
 
 const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 const customerKey = "ZCMdF_T2nV3cfwU-pFJWM";
@@ -80,7 +81,9 @@ const CheckoutPage = () => {
 										failUrl: `${window.location.origin}/order/fail`,
 									});
 								} catch (err) {
-									console.log(err);
+									toast.error("결제 실패", {
+										description: "결제가 실패했습니다. 다시 시도해주세요.",
+									});
 								}
 							}}
 						>

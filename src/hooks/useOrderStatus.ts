@@ -30,7 +30,7 @@ export const orderStatusChange = async (order: Order, status: number) => {
 			order.docId as string,
 			orderObj
 		);
-	} catch (error) {
-		console.log(error);
+	} catch (error: any) {
+		throw new Error(error);
 	}
 };

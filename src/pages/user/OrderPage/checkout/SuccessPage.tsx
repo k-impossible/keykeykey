@@ -17,6 +17,7 @@ import useUserStore from "@/store/useUserStore";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 const SuccessPage = () => {
 	const [searchParams] = useSearchParams();
@@ -42,6 +43,7 @@ const SuccessPage = () => {
 					updatedAt: date,
 				};
 
+				// eslint-disable-next-line react-hooks/rules-of-hooks
 				await useAddCollection(Collection.ORDER, newOrder);
 
 				for (let product of filterProducts) {
@@ -52,7 +54,9 @@ const SuccessPage = () => {
 
 				clearMyCart();
 			} catch (error) {
-				console.log(error);
+				toast.error("결제 실패", {
+					description: "결제가 실패했습니다. 다시 시도해주세요.",
+				});
 			}
 		})();
 	}, []);

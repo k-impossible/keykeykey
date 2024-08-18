@@ -59,8 +59,8 @@ const SignIn = () => {
 			};
 			setUserState(user);
 			setMyCart(id);
-		} catch (error) {
-			console.log(error);
+		} catch (error: any) {
+			throw new Error(error);
 		}
 	};
 
