@@ -76,13 +76,13 @@
 	@apply p-8;
 }
 .navBtn {
-	@apply rounded-b-none rounded-t-lg bg-slate-100 text-zinc-800 border border-zinc-300 border-b-0 font-light px-7;
+	@apply rounded-b-none rounded-t-lg bg-slate-100 text-zinc-500 border border-zinc-300 border-b-0 font-normal px-7;
 }
 .navBtn:hover {
 	@apply bg-zinc-400 text-white;
 }
 .activeNavBtn {
-	@apply border border-zinc-800 border-b-slate-100 font-bold z-10 translate-y-[1px];
+	@apply border border-zinc-800 border-b-slate-100 text-zinc-800 font-extrabold z-10 translate-y-[1px];
 }
 
 .swiper {

@@ -1,5 +1,4 @@
 import { Loader2 } from "lucide-react";
-// import { Skeleton } from "@/components/ui/skeleton";
 
 const Loading = () => {
 	return (
@@ -10,22 +9,10 @@ const Loading = () => {
 };
 export const LoadingFull = () => {
 	return (
-		<div className="w-full h-dvh flex justify-center items-center">
+		<div className="w-full h-dvh flex justify-center items-center bg-slate-100">
 			<Loader2 className="animate-spin m-auto my-5" size={70} />
 		</div>
 	);
 };
-
-// export const SkeletonCard = () => {
-// 	return (
-// 		<div className="flex flex-col space-y-3">
-// 			<Skeleton className="h-[125px] w-[250px] rounded-xl bg-zinc-400" />
-// 			<div className="space-y-2">
-// 				<Skeleton className="h-4 w-[250px] bg-zinc-400" />
-// 				<Skeleton className="h-4 w-[200px] bg-zinc-400" />
-// 			</div>
-// 		</div>
-// 	);
-// };
 
 export default Loading;

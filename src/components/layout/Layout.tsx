@@ -2,6 +2,8 @@ import Header from "../header/Header";
 import { Outlet } from "react-router-dom";
 import Footer from "../footer/Footer";
 import Nav from "../nav/Nav";
+import { Suspense } from "react";
+import { LoadingFull } from "../loading/Loading";
 const Layout = () => {
 	return (
 		<div>
@@ -11,7 +13,9 @@ const Layout = () => {
 				style={{ minHeight: "calc(100vh - 214px)" }}
 			>
 				<Nav />
-				<Outlet />
+				<Suspense fallback={<LoadingFull />}>
+					<Outlet />
+				</Suspense>
 			</div>
 			<Footer />
 		</div>

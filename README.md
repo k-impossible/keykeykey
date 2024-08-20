@@ -1,13 +1,3 @@
-<a href="https://keykeykey.store" target="_blank">
-<img alt="Static Badge" src="https://img.shields.io/badge/keykeykey-web-orange?style=for-the-badge&logoColor=white&label=www.keykeykey.store">
-</a>
-&nbsp;
-<a href="https://github.com/users/k-impossible/projects/5" target="_blank">
-<img alt="Static Badge" src="https://img.shields.io/badge/keykeykey-project-blue?style=for-the-badge&logo=github&label=keykeykey">
-</a>
-
-<br>
-<br/>
 <br/>
 <br/>
 
@@ -20,18 +10,18 @@
 
 <br>
 
-[키키키 - 개발자 키보드 전문 스토어](https://keykeykey.store)
 ![Home Screen Shot](/src/assets/readme/home.webp)
+[키키키 - 개발자 키보드 전문 스토어](https://keykeykey.store)
 <br>
 <br>
 
 ## 프로젝트 소개
 
-TypeScript와 React를 활용한 1인 사이드 프로젝트입니다. 개발자들이 선호하는 키보드 브랜드의 제품을 판매하는 온라인 키보드 쇼핑 웹 서비스를 주제로 정하고 개발중입니다. <br><br>
+TypeScript, React 등 프론트엔드 기술들을 활용한 개인 사이드 프로젝트입니다. 개발자들이 선호하는 키보드 브랜드의 제품을 판매하는 온라인 키보드 쇼핑 웹 서비스를 주제로 정하고 구현하고 싶은 기능들을 개발중입니다. <br><br>
 
 <strong>테스트 계정 (ID/PW)</strong>
 
-- 사용자 : `test1@test.com` / `qwer1234@@`
+- 사용자 : `test123@test.com` / `qwer1234@@`
 - 관리자 : `admin@master.me` / `qwer1234@@`
 
 <br>
@@ -64,7 +54,10 @@ TypeScript와 React를 활용한 1인 사이드 프로젝트입니다. 개발자
 
 ## 주요 기능
 
-<details> <summary style="font-weight:bold">로그인 / 회원가입</summary><br/>asdf</details>
+<details> <summary style="font-weight:bold">로그인 / 회원가입</summary><br/><p>로그인</p><img src="https://raw.githubusercontent.com/k-impossible/my-assets/main/keykeykey/login.gif?token=GHSAT0AAAAAACQK7BWK7SGOXEQ55YNSDUVGZWFEA5A" width="600px"/><br/> <br/> <p>회원가입</p></details>
+
+- 정규식 표현, React Hook Form을 활용해 입력값 유효성 검증
+- 로그인 후 전역상태로 회원 정보 관리
 
 ## 폴더 구조
 

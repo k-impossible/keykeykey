@@ -42,19 +42,19 @@ const formSchema = z.object({
 	tagIds: z.array(z.number()),
 	images: z
 		.custom<FileList>(val => val instanceof FileList, "Required")
-		.refine(files => files.length > 1, `사진은 2장 이상 필수입니다.`)
+		.refine(files => files.length > 1, `상품 이미지는 2장 이상 필수입니다.`)
 		.refine(
 			files => Array.from(files).every(file => file.size <= MAX_IMAGE_SIZE),
-			`Each file size should be less than 5 MB.`
+			`각 이미지 파일의 최대 크기는 5MB 입니다.`
 		)
 		.refine(
 			files =>
 				Array.from(files).every(file =>
 					ALLOWED_IMAGE_TYPES.includes(file.type)
 				),
-			"Only these types are allowed .jpg, .jpeg, .png and .webp"
-			// .refine(files => files.length <= 5, `Maximum of 5 images are allowed.`)
-		),
+			"파일의 형식은 jpg, jpeg, png, webp 형식의 이미지 파일만 가능합니다."
+		)
+		.refine(files => files.length <= 5, `최대 5장 까지 업로드 가능합니다.`),
 });
 
 const dataTransfer = new DataTransfer();
