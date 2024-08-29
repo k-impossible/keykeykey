@@ -6,19 +6,19 @@ import { Suspense } from "react";
 import { LoadingFull } from "../loading/Loading";
 const Layout = () => {
 	return (
-		<div>
-			<Header />
-			<div
-				className="w-full h-full flex flex-col justify-start items-center"
-				style={{ minHeight: "calc(100vh - 214px)" }}
-			>
-				<Nav />
-				<Suspense fallback={<LoadingFull />}>
+		<Suspense fallback={<LoadingFull />}>
+			<div>
+				<Header />
+				<div
+					className="w-full h-full flex flex-col justify-start items-center"
+					style={{ minHeight: "calc(100vh - 214px)" }}
+				>
+					<Nav />
 					<Outlet />
-				</Suspense>
+				</div>
+				<Footer />
 			</div>
-			<Footer />
-		</div>
+		</Suspense>
 	);
 };
 

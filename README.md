@@ -10,7 +10,7 @@
 
 <br>
 
-![Home Screen Shot](/src/assets/readme/home.webp)
+![Home Screen Shot](https://raw.githubusercontent.com/k-impossible/my-assets/main/keykeykey/home.webp?token=GHSAT0AAAAAACQK7BWKBC2UX4ZQH2MSGVLGZWQDF3A)
 [키키키 - 개발자 키보드 전문 스토어](https://keykeykey.store)
 <br>
 <br>
@@ -46,18 +46,53 @@ TypeScript, React 등 프론트엔드 기술들을 활용한 개인 사이드 �
 ![Static Badge](https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 <br>
 
-## 기술적 의사결정
-
 ## 성능 최적화
 
-## 트러블 슈팅
+#### 번들사이즈 최적화 및 성능 개선
+
+- LightHouse 성능 점수 91점 → 97점 개선
+- FCP/LCP 0.4초 단축, 빌드 시간 48%감소
+- Vite Bundle Analyzer를 사용하여 번들 사이즈 시각화 및 크리티컬 리소스 식별
+- 동적 import, rollup 적용
+- 업로드 이미지를 webp 파일로 압축,변환해 최적화
+
+#### 렌더링 최적화 및 UX 향상
+
+- React DevTools Profiler를 사용한 컴포넌트 렌더링 성능 분석
+- React.memo를 활용해 불필요한 리렌더링 방지
+- React.lazy, Suspense, useSuspenseQuery를 활용해 UX 향상
 
 ## 주요 기능
 
-<details> <summary style="font-weight:bold">로그인 / 회원가입</summary><br/><p>로그인</p><img src="https://raw.githubusercontent.com/k-impossible/my-assets/main/keykeykey/login.gif?token=GHSAT0AAAAAACQK7BWK7SGOXEQ55YNSDUVGZWFEA5A" width="600px"/><br/> <br/> <p>회원가입</p></details>
+<details> <summary style="font-weight:bold">로그인 / 회원가입</summary><br/><p>로그인</p><img src="https://raw.githubusercontent.com/k-impossible/my-assets/main/keykeykey/login.gif?token=GHSAT0AAAAAACQK7BWKECPFAWMMISKJBUUEZWPER5Q" width="600px"/><br/> <br/> <p>회원가입</p><img src="https://raw.githubusercontent.com/k-impossible/my-assets/main/keykeykey/signup.gif?token=GHSAT0AAAAAACQK7BWKY5M3ZKKKU5CERABWZWPEVUQ" width="600px"/></details>
 
 - 정규식 표현, React Hook Form을 활용해 입력값 유효성 검증
 - 로그인 후 전역상태로 회원 정보 관리
+
+<details> <summary style="font-weight:bold">상품 조회</summary><br/><img src="https://raw.githubusercontent.com/k-impossible/my-assets/main/keykeykey/product-read.gif?token=GHSAT0AAAAAACQK7BWLWB3NLE2VSXGSM3BYZWQDNGA" width="600px"/><br/></details>
+
+- 무한스크롤을 활용한 페이지네이션
+- 최신순, 가격순으로 정렬 기능
+- 이미지 캐러셀을 활용한 상품 이미지 전환
+
+<details> <summary style="font-weight:bold">[구매자] 장바구니</summary><br/><img src="https://raw.githubusercontent.com/k-impossible/my-assets/main/keykeykey/cart.gif?token=GHSAT0AAAAAACQK7BWLMA6CIPRVJFBMVV24ZWQIGSA" width="600px"/><br/></details>
+
+- 장바구니 추가, 수정, 삭제 기능
+- Zustand의 persist를 활용해 세션스토리지에서 장바구니 데이터 관리
+
+<details> <summary style="font-weight:bold">[구매자] 상품 주문 / 주문 내역</summary><br/><p>상품 주문</p><img src="https://raw.githubusercontent.com/k-impossible/my-assets/main/keykeykey/order.gif?token=GHSAT0AAAAAACQK7BWLKLOXFSTFNJKKDFG4ZWQK25Q" width="600px"/><br/><br/><p>주문 내역</p><img src="https://raw.githubusercontent.com/k-impossible/my-assets/main/keykeykey/order-list.gif?token=GHSAT0AAAAAACQK7BWKJ5PSYALTCP3KZAMIZWQK4PA" width="600px"/></details>
+
+- 토스 결제 SDK를 활용한 가상 결제 기능
+- 주문 내역 확인 및 주문 취소 기능
+
+<details> <summary style="font-weight:bold">[판매자] 상품 관리</summary><br/><p>상품 등록</p><img src="https://raw.githubusercontent.com/k-impossible/my-assets/main/keykeykey/product-add.gif?token=GHSAT0AAAAAACQK7BWLLLMLUVF6WBWHCGN2ZWQK6GA" width="600px"/><br/><br/><p>상품 수정</p><img src="https://raw.githubusercontent.com/k-impossible/my-assets/main/keykeykey/product-edit.gif?token=GHSAT0AAAAAACQK7BWKEHYI7F3FROY6EY2GZWQK6OA" width="600px"/><br/><br/><p>상품 삭제</p><img src="https://raw.githubusercontent.com/k-impossible/my-assets/main/keykeykey/product-delete.gif?token=GHSAT0AAAAAACQK7BWLOER5I3QWRGL653UMZWQK6UQ" width="600px"/></details>
+
+- 상품 등록, 수정, 삭제 기능
+- zod, React Hook Form을 활용해 입력값 유효성 검증
+
+<details> <summary style="font-weight:bold">[판매자] 주문 관리</summary><br/><img src="https://raw.githubusercontent.com/k-impossible/my-assets/main/keykeykey/order-manage.gif?token=GHSAT0AAAAAACQK7BWL2X3TXW6RBWWETY4CZWQK65Q" width="600px"/><br/></details>
+
+- 주문 내역 확인 및 배송 상태 변경
 
 ## 폴더 구조
 
@@ -131,4 +166,4 @@ TypeScript, React 등 프론트엔드 기술들을 활용한 개인 사이드 �
 
 > 디자인 툴 : miro <br> [결과물 링크](https://miro.com/app/board/uXjVK6Caq5o=/?share_link_id=586957999401)
 
-![Home Screen Shot](/src/assets/readme/wireframe.png)
+![Home Screen Shot](https://raw.githubusercontent.com/k-impossible/my-assets/main/keykeykey/wireframe.png?token=GHSAT0AAAAAACQK7BWKOYLQNH4L3MLD5YSWZWQDGVA)
